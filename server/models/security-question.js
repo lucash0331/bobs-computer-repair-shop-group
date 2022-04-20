@@ -13,9 +13,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let securityQuestionSchema = new Schema ({
+let securityQuestionsSchema = new Schema ({
     text: { type: String},
     isDisabled: { type: Boolean, default: false }
 }, {collection: 'security-questions'});
 
-module.exports = mongoose.model('SecurityQuestion', securityQuestionSchema);
+module.exports = mongoose.model('SecurityQuestions', securityQuestionsSchema);
