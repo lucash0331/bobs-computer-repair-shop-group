@@ -42,6 +42,7 @@ mongoose.connect(conn, {
 /**
  * API(s) go here...
  */
+app.use('/api/security-questions', SecurityQuestionsApi);
 
 /**
  * Create and start server
