@@ -15,6 +15,7 @@ const router = express.router;
 const SecurityQuestion = require("../models/security-question");
 
 // Find Security Question by ID (not complete)
+// Should this be "/questions/:id" ?
 router.get("/:id", async (req, res) => {
   try {
     SecurityQuestion.findOne({ id: req.params.id }, function (err, securityQuestion) {
@@ -30,6 +31,11 @@ router.get("/:id", async (req, res) => {
       message: "Server error: " + e.message,
     });
   }
+});
+
+// Find all Security Questions
+router.get("/questions", async (req, res) => {
+  // in progress
 });
 
 /**
