@@ -14,6 +14,13 @@ const BaseResponse = require("../models/base-response");
 const router = express.router;
 const SecurityQuestion = require("../models/security-question");
 
+// Create security Question API - In progress
+// router.post("/", async (req, res) => {
+//   try {
+// SecurityQuestion.create({})
+//   }
+// };
+
 // Find Security Question by ID
 router.get("/:id", async (req, res) => {
   try {
@@ -58,12 +65,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Create security Question API - In progress
-// router.post("/", async (req, res) => {
-//   try {
-// SecurityQuestion.create({})
-//   }
-// };
+// Update API
 
 /**
  * API to delete security questions
