@@ -33,6 +33,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Create security Question API - In progress
+router.post("/", async (req, res) => {
+  try {
+SecurityQuestion.create({})
+  }
+};
+
+
+
+
+
 // Find all Security Questions
 router.get("/questions", async (req, res) => {
   // in progress
