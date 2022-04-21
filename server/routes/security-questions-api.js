@@ -11,7 +11,7 @@
 
 const express = require("express");
 const BaseResponse = require("../models/base-response");
-const router = express.router;
+const router = express.Router();
 const SecurityQuestion = require("../models/security-question");
 
 // Create security Question API - In progress

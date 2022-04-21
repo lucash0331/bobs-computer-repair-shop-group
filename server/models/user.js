@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // value types for security question 
-const selectedSecurityQuestionsSchema = require("..schemas/selected-security-questions.js");
+const selectedSecurityQuestionsSchema = require("../schemas/selected-security-questions.js");
 const userRoleSchema = require("../schemas/user-role.js");
 
 // UserSchema for database collection

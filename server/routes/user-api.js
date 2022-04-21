@@ -15,7 +15,7 @@ const User = require("../models/user");
 const userRoleSchema = require("../schemas/user-role");
 const BaseResponse = require("../models/base-response");
 
-const router = express.router();
+const router = express.Router();
 
 // CreateUser API
 router.post("/", async (req, res) => {
