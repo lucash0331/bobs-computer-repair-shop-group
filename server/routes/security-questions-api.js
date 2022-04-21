@@ -14,25 +14,6 @@ const BaseResponse = require("../models/base-response");
 const router = express.router;
 const SecurityQuestion = require("../models/security-question");
 
-// Find Security Question by ID (not complete)
-// Should this be "/questions/:id" ?
-router.get("/:id", async (req, res) => {
-  try {
-    SecurityQuestion.findOne({ _id: req.params.id }, function (err, securityQuestion) {
-      if (err) {
-        const findSecurityQuestionError = new BaseResponse("500", "MongoDV Server Error", err);
-        res.status(500).send(findSecurityQuestionError.toObject());
-      } else {
-        res.json(securityQuestion);
-      }
-    });
-  } catch (e) {
-    res.status(500).send({
-      message: "Server error: " + e.message,
-    });
-  }
-});
-
 // Create security Question API - In progress
 // router.post("/", async (req, res) => {
 //   try {
@@ -40,14 +21,53 @@ router.get("/:id", async (req, res) => {
 //   }
 // };
 
-
+// Find Security Question by ID
+router.get("/:id", async (req, res) => {
+  try {
+    SecurityQuestion.findOne({ _id: req.params.id }, function (err, securityQuestion) {
+      if (err) {
+        const findSecurityQuestionError = new BaseResponse(500, "MongoDB Server Error", err);
+        res.status(500).send(findSecurityQuestionError.toObject());
+      } else {
+        console.log(securityQuestion);
+        const findByIdResponse = BaseResponse(200, "Query Successful", securityQuestion);
+        res.json(findByIdResponse.toOBject());
+      }
+    });
+  } catch (e) {
+    const findByIdCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
+    res.status(500).send(findByIdCatchErrorResponse.toObject());
+  }
+});
 
 
 
 // Find all Security Questions
-router.get("/questions", async (req, res) => {
-  // in progress
+router.get("/", async (req, res) => {
+  try {
+    SecurityQuestion.find({})
+      .where("isDisabled")
+      .equals(false)
+      .exec(function (err, securityQuestions) {
+        if (err) {
+          console.log(err);
+          res.status(500).send({
+            message: "Server error: " + err.message,
+          });
+        } else {
+          console.log(securityQuestions);
+          const findAllResponse = new BaseResponse(200, "Query successful", securityQuestions);
+          res.json(findAllResponse.toObject());
+        }
+      });
+  } catch (e) {
+    console.log(e);
+    const findAllCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
+    res.status(500).send(findAllCatchErrorResponse.toObject());
+  }
 });
+
+// Update API
 
 /**
  * API to delete security questions
