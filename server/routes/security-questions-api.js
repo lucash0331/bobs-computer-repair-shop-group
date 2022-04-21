@@ -40,8 +40,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-
 // Find all Security Questions
 router.get("/", async (req, res) => {
   try {
