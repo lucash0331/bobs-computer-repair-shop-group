@@ -34,11 +34,11 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create security Question API - In progress
-router.post("/", async (req, res) => {
-  try {
-SecurityQuestion.create({})
-  }
-};
+// router.post("/", async (req, res) => {
+//   try {
+// SecurityQuestion.create({})
+//   }
+// };
 
 
 
