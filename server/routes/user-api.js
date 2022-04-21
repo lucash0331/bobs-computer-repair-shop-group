@@ -79,7 +79,7 @@ router.put("/:id", async (req, res) => {
           if (err) {
             console.log(err);
             const saveUserMongodbErrorResponse = new BaseResponse("200", "Query successful", savedUser);
-            res.json(saveUserResponse.toObject());
+            res.json(saveUserMongodbErrorResponse.toObject());
           }
         });
       }
