@@ -16,7 +16,7 @@ const SecurityQuestion = require("../models/security-question");
 
 // Find Security Question by ID (not complete)
 // Should this be "/questions/:id" ?
-router.get("/questions/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     SecurityQuestion.findOne({ _id: req.params.id }, function (err, securityQuestion) {
       if (err) {
@@ -41,7 +41,7 @@ router.get("/questions", async (req, res) => {
 /**
  * API to delete security questions
  */
-router.delete("/questions/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     SecurityQuestion.findOne({ _id: req.params.id }, function (err, securityQuestion) {
       if (err) {
