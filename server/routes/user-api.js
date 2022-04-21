@@ -16,6 +16,7 @@ const userRoleSchema = require("../schemas/user-role");
 const BaseResponse = require("../models/base-response");
 
 const router = express.Router();
+const saltRounds = 10;
 
 // CreateUser API
 router.post("/", async (req, res) => {
