@@ -56,6 +56,62 @@ router.post("/", async (req, res) => {
   }
 });
 
+/**
+   * API to find user by username (OK)
+   */
+  
+ router.get("/:userName", async (req, res) => {
+  try {
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+        if (err) {
+        console.log('1');
+        console.log(err);
+        const readUserMongodbErrorResponse = new BaseResponse(500, 'Internal server error', err);
+        res.status(500).send(readUserMongodbErrorResponse.toObject());
+      } else {
+        if (!user) {
+          const response = `Invalid username`;
+          console.log(response);
+          res.send(response);
+        }else {
+          const readUserResponse = new BaseResponse(200, 'Query successful', user);
+          console.log(user);          
+          res.json(readUserResponse.toObject());
+      }
+    }
+    });
+  } catch (e) {
+    console.log('3');
+    console.log(e);
+    const  readUserCatchErrorResponse = new BaseResponse(500, 'Internal server error', err);
+    res.status(500).send(readUserCatchErrorResponse.toObject());
+  }
+});
+
+/**
+ * API to find all users (OK)
+ */
+ router.get("/", async (req, res) => {
+    try {
+      User.find({}, function (err, users) {
+        if (err) {
+          console.log(err);
+          const readUsersMongodbErrorResponse = new BaseResponse(500, 'Internal server error', err);
+          res.status(500).send(readUsersMongodbErrorResponse.toObject());
+        } else {
+          console.log(users);
+          const readUsersResponse = new BaseResponse(200, 'Query successful', users);
+          res.json(readUsersResponse.toObject());
+        }
+      });
+    } catch (e) {
+      console.log(e);
+      const  readUserCatchErrorResponse = new BaseResponse(500, 'Internal server error', e.message);
+      res.status(500).send(readUserCatchErrorResponse.toObject());
+    }
+  });
+
+
 //update user API
 
 router.put("/:id", async (req, res) => {

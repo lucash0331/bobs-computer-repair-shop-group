@@ -76,13 +76,13 @@ router.get("/", async (req, res) => {
       function (err, securityQuestion) {
         if (err) {
           console.log(err);
-          const updateSecurityQuestionMongodbErrorResponse = new ErrorResponse(500, 'Internal server error', err);
+          const updateSecurityQuestionMongodbErrorResponse = new BaseResponse(500, 'Internal server error', err);
           res.status(500).send(updateSecurityQuestionMongodbErrorResponse.toObject());
         } else {
           if (!securityQuestion) {
-            console.log(err);
-            const updateSecurityQuestionInvalidIdResponse = new ErrorResponse(401, `Invalid Security Question Id: ${err}`, err);
-            res.status(401).send(updateSecurityQuestionInvalidIdResponse.toObject);
+            const response = `Invalid ID`;
+            console.log(response);
+            res.send(response);
           } else {
             console.log(securityQuestion);
             securityQuestion.set({
@@ -92,12 +92,12 @@ router.get("/", async (req, res) => {
             securityQuestion.save(function (err, updatedSecurityQuestion) {
               if (err) {
                 console.log(err);
-                const saveSecurityQuestionInvalidIdResponse = new ErrorResponse(500, 'Internal server error', err);
+                const saveSecurityQuestionInvalidIdResponse = new BaseResponse(500, 'Internal server error', err);
                 res.status(500).send(saveSecurityQuestionInvalidIdResponse.toObject);
               } else {
                 console.log(updatedSecurityQuestion);
                 const updateSecurityQuestionResponse = new BaseResponse(200, 'Query successful', updatedSecurityQuestion);
-                res.json(updateSecurityQuestionResponse.toObject);
+                res.json(updateSecurityQuestionResponse.toObject());
               }
             });
           }
@@ -106,7 +106,7 @@ router.get("/", async (req, res) => {
     );
   } catch (e) {
     console.log(e);
-    const  updateSecurityQuestionCatchErrorResponse = new ErrorResponse(500, 'Internal server error', err);
+    const  updateSecurityQuestionCatchErrorResponse = new BaseResponse(500, 'Internal server error', e.message);
     res.status(500).send(updateSecurityQuestionCatchErrorResponse.toObject());
   }
 });
