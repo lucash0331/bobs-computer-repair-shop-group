@@ -1,19 +1,38 @@
 <div fxLayout="column">
-
   <!-- navigation -->
-  <nav fxFlex>
-    <mat-toolbar>
-      <!-- navbar container -->
-      <div class="navbar-container">
-        <!-- logo -->
-        <button class="logo" routerLink="/" mat-button>BCRS</button>
 
-        <button class="navbar-link" routerLink="/" mat-button>Home</button>
-        <button class="navbar-link" mat-button>About</button>
+  <mat-toolbar class="toolbar mat-primary">
+    <mat-toolbar-row class="mat-elevation-z4">
+      <div fxLayout="row" fxFlex style="border-bottom: 3px">
+        <div class="logo" fxLayoutAlign="start center" fxFlex="10" routerLink="/">
+          <!-- <img class="nav-logo" src="../../../assets/bucket-white.svg" height="40px" /> -->
+          <h1>&nbsp;Bob's Computer Repair Shop</h1>
+        </div>
+        <!-- <div fxFlex></div> -->
+
+        <div fxLayoutAlign="end center" fxFlex="85">
+          <button class="navbar-link" routerLink="/about" mat-button>About Us</button>
+          <button class="navbar-link" routerLink="/contact" mat-button>Contact</button>
+        </div>
+        <!-- <div fxFlex></div> -->
+
+        <div *ngIf="isLoggedIn" fxLayoutAlign="end center" fxFlex="5">
+          <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="User Profile Menu">
+            <mat-icon>perm_identity</mat-icon>
+          </button>
+
+          <mat-menu #profileMenu>
+            <p style="padding: 10px">Signed in as {{ name }}</p>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="signOut()">
+              <mat-icon>logout</mat-icon>
+              <span>Signout</span>
+            </button>
+          </mat-menu>
+        </div>
       </div>
-
-    </mat-toolbar>
-  </nav>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
   <!-- main content -->
   <div fxFlex>
@@ -26,11 +45,8 @@
   <div fxFlex>
     <footer class="footer">
       <mat-toolbar class="footer-content">
-        <p>
-          &copy; {{year | date: 'yyyy'}} - Bob's Computer Repair Shop - <a href="https://www.bellevue.edu/" class="bu-link" target="_blank">Bellevue University</a>
-        </p>
+        <p>&copy; {{ year | date: "yyyy" }} - BCRS - <a href="https://www.bellevue.edu/" class="bu-link" target="_blank">Bellevue University</a></p>
       </mat-toolbar>
     </footer>
   </div>
-
 </div>
