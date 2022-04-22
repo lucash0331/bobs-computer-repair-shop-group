@@ -65,7 +65,51 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Update API
+/**
+ * API to update security questions (OK)
+ */
+
+ router.put("/:id", async (req, res) => {
+  try {
+    SecurityQuestion.findOne(
+      { _id: req.params.id },
+      function (err, securityQuestion) {
+        if (err) {
+          console.log(err);
+          const updateSecurityQuestionMongodbErrorResponse = new ErrorResponse(500, 'Internal server error', err);
+          res.status(500).send(updateSecurityQuestionMongodbErrorResponse.toObject());
+        } else {
+          if (!securityQuestion) {
+            console.log(err);
+            const updateSecurityQuestionInvalidIdResponse = new ErrorResponse(401, `Invalid Security Question Id: ${err}`, err);
+            res.status(401).send(updateSecurityQuestionInvalidIdResponse.toObject);
+          } else {
+            console.log(securityQuestion);
+            securityQuestion.set({
+              text: req.body.text,
+            });
+
+            securityQuestion.save(function (err, updatedSecurityQuestion) {
+              if (err) {
+                console.log(err);
+                const saveSecurityQuestionInvalidIdResponse = new ErrorResponse(500, 'Internal server error', err);
+                res.status(500).send(saveSecurityQuestionInvalidIdResponse.toObject);
+              } else {
+                console.log(updatedSecurityQuestion);
+                const updateSecurityQuestionResponse = new BaseResponse(200, 'Query successful', updatedSecurityQuestion);
+                res.json(updateSecurityQuestionResponse.toObject);
+              }
+            });
+          }
+        }
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    const  updateSecurityQuestionCatchErrorResponse = new ErrorResponse(500, 'Internal server error', err);
+    res.status(500).send(updateSecurityQuestionCatchErrorResponse.toObject());
+  }
+});
 
 /**
  * API to delete security questions
