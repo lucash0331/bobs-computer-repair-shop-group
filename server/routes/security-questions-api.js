@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
       }
     );
   } catch (error) {
-    // Server error
+    // Server error goes here
     console.log(error);
     status = 500;
     const createSecurityQuestionCatchErrorResponse = new ErrorResponse(

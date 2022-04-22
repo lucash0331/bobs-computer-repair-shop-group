@@ -148,4 +148,51 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Delete User API - In progress
+router.delete("/:id", async (req, res) => {
+  try {
+    user.findOne({_id: req.params.id}, function (err, user) {
+      // If statement for Mongo error
+      if (err) {
+        console.log(err);
+        const deleteUserMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+        return res.status(500).send(deleteUserMongodbErrorResponse.toObject());
+      }
+
+      // If statement for user not found in DB
+      if (!user) {
+        console.log("User not found");
+        const notFoundResponse = new BaseResponse("404", "User not found");
+        return res.status(404).send(notFoundResponse.toObject());
+      }
+
+      // console.log to see if code breaks
+      console.log(user);
+
+      user.set({
+        isDisabled: true,
+      });
+
+      user.save(function (err, savedUser) {
+        // If statement to handle a Mongo error
+        if (err) {
+          console.log(err);
+          const savedUserMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+          return res.status(500).send(savedUserMongodbErrorResponse.toObject());
+        }
+
+        console.log(savedUser);
+        // This will return the deleted userID
+        const deleteSecurityQuestionResponse = new BaseResponse("200", "Query successful", req.params.id);
+      });
+    });
+
+      } catch (e) {
+        console.log(e);
+        const deleteUserCatchErrorResponse = new BaseResponse("500", "Internal server error", e.message);
+        return res.status(500).send(deleteUserCatchErrorResponse.toObject());
+      }
+  });
+      
+
 module.exports = router;
