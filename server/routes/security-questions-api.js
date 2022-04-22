@@ -14,12 +14,57 @@ const BaseResponse = require("../models/base-response");
 const router = express.Router();
 const SecurityQuestion = require("../models/security-question");
 
-// Create security Question API - In progress
-// router.post("/", async (req, res) => {
-//   try {
-// SecurityQuestion.create({})
-//   }
-// };
+// Create Security question API
+router.post("/", async (req, res) => {
+  let status = 200;
+  try {
+    const newSecurityQuestion = {
+      text: req.body.text,
+    };
+    SecurityQuestion.create(
+      newSecurityQuestion,
+      function (err, securityQuestion) {
+        // If statement for an error with Mongo
+        if (err) {
+          console.log(err);
+          status = 500;
+          const createSecurityQuestionMongodbErrorResponse = new ErrorResponse(
+            status,
+            "Internal server error",
+            err
+          );
+          return res
+            .status(status)
+            .send(createSecurityQuestionMongodbErrorResponse.toObject());
+        }
+
+        //  new securityQuestion
+        console.log(securityQuestion);
+        const createSecurityQuestionResponse = new BaseResponse(
+          status,
+          "Query Successful",
+          securityQuestion
+        );
+        return res
+          .status(status)
+          .send(createSecurityQuestionResponse.toObject());
+      }
+    );
+  } catch (error) {
+    // Server error
+    console.log(error);
+    status = 500;
+    const createSecurityQuestionCatchErrorResponse = new ErrorResponse(
+      status,
+      "Internal server error",
+      error.message
+    );
+    res
+      .status(status)
+      .send(createSecurityQuestionCatchErrorResponse.toObject());
+  }
+});
+// End Create Security Question API
 
 // Find Security Question by ID
 router.get("/:id", async (req, res) => {
