@@ -21,47 +21,26 @@ router.post("/", async (req, res) => {
     const newSecurityQuestion = {
       text: req.body.text,
     };
-    SecurityQuestion.create(
-      newSecurityQuestion,
-      function (err, securityQuestion) {
-        // If statement for an error with Mongo
-        if (err) {
-          console.log(err);
-          status = 500;
-          const createSecurityQuestionMongodbErrorResponse = new ErrorResponse(
-            status,
-            "Internal server error",
-            err
-          );
-          return res
-            .status(status)
-            .send(createSecurityQuestionMongodbErrorResponse.toObject());
-        }
-
-        //  new securityQuestion
-        console.log(securityQuestion);
-        const createSecurityQuestionResponse = new BaseResponse(
-          status,
-          "Query Successful",
-          securityQuestion
-        );
-        return res
-          .status(status)
-          .send(createSecurityQuestionResponse.toObject());
+    SecurityQuestion.create(newSecurityQuestion, function (err, securityQuestion) {
+      // If statement for an error with Mongo
+      if (err) {
+        console.log(err);
+        status = 500;
+        const createSecurityQuestionMongodbErrorResponse = new ErrorResponse(status, "Internal server error", err);
+        return res.status(status).send(createSecurityQuestionMongodbErrorResponse.toObject());
       }
-    );
+
+      //  new securityQuestion
+      console.log(securityQuestion);
+      const createSecurityQuestionResponse = new BaseResponse(status, "Query Successful", securityQuestion);
+      return res.status(status).send(createSecurityQuestionResponse.toObject());
+    });
   } catch (error) {
     // Server error goes here
     console.log(error);
     status = 500;
-    const createSecurityQuestionCatchErrorResponse = new ErrorResponse(
-      status,
-      "Internal server error",
-      error.message
-    );
-    res
-      .status(status)
-      .send(createSecurityQuestionCatchErrorResponse.toObject());
+    const createSecurityQuestionCatchErrorResponse = new ErrorResponse(status, "Internal server error", error.message);
+    res.status(status).send(createSecurityQuestionCatchErrorResponse.toObject());
   }
 });
 // End Create Security Question API
@@ -114,44 +93,41 @@ router.get("/", async (req, res) => {
  * API to update security questions (OK)
  */
 
- router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    SecurityQuestion.findOne(
-      { _id: req.params.id },
-      function (err, securityQuestion) {
-        if (err) {
-          console.log(err);
-          const updateSecurityQuestionMongodbErrorResponse = new BaseResponse(500, 'Internal server error', err);
-          res.status(500).send(updateSecurityQuestionMongodbErrorResponse.toObject());
+    SecurityQuestion.findOne({ _id: req.params.id }, function (err, securityQuestion) {
+      if (err) {
+        console.log(err);
+        const updateSecurityQuestionMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(updateSecurityQuestionMongodbErrorResponse.toObject());
+      } else {
+        if (!securityQuestion) {
+          const response = `Invalid ID`;
+          console.log(response);
+          res.send(response);
         } else {
-          if (!securityQuestion) {
-            const response = `Invalid ID`;
-            console.log(response);
-            res.send(response);
-          } else {
-            console.log(securityQuestion);
-            securityQuestion.set({
-              text: req.body.text,
-            });
+          console.log(securityQuestion);
+          securityQuestion.set({
+            text: req.body.text,
+          });
 
-            securityQuestion.save(function (err, updatedSecurityQuestion) {
-              if (err) {
-                console.log(err);
-                const saveSecurityQuestionInvalidIdResponse = new BaseResponse(500, 'Internal server error', err);
-                res.status(500).send(saveSecurityQuestionInvalidIdResponse.toObject);
-              } else {
-                console.log(updatedSecurityQuestion);
-                const updateSecurityQuestionResponse = new BaseResponse(200, 'Query successful', updatedSecurityQuestion);
-                res.json(updateSecurityQuestionResponse.toObject());
-              }
-            });
-          }
+          securityQuestion.save(function (err, updatedSecurityQuestion) {
+            if (err) {
+              console.log(err);
+              const saveSecurityQuestionInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
+              res.status(500).send(saveSecurityQuestionInvalidIdResponse.toObject);
+            } else {
+              console.log(updatedSecurityQuestion);
+              const updateSecurityQuestionResponse = new BaseResponse(200, "Query successful", updatedSecurityQuestion);
+              res.json(updateSecurityQuestionResponse.toObject());
+            }
+          });
         }
       }
-    );
+    });
   } catch (e) {
     console.log(e);
-    const  updateSecurityQuestionCatchErrorResponse = new BaseResponse(500, 'Internal server error', e.message);
+    const updateSecurityQuestionCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
     res.status(500).send(updateSecurityQuestionCatchErrorResponse.toObject());
   }
 });

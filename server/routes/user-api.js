@@ -57,33 +57,33 @@ router.post("/", async (req, res) => {
 });
 
 /**
-   * API to find user by username (OK)
-   */
-  
- router.get("/:userName", async (req, res) => {
+ * API to find user by username (OK)
+ */
+
+router.get("/:userName", async (req, res) => {
   try {
     User.findOne({ userName: req.params.userName }, function (err, user) {
-        if (err) {
-        console.log('1');
+      if (err) {
+        console.log("1");
         console.log(err);
-        const readUserMongodbErrorResponse = new BaseResponse(500, 'Internal server error', err);
+        const readUserMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
         res.status(500).send(readUserMongodbErrorResponse.toObject());
       } else {
         if (!user) {
           const response = `Invalid username`;
           console.log(response);
           res.send(response);
-        }else {
-          const readUserResponse = new BaseResponse(200, 'Query successful', user);
-          console.log(user);          
+        } else {
+          const readUserResponse = new BaseResponse(200, "Query successful", user);
+          console.log(user);
           res.json(readUserResponse.toObject());
+        }
       }
-    }
     });
   } catch (e) {
-    console.log('3');
+    console.log("3");
     console.log(e);
-    const  readUserCatchErrorResponse = new BaseResponse(500, 'Internal server error', err);
+    const readUserCatchErrorResponse = new BaseResponse(500, "Internal server error", err);
     res.status(500).send(readUserCatchErrorResponse.toObject());
   }
 });
@@ -91,26 +91,25 @@ router.post("/", async (req, res) => {
 /**
  * API to find all users (OK)
  */
- router.get("/", async (req, res) => {
-    try {
-      User.find({}, function (err, users) {
-        if (err) {
-          console.log(err);
-          const readUsersMongodbErrorResponse = new BaseResponse(500, 'Internal server error', err);
-          res.status(500).send(readUsersMongodbErrorResponse.toObject());
-        } else {
-          console.log(users);
-          const readUsersResponse = new BaseResponse(200, 'Query successful', users);
-          res.json(readUsersResponse.toObject());
-        }
-      });
-    } catch (e) {
-      console.log(e);
-      const  readUserCatchErrorResponse = new BaseResponse(500, 'Internal server error', e.message);
-      res.status(500).send(readUserCatchErrorResponse.toObject());
-    }
-  });
-
+router.get("/", async (req, res) => {
+  try {
+    User.find({}, function (err, users) {
+      if (err) {
+        console.log(err);
+        const readUsersMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(readUsersMongodbErrorResponse.toObject());
+      } else {
+        console.log(users);
+        const readUsersResponse = new BaseResponse(200, "Query successful", users);
+        res.json(readUsersResponse.toObject());
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const readUserCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    res.status(500).send(readUserCatchErrorResponse.toObject());
+  }
+});
 
 //update user API
 
@@ -151,7 +150,7 @@ router.put("/:id", async (req, res) => {
 // Delete User API - In progress
 router.delete("/:id", async (req, res) => {
   try {
-    user.findOne({_id: req.params.id}, function (err, user) {
+    user.findOne({ _id: req.params.id }, function (err, user) {
       // If statement for Mongo error
       if (err) {
         console.log(err);
@@ -186,13 +185,11 @@ router.delete("/:id", async (req, res) => {
         const deleteSecurityQuestionResponse = new BaseResponse("200", "Query successful", req.params.id);
       });
     });
-
-      } catch (e) {
-        console.log(e);
-        const deleteUserCatchErrorResponse = new BaseResponse("500", "Internal server error", e.message);
-        return res.status(500).send(deleteUserCatchErrorResponse.toObject());
-      }
-  });
-      
+  } catch (e) {
+    console.log(e);
+    const deleteUserCatchErrorResponse = new BaseResponse("500", "Internal server error", e.message);
+    return res.status(500).send(deleteUserCatchErrorResponse.toObject());
+  }
+});
 
 module.exports = router;
