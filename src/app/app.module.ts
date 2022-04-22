@@ -20,9 +20,14 @@ import { MatInputModule } from "@angular/material/input";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDividerModule } from "@angular/material/divider";
+import { SecurityQuestionListComponent } from './pages/security-question-list/security-question-list.component';
+import { SigninComponent } from './pages/signin/signin.component';
+import { UserCreateComponent } from './pages/user-create/user-create.component';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { UserListComponent } from './pages/user-list/user-list.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent],
+  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SecurityQuestionListComponent, SigninComponent, UserCreateComponent, UserDetailsComponent, UserListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
