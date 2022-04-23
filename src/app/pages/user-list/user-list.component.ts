@@ -10,6 +10,7 @@ import { User } from "src/app/shared/interfaces/user.interface";
 export class UserListComponent implements OnInit {
   user: User[];
   displayedColumns = ["userName", "firstName", "lastName", "phoneNumber", "address", "email", "edit", "delete"];
+
   constructor(private userService: UserService) {
     this.userService.findAllUsers().subscribe(
       (res) => {
