@@ -147,7 +147,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete User API - In progress
+// Delete User API - In progress-
 router.delete("/:id", async (req, res) => {
   try {
     user.findOne({ _id: req.params.id }, function (err, user) {
