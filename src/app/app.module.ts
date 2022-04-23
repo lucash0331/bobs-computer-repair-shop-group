@@ -25,9 +25,11 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { UserCreateComponent } from './pages/user-create/user-create.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
+import { SecurityQuestionCreateComponent } from './pages/security-question-create/security-question-create.component';
+import { SecurityQuestionDetailsComponent } from './pages/security-question-details/security-question-details.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SecurityQuestionListComponent, SigninComponent, UserCreateComponent, UserDetailsComponent, UserListComponent],
+  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SecurityQuestionListComponent, SigninComponent, UserCreateComponent, UserDetailsComponent, UserListComponent, SecurityQuestionCreateComponent, SecurityQuestionDetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
