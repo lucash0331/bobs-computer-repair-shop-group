@@ -22,17 +22,13 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let securityQuestion">
-            <mat-icon routerLink="" color="accent">edit</mat-icon></mat-cell
-          >
+          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="" color="accent">edit</mat-icon></mat-cell>
         </ng-container>
 
         <!-- Delete Column -->
         <ng-container matColumnDef="delete">
           <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
-          <mat-cell *matCellDef="let securityQuestion">
-            <mat-icon routerLink="" color="primary">delete</mat-icon></mat-cell
-          >
+          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="" color="primary">delete</mat-icon></mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -42,9 +38,7 @@
     <!-- Add button to create new securityQuestion in the mat-card-subtitle below -->
 
     <mat-card-subtitle>
-      <button mat-stroked-button color="primary" routerLink="/security-questions/create/new">
-        Create New Question
-      </button>
+      <button mat-stroked-button color="primary" routerLink="/security-questions/create/new">Create New Question</button>
     </mat-card-subtitle>
   </mat-card>
 </div>
