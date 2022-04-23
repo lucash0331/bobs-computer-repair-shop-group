@@ -11,4 +11,8 @@ export class SecurityQuestionsService {
   findAllSecurityQuestions(): Observable<any> {
     return this.http.get("/api/security-questions");
   }
+
+  deleteSecurityQuestion(_id: string): Observable<any> {
+    return this.http.delete("/api/security-questions" + _id);
+  }
 }
