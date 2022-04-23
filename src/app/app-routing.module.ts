@@ -4,6 +4,9 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { UserListComponent } from "./pages/user-list/user-list.component";
 import { SecurityQuestionListComponent } from "./pages/security-question-list/security-question-list.component";
+import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component";
+import { SigninComponent } from "./pages/signin/signin.component";
+import { AuthGuard } from "./shared/auth.guard";
 
 const routes: Routes = [
   {
@@ -13,14 +16,27 @@ const routes: Routes = [
       {
         path: "",
         component: HomeComponent,
+        // canActivate: [AuthGuard],
       },
       {
         path: "user",
         component: UserListComponent,
+        // canActivate: [AuthGuard],
       },
       {
         path: "security-questions",
         component: SecurityQuestionListComponent,
+        // canActivate: [AuthGuard],
+      },
+    ],
+  },
+  {
+    path: "session",
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: "signin",
+        component: SigninComponent,
       },
     ],
   },
@@ -28,7 +44,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { useHash: true, enableTracing: false, scrollPositionRestoration: "enabled", relativeLinkResolution: "legacy" }),
+    RouterModule.forRoot(routes, {
+      useHash: true,
+      enableTracing: false,
+      scrollPositionRestoration: "enabled",
+      relativeLinkResolution: "legacy",
+    }),
   ],
   exports: [RouterModule],
 })
