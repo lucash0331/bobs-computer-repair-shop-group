@@ -29,6 +29,8 @@ import { UserListComponent } from "./pages/user-list/user-list.component";
 import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
 import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
 import { PickListModule } from "primeng/picklist";
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -37,12 +39,13 @@ import { PickListModule } from "primeng/picklist";
     BaseLayoutComponent,
     AuthLayoutComponent,
     SecurityQuestionListComponent,
-    SigninComponent,
+    SigninComponent,  
     UserCreateComponent,
     UserDetailsComponent,
     UserListComponent,
     SecurityQuestionCreateComponent,
     SecurityQuestionDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { PickListModule } from "primeng/picklist";
     MatMenuModule,
     MatDividerModule,
     PickListModule,
-    MatTableModule
+    MatTableModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
