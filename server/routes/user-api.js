@@ -14,6 +14,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const userRoleSchema = require("../schemas/user-role");
 const BaseResponse = require("../models/base-response");
+//const ErrorResponse = require("../models/error-response");
 
 const router = express.Router();
 const saltRounds = 10;

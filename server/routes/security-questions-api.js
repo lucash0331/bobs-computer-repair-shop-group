@@ -11,6 +11,7 @@
 
 const express = require("express");
 const BaseResponse = require("../models/base-response");
+const ErrorResponse = require("../models/error-response");
 const router = express.Router();
 const SecurityQuestion = require("../models/security-question");
 
