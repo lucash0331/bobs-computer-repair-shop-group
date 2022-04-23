@@ -29,6 +29,10 @@ import { UserListComponent } from "./pages/user-list/user-list.component";
 import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
 import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
 import { PickListModule } from "primeng/picklist";
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ConfirmationService } from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -64,8 +68,10 @@ import { PickListModule } from "primeng/picklist";
     MatDividerModule,
     PickListModule,
     MatTableModule,
+    ToastModule,
+    ConfirmDialogModule,
   ],
-  providers: [],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
