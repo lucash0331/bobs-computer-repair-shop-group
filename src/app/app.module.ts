@@ -33,6 +33,7 @@ import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { ConfirmationService } from "primeng/api";
     MatTableModule,
     ToastModule,
     ConfirmDialogModule,
+    MatTabsModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

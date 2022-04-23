@@ -38,11 +38,13 @@ router.post("/signin", async (req, res) => {
           } else {
             console.log(`Invalid password for username: ${user.userName}`);
             const invalidPasswordResponse = new BaseResponse(401, "Invalid username and/or password.  Please try again", null);
+            console.log(invalidPasswordResponse.toObject());
             res.status(401).send(invalidPasswordResponse.toObject());
           }
         } else {
           console.log(`Username: ${req.body.userName} is invalid`);
           const invalidUserNameResponse = new BaseResponse(200, "Invalid username and/or password.  Please try again", null);
+          console.log(invalidUserNameResponse.toObject());
           res.status(401).send(invalidUserNameResponse.toObject());
         }
       }
