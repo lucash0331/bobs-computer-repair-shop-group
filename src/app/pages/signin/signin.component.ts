@@ -40,7 +40,7 @@ export class SigninComponent implements OnInit {
       .subscribe(
         (res) => {
           if (res["data"].userName) {
-            this.cookieService.set("sessionuser", res["data"].userName, 1);
+            this.cookieService.set("session_user", res["data"].userName, 1);
             this.router.navigate(["/"]);
             console.log(res["data"].userName);
           }
