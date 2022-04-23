@@ -55,8 +55,8 @@ router.get("/:id", async (req, res) => {
         res.status(500).send(findSecurityQuestionError.toObject());
       } else {
         console.log(securityQuestion);
-        const findByIdResponse = BaseResponse(200, "Query Successful", securityQuestion);
-        res.json(findByIdResponse.toOBject());
+        const findByIdResponse = new BaseResponse(200, "Query Successful", securityQuestion);
+        res.json(findByIdResponse.toObject());
       }
     });
   } catch (e) {
