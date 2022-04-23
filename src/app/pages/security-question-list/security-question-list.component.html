@@ -3,12 +3,10 @@
 <div fxLayout="column">
   <mat-card>
     <mat-card-title>Security Questions Configuration</mat-card-title>
+    <br /><br />
 
-    <!-- Add button to create new securityQuestion in the mat-card-subtitle below -->
-
-    <mat-card-subtitle></mat-card-subtitle>
     <mat-card-content *ngIf="securityQuestion">
-      <mat-table [dataSource]="securityQuestion" class="mat-elevation-z8">
+      <mat-table [dataSource]="securityQuestion" class="mat-elevation-z4">
         <!-- Name Column -->
         <ng-container matColumnDef="text">
           <mat-header-cell *matHeaderCellDef> Security Questions </mat-header-cell>
@@ -21,23 +19,32 @@
           <mat-cell *matCellDef="let securityQuestion"> {{ securityQuestion.isDisabled }} </mat-cell>
         </ng-container>
 
-        
-
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="" color="accent">edit</mat-icon></mat-cell>
+          <mat-cell *matCellDef="let securityQuestion">
+            <mat-icon routerLink="" color="accent">edit</mat-icon></mat-cell
+          >
         </ng-container>
 
         <!-- Delete Column -->
         <ng-container matColumnDef="delete">
           <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
-          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="" color="primary">delete</mat-icon></mat-cell>
+          <mat-cell *matCellDef="let securityQuestion">
+            <mat-icon routerLink="" color="primary">delete</mat-icon></mat-cell
+          >
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
     </mat-card-content>
+    <!-- Add button to create new securityQuestion in the mat-card-subtitle below -->
+
+    <mat-card-subtitle>
+      <button mat-stroked-button color="primary" routerLink="/security-questions/create/new">
+        Create New Question
+      </button>
+    </mat-card-subtitle>
   </mat-card>
 </div>
