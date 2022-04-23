@@ -118,7 +118,7 @@ router.put("/:id", async (req, res) => {
     User.findOne({ _id: req.params.id }, function (err, user) {
       if (err) {
         console.log(err);
-        const updateSecurityQuestionMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+        const updateSecurityQuestionMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
         res.status(500).send(updateSecurityQuestionMongodbErrorResponse.toObject());
       } else {
         console.log(user);
@@ -134,7 +134,7 @@ router.put("/:id", async (req, res) => {
         user.save(function (err, savedUser) {
           if (err) {
             console.log(err);
-            const saveUserMongodbErrorResponse = new BaseResponse("200", "Query successful", savedUser);
+            const saveUserMongodbErrorResponse = new BaseResponse(200, "Query successful", savedUser);
             res.json(saveUserMongodbErrorResponse.toObject());
           }
         });
@@ -142,7 +142,7 @@ router.put("/:id", async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    const updateUserCatchErrorResponse = BaseResponse("500", "Internal server error", e.message);
+    const updateUserCatchErrorResponse = BaseResponse(500, "Internal server error", e.message);
     res.status(500).send(updateUserCatchErrorResponse.toObject());
   }
 });
@@ -154,14 +154,14 @@ router.delete("/:id", async (req, res) => {
       // If statement for Mongo error
       if (err) {
         console.log(err);
-        const deleteUserMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+        const deleteUserMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
         return res.status(500).send(deleteUserMongodbErrorResponse.toObject());
       }
 
       // If statement for user not found in DB
       if (!user) {
         console.log("User not found");
-        const notFoundResponse = new BaseResponse("404", "User not found");
+        const notFoundResponse = new BaseResponse(404, "User not found");
         return res.status(404).send(notFoundResponse.toObject());
       }
 
@@ -176,18 +176,18 @@ router.delete("/:id", async (req, res) => {
         // If statement to handle a Mongo error
         if (err) {
           console.log(err);
-          const savedUserMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+          const savedUserMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
           return res.status(500).send(savedUserMongodbErrorResponse.toObject());
         }
 
         console.log(savedUser);
         // This will return the deleted userID
-        const deleteSecurityQuestionResponse = new BaseResponse("200", "Query successful", req.params.id);
+        const deleteSecurityQuestionResponse = new BaseResponse(200, "Query successful", req.params.id);
       });
     });
   } catch (e) {
     console.log(e);
-    const deleteUserCatchErrorResponse = new BaseResponse("500", "Internal server error", e.message);
+    const deleteUserCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
     return res.status(500).send(deleteUserCatchErrorResponse.toObject());
   }
 });
