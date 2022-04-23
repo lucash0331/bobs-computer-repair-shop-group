@@ -4,6 +4,7 @@
   <mat-card>
     <mat-card-title>User Configuration</mat-card-title>
     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <p-toast position="top-right"></p-toast>
     <br /><br />
     <mat-card-content *ngIf="user">
       <mat-table [dataSource]="user" class="mat-elevation-z4">
