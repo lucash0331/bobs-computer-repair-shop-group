@@ -20,16 +20,29 @@ import { MatInputModule } from "@angular/material/input";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDividerModule } from "@angular/material/divider";
-import { SecurityQuestionListComponent } from './pages/security-question-list/security-question-list.component';
-import { SigninComponent } from './pages/signin/signin.component';
-import { UserCreateComponent } from './pages/user-create/user-create.component';
-import { UserDetailsComponent } from './pages/user-details/user-details.component';
-import { UserListComponent } from './pages/user-list/user-list.component';
-import { SecurityQuestionCreateComponent } from './pages/security-question-create/security-question-create.component';
-import { SecurityQuestionDetailsComponent } from './pages/security-question-details/security-question-details.component';
+import { SecurityQuestionListComponent } from "./pages/security-question-list/security-question-list.component";
+import { SigninComponent } from "./pages/signin/signin.component";
+import { UserCreateComponent } from "./pages/user-create/user-create.component";
+import { UserDetailsComponent } from "./pages/user-details/user-details.component";
+import { UserListComponent } from "./pages/user-list/user-list.component";
+import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
+import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
+import { PickListModule } from "primeng/picklist";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SecurityQuestionListComponent, SigninComponent, UserCreateComponent, UserDetailsComponent, UserListComponent, SecurityQuestionCreateComponent, SecurityQuestionDetailsComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    BaseLayoutComponent,
+    AuthLayoutComponent,
+    SecurityQuestionListComponent,
+    SigninComponent,
+    UserCreateComponent,
+    UserDetailsComponent,
+    UserListComponent,
+    SecurityQuestionCreateComponent,
+    SecurityQuestionDetailsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -48,6 +61,7 @@ import { SecurityQuestionDetailsComponent } from './pages/security-question-deta
     MatDialogModule,
     MatMenuModule,
     MatDividerModule,
+    PickListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

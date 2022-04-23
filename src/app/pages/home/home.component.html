@@ -1,8 +1,8 @@
-<div fxLayout="column" class="main-welcome">
-  <h1 class="title">
-    Welcome to WEB 450's - Bob's Computer Repair Shop <br />
-    <span class="subtitle">
-      Pay close attention to the requirements, double and triple check the files for code attribution, and do not wait unitl the last minute to begin working on each item.
-    </span>
-  </h1>
-</div>
+<p-pickList [source]="list1" [target]="list2">
+  <ng-template let-car pTemplate="item">
+    <div>
+      <!-- <img src="assets/showcase/images/demo/car/{{ car.brand }}.png" style="display: inline-block; margin: 2px 0 2px 2px" width="48" /> -->
+      <div style="font-size: 14px; float: right; margin: 15px 5px 0 0">{{ service.name }}} - ${{ service.price }}</div>
+    </div>
+  </ng-template>
+</p-pickList>
