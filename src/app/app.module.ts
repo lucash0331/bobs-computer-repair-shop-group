@@ -11,7 +11,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from "@angular/material/table";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FlexModule } from "@angular/flex-layout";

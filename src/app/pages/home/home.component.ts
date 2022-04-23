@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { ServicesService } from "src/app/services/services.service";
+import { Service } from "src/app/shared/interfaces/services.interface";
 
 @Component({
   selector: "app-home",
@@ -6,13 +8,19 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  list1: any[];
+  list1: Service[];
+  list2: Service[];
 
-  list2: any[];
-
-  ngOnInit() {
-    (this.list1 = ["test1", "test2", "test3"]), (this.list2 = ["test4", "test5", "test6"]);
+  constructor(private servicesService: ServicesService) {
+    this.servicesService.findAllServices().subscribe(
+      (res) => {
+        this.list1 = res["data"];
+        this.list2 = res["data"];
+      },
+      (err) => {},
+      () => {}
+    );
   }
 
-  constructor() {}
+  ngOnInit() {}
 }
