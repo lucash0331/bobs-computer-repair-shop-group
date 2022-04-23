@@ -13,11 +13,11 @@ const routes: Routes = [
         path: "",
         component: HomeComponent,
       },
+      {
+        path: "user",
+        component: UserListComponent,
+      },
     ],
-  },
-  {
-    path: "/user",
-    component: UserListComponent,
   },
 ];
 
