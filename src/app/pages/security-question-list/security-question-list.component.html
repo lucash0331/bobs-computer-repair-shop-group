@@ -1,1 +1,43 @@
-<p>security-question-list works!</p>
+<br />
+<br />
+<div fxLayout="column">
+  <mat-card>
+    <mat-card-title>Security Questions Configuration</mat-card-title>
+
+    <!-- Add button to create new securityQuestion in the mat-card-subtitle below -->
+
+    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-content *ngIf="securityQuestion">
+      <mat-table [dataSource]="securityQuestion" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="text">
+          <mat-header-cell *matHeaderCellDef> Security Questions </mat-header-cell>
+          <mat-cell *matCellDef="let securityQuestion"> {{ securityQuestion.text }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="isDisabled">
+          <mat-header-cell *matHeaderCellDef> Disabled? </mat-header-cell>
+          <mat-cell *matCellDef="let securityQuestion"> {{ securityQuestion.isDisabled }} </mat-cell>
+        </ng-container>
+
+        
+
+        <!-- Edit Column -->
+        <ng-container matColumnDef="edit">
+          <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="" color="accent">edit</mat-icon></mat-cell>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="" color="primary">delete</mat-icon></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -3,6 +3,7 @@ import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component"
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { UserListComponent } from "./pages/user-list/user-list.component";
+import { SecurityQuestionListComponent } from "./pages/security-question-list/security-question-list.component";
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: "user",
         component: UserListComponent,
+      },
+      {
+        path: "security-questions",
+        component: SecurityQuestionListComponent,
       },
     ],
   },
