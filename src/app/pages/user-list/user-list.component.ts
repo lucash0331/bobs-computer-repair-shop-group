@@ -21,25 +21,15 @@ import { User } from "src/app/shared/interfaces/user.interface";
   styleUrls: ["./user-list.component.css"],
 })
 export class UserListComponent implements OnInit {
-  user: User;
-  userName?: string;
-  password?: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address: string;
-  email: string;
-
+  user: User[];
+  displayedColumns = ["userName", "firstName", "lastName", "phoneNumber", "address", "email"];
   constructor(private userService: UserService) {
     this.userService.findAllUsers().subscribe(
       (res) => {
-        this.userName = res;
+        this.user = res["data"];
       },
       (err) => {},
-      () => {
-        this.firstName = this.user.firstName;
-        this.lastName = this.user.lastName;
-      }
+      () => {}
     );
   }
 

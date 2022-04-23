@@ -1,52 +1,54 @@
-<mat-table [dataSource]="user" class="mat-elevation-z8">
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.address }} </mat-cell>
-  </ng-container>
+<mat-card-content *ngIf="user">
+  <mat-table [dataSource]="user" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.address }} </mat-cell>
+    </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="userName">
-    <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.userName }} </mat-cell>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.userName }} </mat-cell>
+    </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="firstName">
-    <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.firstName }} </mat-cell>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.firstName }} </mat-cell>
+    </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="lastName">
-    <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.lastName }} </mat-cell>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.lastName }} </mat-cell>
+    </ng-container>
 
-  <!-- Phone Column -->
-  <ng-container matColumnDef="phoneNumber">
-    <mat-header-cell *matHeaderCellDef> Phone # </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.phoneNumber }} </mat-cell>
-  </ng-container>
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phoneNumber">
+      <mat-header-cell *matHeaderCellDef> Phone # </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.phoneNumber }} </mat-cell>
+    </ng-container>
 
-  <!-- Address Column -->
-  <ng-container matColumnDef="address">
-    <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.address }} </mat-cell>
-  </ng-container>
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.address }} </mat-cell>
+    </ng-container>
 
-  <!-- Phone Column -->
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-    <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
-  </ng-container>
+    <!-- Phone Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
+    </ng-container>
 
-  <!-- Symbol Column
+    <!-- Symbol Column
   <ng-container matColumnDef="symbol">
     <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
     <mat-cell *matCellDef="let user"> {{ element.symbol }} </mat-cell>
   </ng-container> -->
 
-  <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row> -->
-</mat-table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</mat-card-content>
