@@ -49,14 +49,14 @@ export class UserCreateComponent implements OnInit {
     newUser.email = this.form.controls.email.value;
 
     // createUser service method to make network call to create user
-    // this.userService.createUser(newUser).subscribe(
-    //   (res) => {
-    //     this.router.navigate(['/users']);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
+     this.userService.createUser(newUser).subscribe(
+       (res) => {
+         this.router.navigate(['/users']);
+       },
+       (err) => {
+         console.log(err);
+       }
+     );
   }
 
   // This is the cancel button.
