@@ -46,12 +46,15 @@ export class UserDetailsComponent implements OnInit {
           console.log(err);
         },
         () => {
+          console.log("inside findUserById ");
           this.form.controls.firstName.setValue(this.user.firstName);
           this.form.controls.lastName.setValue(this.user.lastName);
           this.form.controls.phoneNumber.setValue(this.user.phoneNumber);
           this.form.controls.address.setValue(this.user.address);
           this.form.controls.email.setValue(this.user.email);
           this.form.controls.role.setValue(this.user.role);
+          console.log(this.form.controls.firstName.value);
+          console.log(this.form.controls.lastName.value);
         }
       );
   }

@@ -26,9 +26,9 @@ export class UserService {
       lastName: newUser.lastName,
       phoneNumber: newUser.phoneNumber,
       address: newUser.address,
-      email: newUser.email
+      email: newUser.email,
     });
-  }  
+  }
 
   findAllUsers(): Observable<any> {
     return this.http.get("/api/users");
@@ -39,9 +39,7 @@ export class UserService {
   }
 
   findUserById(_id: string): Observable<any> {
-    const result = this.http.get("/api/users/user/" + _id);
-    console.log(result);
-    return result;
+    return this.http.get("/api/users/user/" + _id);
   }
 
   updateUser(_id: string, updatedUser: User): Observable<any> {
@@ -51,10 +49,9 @@ export class UserService {
       phoneNumber: updatedUser.phoneNumber,
       address: updatedUser.address,
       email: updatedUser.email,
-      role: updatedUser.role
+      role: updatedUser.role,
     });
     console.log(result);
     return result;
   }
-  
 }
