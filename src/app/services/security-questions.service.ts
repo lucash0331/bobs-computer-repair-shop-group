@@ -23,17 +23,14 @@ export class SecurityQuestionsService {
   }
 
   deleteSecurityQuestion(_id: string): Observable<any> {
-    return this.http.delete("/api/security-questions" + _id);
+    return this.http.delete("/api/security-questions/" + _id);
   }
 
   findSecurityQuestionById(_id: string): Observable<any> {
     return this.http.get("/api/security-questions/" + _id);
   }
 
-  updateSecurityQuestion(
-    _id: string,
-    updatedSecurityQuestion: SecurityQuestion
-  ): Observable<any> {
+  updateSecurityQuestion(_id: string, updatedSecurityQuestion: SecurityQuestion): Observable<any> {
     return this.http.put("/api/security-questions/" + _id, {
       text: updatedSecurityQuestion.text,
     });

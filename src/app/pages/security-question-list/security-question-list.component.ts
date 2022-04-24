@@ -16,6 +16,7 @@ import { SecurityQuestionsService } from "src/app/services/security-questions.se
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationService } from "primeng/api";
 import { MessageService } from "primeng/api";
+import { MatTableDataSource } from "@angular/material/table";
 
 @Component({
   selector: "app-security-question-list",
@@ -24,7 +25,7 @@ import { MessageService } from "primeng/api";
 })
 export class SecurityQuestionListComponent implements OnInit {
   securityQuestion: SecurityQuestion[];
-  _id: string;
+  _id: SecurityQuestion[];
   displayedColumns = ["text", "isDisabled", "edit", "delete"];
 
   constructor(
@@ -45,22 +46,22 @@ export class SecurityQuestionListComponent implements OnInit {
   ngOnInit(): void {}
 
   //Delete task function
-  deleteSecurityQuestion(_id: string) {
-    console.log(_id);
+  deleteSecurityQuestion(qId: string) {
+    console.log(qId);
     this.confirmationService.confirm({
       message: "Are you sure you want to delete this security question?",
       accept: () => {
-        if (_id) {
-          this.securityQuestionsService.deleteSecurityQuestion(_id).subscribe(
+        if (qId) {
+          this.securityQuestionsService.deleteSecurityQuestion(qId).subscribe(
             (res) => {
-              this.securityQuestion = res.data;
+              this.securityQuestion = res["data"];
             },
             (err) => {
               console.log(err);
             },
             () => {
-              this.securityQuestion = this.securityQuestion.filter((q) => q._id !== _id);
-
+              this.securityQuestion = this.securityQuestion.filter((q) => q._id !== qId);
+              console.log(this.securityQuestion);
               this.messageService.add({ severity: "warn", summary: "bcrs", detail: "Security question deleted" });
             }
           );
