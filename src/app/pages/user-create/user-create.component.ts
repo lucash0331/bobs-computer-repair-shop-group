@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/shared/interfaces/user.interface';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-create',
@@ -7,9 +11,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserCreateComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
 
-  ngOnInit(): void {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) {}
+
+  ngOnInit() {
+    // validations
+    this.form = this.fb.group({
+      userName: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])],
+      firstName: [null, Validators.compose([Validators.required])],
+      lastName: [null, Validators.compose([Validators.required])],
+      phoneNumber: [null, Validators.compose([Validators.required])],
+      address: [null, Validators.compose([Validators.required])],
+      email: [
+        null,
+        Validators.compose([Validators.required, Validators.email]),
+      ],
+    });
   }
 
+  // create function for new users
+  create() {
+    const newUser = {} as User;
+    newUser.userName = this.form.controls.userName.value;
+    newUser.password = this.form.controls.password.value;
+    newUser.firstName = this.form.controls.firstName.value;
+    newUser.lastName = this.form.controls.lastName.value;
+    newUser.phoneNumber = this.form.controls.phoneNumber.value;
+    newUser.address = this.form.controls.address.value;
+    newUser.email = this.form.controls.email.value;
+
+    // createUser service method to make network call to create user
+    this.userService.createUser(newUser).subscribe(
+      (res) => {
+        this.router.navigate(['/users']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // This is the cancel button.
+  cancel() {
+    this.router.navigate(['/users']);
+  }
 }
