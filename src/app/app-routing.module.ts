@@ -54,6 +54,12 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
       },
       {
+        path: "security-questions/create/new" ,
+        component: SecurityQuestionCreateComponent,
+        // canActivate: [AuthGuard],
+      },
+
+      {
         path: "users",
         component: UserListComponent,
         canActivate: [AuthGuard],
