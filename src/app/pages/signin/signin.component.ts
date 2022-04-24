@@ -24,12 +24,7 @@ export class SigninComponent implements OnInit {
   form: FormGroup;
   errorMessage: string;
 
-  constructor(
-    private router: Router,
-    private cookieService: CookieService,
-    private fb: FormBuilder,
-    private http: HttpClient
-  ) {}
+  constructor(private router: Router, private cookieService: CookieService, private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -51,6 +46,7 @@ export class SigninComponent implements OnInit {
         (res) => {
           if (res["data"].userName) {
             this.cookieService.set("session_user", res["data"].userName, 1);
+            //sessionStorage.setItem("name", `${res["firstName"]} ${res["lastName"]}`);
             this.router.navigate(["/"]);
             console.log(res["data"].userName);
           }
