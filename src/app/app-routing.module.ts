@@ -10,6 +10,7 @@ import { AuthGuard } from "./shared/auth.guard";
 import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
 import { UserDetailsComponent } from "./pages/user-details/user-details.component";
 import { UserCreateComponent } from "./pages/user-create/user-create.component";
+import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
 
 const routes: Routes = [
   {
@@ -36,6 +37,12 @@ const routes: Routes = [
         component: SecurityQuestionDetailsComponent,
         // canActivate: [AuthGuard],
       },
+      {
+        path: "security-questions/create/new" ,
+        component: SecurityQuestionCreateComponent,
+        // canActivate: [AuthGuard],
+      },
+
       {
         path: "users",
         component: UserListComponent,
