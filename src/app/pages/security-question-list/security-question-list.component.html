@@ -23,7 +23,11 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let securityQuestion"> <mat-icon routerLink="/security-questions/update/{{securityQuestion._id}}" color="accent">edit</mat-icon></mat-cell>
+          <mat-cell *matCellDef="let securityQuestion">
+            <mat-icon class="icon-cursor" routerLink="/security-questions/{{ securityQuestion._id }}" color="accent"
+              >edit</mat-icon
+            ></mat-cell
+          >
         </ng-container>
 
         <!-- Delete Column -->

@@ -7,6 +7,10 @@ mat-card-subtitle {
   text-align: center;
 }
 
+.icon-cursor {
+  cursor: pointer;
+}
+
 div {
   width: 80%;
   margin: auto;
