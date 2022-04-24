@@ -142,7 +142,7 @@ router.delete("/:id", async (req, res) => {
       if (err) {
         console.log(err);
         const deleteSecurityQuestionMongoErrorResponse = new BaseResponse("500", "MongoDB Server Error", err);
-        res.status(500).send(deleteSecurityQuestionMongoErrorResponse.toObjects());
+        res.status(500).send(deleteSecurityQuestionMongoErrorResponse.toObject());
       } else {
         console.log(securityQuestion);
 

@@ -13,6 +13,6 @@ export class SecurityQuestionsService {
   }
 
   deleteSecurityQuestion(_id: string): Observable<any> {
-    return this.http.delete("/api/security-questions" + _id);
+    return this.http.delete("/api/security-questions/" + _id);
   }
 }
