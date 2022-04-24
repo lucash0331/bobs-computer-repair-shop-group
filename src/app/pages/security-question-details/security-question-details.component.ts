@@ -29,8 +29,7 @@ export class SecurityQuestionDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private securityQuestionsService: SecurityQuestionsService,
-    private fb: FormBuilder,
-    private dialog: MatDialog
+    private fb: FormBuilder
   ) {
     this.questionId = this.route.snapshot.paramMap.get("id");
     console.log(this.route.snapshot.paramMap);

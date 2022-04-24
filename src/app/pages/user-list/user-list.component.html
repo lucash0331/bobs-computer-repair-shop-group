@@ -47,9 +47,7 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let user">
-            <mat-icon class="icon-cursor" routerLink="" color="accent">edit</mat-icon></mat-cell
-          >
+          <mat-cell *matCellDef="let user"> <mat-icon routerLink="/users/update/{{user._id}}" color="accent">edit</mat-icon></mat-cell>
         </ng-container>
 
         <!-- Delete Column -->
@@ -67,7 +65,7 @@
       </mat-table>
     </mat-card-content>
     <mat-card-subtitle>
-      <button mat-stroked-button color="primary" routerLink="/user/create/new">Add New User</button>
+      <button mat-stroked-button color="primary" routerLink="/users/create/new">Add New User</button>
     </mat-card-subtitle>
   </mat-card>
 </div>

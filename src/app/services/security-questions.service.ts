@@ -30,6 +30,15 @@ export class SecurityQuestionsService {
     return this.http.get("/api/security-questions/" + _id);
   }
 
+  createSecurityQuestion(
+    newSecurityQuestion: SecurityQuestion
+  ): Observable<any> {
+    console.log(newSecurityQuestion);
+    return this.http.post('/api/security-questions', {
+      text: newSecurityQuestion.text,
+    });
+  }
+
   updateSecurityQuestion(_id: string, updatedSecurityQuestion: SecurityQuestion): Observable<any> {
     return this.http.put("/api/security-questions/" + _id, {
       text: updatedSecurityQuestion.text,

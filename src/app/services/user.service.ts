@@ -1,5 +1,6 @@
 /*
 ============================================
+<<<<<<< HEAD
 ; Title: WEB450 Bob's Computer Repair Shop Sprint1
 ; Author: Professor Krasso
 ; Date: April 24, 2022
@@ -9,6 +10,15 @@
 ;===========================================
 */
 
+=======
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: April 23, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App services for users.
+;===========================================
+*/
+>>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -18,10 +28,26 @@ import { User } from "../shared/interfaces/user.interface";
   providedIn: "root",
 })
 export class UserService {
+<<<<<<< HEAD
   createUser(newUser: User) {
     throw new Error("Method not implemented.");
   }
+=======
+
+>>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
   constructor(private http: HttpClient) {}
+
+  createUser(newUser: User): Observable<any> {
+    return this.http.post("/api/users", {
+      userName: newUser.userName,
+      password: newUser.password,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      phoneNumber: newUser.phoneNumber,
+      address: newUser.address,
+      email: newUser.email
+    });
+  }  
 
   findAllUsers(): Observable<any> {
     return this.http.get("/api/users");
@@ -30,4 +56,24 @@ export class UserService {
   deleteUser(_id: string): Observable<any> {
     return this.http.delete("/api/users/:id");
   }
+
+  findUserById(_id: string): Observable<any> {
+    const result = this.http.get("/api/users/user/" + _id);
+    console.log(result);
+    return result;
+  }
+
+  updateUser(_id: string, updatedUser: User): Observable<any> {
+    const result = this.http.put("/api/users/user/" + _id, {
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      phoneNumber: updatedUser.phoneNumber,
+      address: updatedUser.address,
+      email: updatedUser.email,
+      role: updatedUser.role
+    });
+    console.log(result);
+    return result;
+  }
+  
 }
