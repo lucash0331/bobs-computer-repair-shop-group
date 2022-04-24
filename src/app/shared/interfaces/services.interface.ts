@@ -11,6 +11,6 @@
 
 export interface Service {
   _id?: string;
-  serviceName?: string;
-  price: number;
+  name?: string;
+  price?: string;
 }

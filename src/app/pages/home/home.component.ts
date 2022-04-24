@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ServicesService } from "src/app/services/services.service";
 import { Service } from "src/app/shared/interfaces/services.interface";
+import { MatTable } from "@angular/material/table";
+import { HttpClient } from "@angular/common/http";
+import { MatDialog } from "@angular/material/dialog";
+import { CookieService } from "ngx-cookie-service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-home",
@@ -8,18 +13,33 @@ import { Service } from "src/app/shared/interfaces/services.interface";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  list1: Service[];
-  list2: Service[];
+  service: Service;
+  name: String;
+  price: String;
 
-  constructor(private servicesService: ServicesService) {
+  displayedColumns = ["name", "price"];
+
+  // total: number = 0;
+  // products: Array<IProduct>
+  //@ViewChild(MatTable) table: MatTable<any>;
+  // dataTableSource = [];
+
+  constructor(
+    private servicesService: ServicesService,
+    private messageService: MessageService,
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {
     this.servicesService.findAllServices().subscribe(
       (res) => {
-        this.list1 = res["data"];
-        this.list2 = res["data"];
+        this.service = res["data"];
       },
       (err) => {},
       () => {}
     );
+
+    //this.invoice = new Invoice(cookieService.get('session_user'));
   }
 
   ngOnInit() {}
