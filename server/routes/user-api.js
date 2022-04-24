@@ -14,8 +14,6 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const userRoleSchema = require("../schemas/user-role");
 const BaseResponse = require("../models/base-response");
-//const ErrorResponse = require("../models/error-response");
-
 const router = express.Router();
 const saltRounds = 10;
 
@@ -65,7 +63,6 @@ router.get("/:userName", async (req, res) => {
   try {
     User.findOne({ userName: req.params.userName }, function (err, user) {
       if (err) {
-        console.log("1");
         console.log(err);
         const readUserMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
         res.status(500).send(readUserMongodbErrorResponse.toObject());
@@ -82,7 +79,6 @@ router.get("/:userName", async (req, res) => {
       }
     });
   } catch (e) {
-    console.log("3");
     console.log(e);
     const readUserCatchErrorResponse = new BaseResponse(500, "Internal server error", err);
     res.status(500).send(readUserCatchErrorResponse.toObject());
@@ -195,6 +191,37 @@ router.delete("/:id", async (req, res) => {
     console.log(e);
     const deleteUserCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
     return res.status(500).send(deleteUserCatchErrorResponse.toObject());
+  }
+});
+
+/**
+ * API to find user by ID (OK)
+ */
+
+ router.get("/user/:id", async (req, res) => {
+  try {
+    User.findOne({ _id: req.params.id }, function (err, user) {
+      console.log(req.params.id);
+      if (err) {
+        console.log(err);
+        const readUserMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(readUserMongodbErrorResponse.toObject());
+      } else {
+        if (!user) {
+          const response = `Invalid user ID`;
+          console.log(response);
+          res.send(response);
+        } else {
+          const readUserResponse = new BaseResponse(200, "Query successful", user);
+          console.log(user);
+          res.json(readUserResponse.toObject());
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const readUserCatchErrorResponse = new BaseResponse(500, "Internal server error", err);
+    res.status(500).send(readUserCatchErrorResponse.toObject());
   }
 });
 

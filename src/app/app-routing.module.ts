@@ -8,6 +8,8 @@ import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component"
 import { SigninComponent } from "./pages/signin/signin.component";
 import { AuthGuard } from "./shared/auth.guard";
 import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
+import { UserDetailsComponent } from "./pages/user-details/user-details.component";
+import { UserCreateComponent } from "./pages/user-create/user-create.component";
 
 const routes: Routes = [
   {
@@ -30,8 +32,23 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "security-questions/:id" ,
+        path: "security-questions/update/:id" ,
         component: SecurityQuestionDetailsComponent,
+        // canActivate: [AuthGuard],
+      },
+      {
+        path: "users",
+        component: UserListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "users/update/:id" ,
+        component: UserDetailsComponent,
+        // canActivate: [AuthGuard],
+      },
+      {
+        path: "users/create/new" ,
+        component: UserCreateComponent,
         // canActivate: [AuthGuard],
       },
     ],
