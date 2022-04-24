@@ -52,15 +52,24 @@ export class SecurityQuestionListComponent implements OnInit {
       message: "Are you sure you want to delete this security question?",
       accept: () => {
         if (qId) {
+          console.log(qId);
           this.securityQuestionsService.deleteSecurityQuestion(qId).subscribe(
             (res) => {
-              this.securityQuestion = res["data"];
+              console.log(res);
+              //this.securityQuestion = res["data"];
+              this.securityQuestionsService.findAllSecurityQuestions().subscribe(
+                (res) => {
+                  this.securityQuestion = res["data"];
+                },
+                (err) => {},
+                () => {}
+              );
             },
             (err) => {
               console.log(err);
             },
             () => {
-              this.securityQuestion = this.securityQuestion.filter((q) => q._id !== qId);
+              //this.securityQuestion = this.securityQuestion.filter((q) => q._id !== qId);
               console.log(this.securityQuestion);
               this.messageService.add({ severity: "warn", summary: "bcrs", detail: "Security question deleted" });
             }
