@@ -139,7 +139,7 @@ router.put("/:id", async (req, res) => {
             res.json(saveUserMongodbErrorResponse.toObject());
           } else {
             console.log(user);
-            const createUserResponse = new BaseResponse(200, 'Query successful', user);
+            const createUserResponse = new BaseResponse(200, "Query successful", user);
             res.json(createUserResponse.toObject());
           }
         });
@@ -155,7 +155,7 @@ router.put("/:id", async (req, res) => {
 // Delete User API - In progress-
 router.delete("/:id", async (req, res) => {
   try {
-    user.findOne({ _id: req.params.id }, function (err, user) {
+    User.findOne({ _id: req.params.id }, function (err, user) {
       // If statement for Mongo error
       if (err) {
         console.log(err);
