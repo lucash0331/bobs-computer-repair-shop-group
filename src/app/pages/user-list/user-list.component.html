@@ -47,7 +47,9 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let user"> <mat-icon routerLink="" color="accent">edit</mat-icon></mat-cell>
+          <mat-cell *matCellDef="let user">
+            <mat-icon class="icon-cursor" routerLink="" color="accent">edit</mat-icon></mat-cell
+          >
         </ng-container>
 
         <!-- Delete Column -->
