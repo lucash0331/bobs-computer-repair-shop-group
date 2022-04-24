@@ -25,6 +25,14 @@
                 [formControl]="form.controls['firstName']"
                 placeholder="First name"
               />
+              <mat-error
+              class="error"
+              *ngIf="
+                form.controls.firstName.hasError('required') &&
+                form.controls.firstName.touched
+              "
+              >This field is required!</mat-error
+            >
             </mat-form-field>
             <!--lastName-->
             <mat-form-field>
@@ -33,6 +41,14 @@
                 [formControl]="form.controls['lastName']"
                 placeholder="Last name"
               />
+              <mat-error
+              class="error"
+              *ngIf="
+                form.controls.lastName.hasError('required') &&
+                form.controls.lastName.touched
+              "
+              >This field is required!</mat-error
+            >
             </mat-form-field>
             <!--phone-->
             <mat-form-field>

@@ -90,7 +90,10 @@ router.get("/:userName", async (req, res) => {
  */
 router.get("/", async (req, res) => {
   try {
-    User.find({}, function (err, users) {
+    User.find({})
+    .where("isDisabled")
+    .equals(false)
+    .exec (function (err, users) {
       if (err) {
         console.log(err);
         const readUsersMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
