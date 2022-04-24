@@ -1,6 +1,6 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
 ; Author: Professor Krasso
 ; Date: March 2, 2022
 ; Modified By: House Gryffindor
@@ -9,12 +9,12 @@
 ;===========================================
 */
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema; 
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-let selectedSecurityQuestionsSchema = new Schema ({
-    question: { type: String },
-    answer: { type: String }
+let selectedSecurityQuestionsSchema = new Schema({
+  question: { type: String },
+  answer: { type: String },
 });
 
 module.export = selectedSecurityQuestionsSchema;

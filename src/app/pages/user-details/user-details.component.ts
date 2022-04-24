@@ -1,25 +1,41 @@
 /*
 ============================================
+<<<<<<< HEAD
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Author: Professor Krasso
+; Date: April 23, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop user-details component
+=======
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
 ; Date: April 23, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App security-question-details.component file
+>>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
 ;===========================================
 */
 
 import { Component, OnInit } from "@angular/core";
+<<<<<<< HEAD
+=======
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import {UserService } from "src/app/services/user.service";
 import { User } from "src/app/shared/interfaces/user.interface";
+>>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
 
 @Component({
-  selector: 'app-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.css']
+  selector: "app-user-details",
+  templateUrl: "./user-details.component.html",
+  styleUrls: ["./user-details.component.css"],
 })
 export class UserDetailsComponent implements OnInit {
+<<<<<<< HEAD
+  constructor() {}
+
+  ngOnInit(): void {}
+=======
   user: User;
   userId: string;
 
@@ -91,4 +107,5 @@ export class UserDetailsComponent implements OnInit {
     this.router.navigate(["/users"]);
     alert("User information is canceled.");
   }
+>>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
 }

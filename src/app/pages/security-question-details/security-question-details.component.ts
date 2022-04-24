@@ -1,8 +1,8 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop SPrint1
 ; Author: Professor Krasso
-; Date: April 23, 2022
+; Date: April 24, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App security-question-details.component file
 ;===========================================
@@ -34,19 +34,17 @@ export class SecurityQuestionDetailsComponent implements OnInit {
     this.questionId = this.route.snapshot.paramMap.get("id");
     console.log(this.route.snapshot.paramMap);
     console.log(this.questionId);
-    this.securityQuestionsService
-      .findSecurityQuestionById(this.questionId)
-      .subscribe(
-        (res) => {
-          this.question = res["data"];
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {
-          this.form.controls.text.setValue(this.question.text);
-        }
-      );
+    this.securityQuestionsService.findSecurityQuestionById(this.questionId).subscribe(
+      (res) => {
+        this.question = res["data"];
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        this.form.controls.text.setValue(this.question.text);
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -60,12 +58,10 @@ export class SecurityQuestionDetailsComponent implements OnInit {
       text: this.form.controls.text.value,
     };
 
-    this.securityQuestionsService
-      .updateSecurityQuestion(this.questionId, updatedSecurityQuestion)
-      .subscribe((res) => {
-        this.router.navigate(["/security-questions"]);
-        alert("Security question is updated.");
-      });
+    this.securityQuestionsService.updateSecurityQuestion(this.questionId, updatedSecurityQuestion).subscribe((res) => {
+      this.router.navigate(["/security-questions"]);
+      alert("Security question is updated.");
+    });
   }
 
   cancel(): void {

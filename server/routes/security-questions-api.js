@@ -1,8 +1,8 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
 ; Author: Professor Krasso
-; Date: April 20, 2022
+; Date: April 24, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App security-questions.js file
 ; APIs for the security questions

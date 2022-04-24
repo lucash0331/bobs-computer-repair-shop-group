@@ -4,29 +4,26 @@
 ; Author: Professor Krasso
 ; Date: April 20, 2022
 ; Modified By: House Gryffindor
-; Description: Bob's Computer Repair Shop App base responses for messages
+; Description: Bob's Computer Repair Shop App error responses for messages
 ; APIs for the security questions and users
 ;===========================================
 */
 
-//class for error messages
-class BaseResponse {
-  constructor(code, msg, data) {
-    this.code = code;
-    this.msg = msg;
+class ErrorResponse {
+  constructor(httpCode, message, data) {
+    this.httpCode = httpCode;
+    this.message = message;
     this.data = data;
   }
 
-  //toObject function will return an object with all the BaseResponse fields to go into the error message
-
   toObject() {
     return {
-      code: this.code,
-      msg: this.msg,
+      httpCode: this.httpCode,
+      message: this.message,
       data: this.data,
       timestamp: new Date().toLocaleDateString(),
     };
   }
 }
 
-module.exports = BaseResponse;
+module.exports = ErrorResponse;
