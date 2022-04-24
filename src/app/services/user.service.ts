@@ -43,13 +43,14 @@ export class UserService {
   }
 
   updateUser(_id: string, updatedUser: User): Observable<any> {
-    const result = this.http.put("/api/users/user/" + _id, {
+    const result = this.http.put("/api/users/" + _id, {
+      
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       phoneNumber: updatedUser.phoneNumber,
       address: updatedUser.address,
       email: updatedUser.email,
-      role: updatedUser.role,
+      //role: updatedUser.role,
     });
     console.log(result);
     return result;

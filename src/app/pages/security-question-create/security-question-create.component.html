@@ -15,6 +15,14 @@
                 placeholder="Question text"
                 (keydown.enter)="create()"
               />
+              <mat-error
+              class="error"
+              *ngIf="
+                form.controls.text.hasError('required') &&
+                form.controls.text.touched
+              "
+              >You must enter a security question.</mat-error
+            >
             </mat-form-field>
           </div>
         </mat-card-content>
@@ -24,7 +32,7 @@
           <button mat-raised-button (click)="cancel()" color="primary">
             Cancel
           </button>
-          <button type="submit" mat-raised-button color="accent">Submit</button>
+          <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">Submit</button>
         </mat-card-actions>
       </form>
     </mat-card>

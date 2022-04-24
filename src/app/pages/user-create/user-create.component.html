@@ -16,6 +16,14 @@
                 [formControl]="form.controls['userName']"
                 placeholder="Username"
               />
+              <mat-error
+              class="error"
+              *ngIf="
+                form.controls.userName.hasError('required') &&
+                form.controls.userName.touched
+              "
+              >This field is required!</mat-error
+            >
             </mat-form-field>
             <mat-form-field>
               <input
@@ -24,6 +32,22 @@
                 [formControl]="form.controls['password']"
                 placeholder="Password"
               />
+              <mat-error
+              class="error"
+              *ngIf="
+                form.controls.password.hasError('required') &&
+                form.controls.password.touched
+              "
+              >This field is required!</mat-error
+            >
+            <mat-error
+            class="error"
+            *ngIf="
+              form.controls.password.hasError('pattern') &&
+              form.controls.password.touched
+            "
+            >Password must be at least 8 characters, contain one letter, and one number!</mat-error
+          >
             </mat-form-field>
             <mat-form-field>
               <input
@@ -64,6 +88,14 @@
                 [formControl]="form.controls['email']"
                 placeholder="Email"
               />
+              <mat-error
+              class="error"
+              *ngIf="
+                form.controls.email.hasError('email') &&
+                form.controls.email.touched
+              "
+              >Enter valid email!</mat-error
+            >
             </mat-form-field>
           </div>
         </mat-card-content>
@@ -73,7 +105,7 @@
           <button mat-raised-button (click)="cancel()" color="primary">
             Cancel
           </button>
-          <button type="submit" mat-raised-button color="accent">Submit</button>
+          <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">Submit</button>
         </mat-card-actions>
       </form>
     </mat-card>

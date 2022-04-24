@@ -9,22 +9,15 @@
 -->
 <div fxLayout="column" class="update-div">
   <mat-card fxFlex class="mat-elevation-z8 update-container">
-    <mat-card-header>User Details</mat-card-header>
+    <mat-card-header>User Details: {{userName}}</mat-card-header>
     <br />
     <mat-divider></mat-divider>
 
     <mat-card-content>
       <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
-        <form [formGroup]="form" (ngSubmit)="saveUser()" #questionForm>
+        <form [formGroup]="form" (ngSubmit)="saveUser()" #userForm>
           <mat-card-content>
-            <!--userName-->
-            <mat-form-field>
-              <input
-                matInput
-                [formControl]="form.controls['userName']"
-                disabled
-              />
-            </mat-form-field>
+           
             <!--firstName-->
             <mat-form-field>
               <input
@@ -32,14 +25,6 @@
                 [formControl]="form.controls['firstName']"
                 placeholder="First name"
               />
-              <mat-error
-                class="error"
-                *ngIf="
-                  form.controls.text.hasError('required') &&
-                  form.controls.text.touched
-                "
-                >This field is required!</mat-error
-              >
             </mat-form-field>
             <!--lastName-->
             <mat-form-field>
@@ -48,14 +33,6 @@
                 [formControl]="form.controls['lastName']"
                 placeholder="Last name"
               />
-              <mat-error
-                class="error"
-                *ngIf="
-                  form.controls.text.hasError('required') &&
-                  form.controls.text.touched
-                "
-                >This field is required!</mat-error
-              >
             </mat-form-field>
             <!--phone-->
             <mat-form-field>
@@ -64,14 +41,6 @@
                 [formControl]="form.controls['phoneNumber']"
                 placeholder="Phone number"
               />
-              <mat-error
-                class="error"
-                *ngIf="
-                  form.controls.text.hasError('required') &&
-                  form.controls.text.touched
-                "
-                >This field is required!</mat-error
-              >
             </mat-form-field>
             <!--address-->
             <mat-form-field>
@@ -80,14 +49,6 @@
                 [formControl]="form.controls['address']"
                 placeholder="Address"
               />
-              <mat-error
-                class="error"
-                *ngIf="
-                  form.controls.text.hasError('required') &&
-                  form.controls.text.touched
-                "
-                >This field is required!</mat-error
-              >
             </mat-form-field>
             <!--email-->
             <mat-form-field>
@@ -99,25 +60,24 @@
               <mat-error
                 class="error"
                 *ngIf="
-                  form.controls.text.hasError('required') &&
-                  form.controls.text.touched
+                  form.controls.email.hasError('email') &&
+                  form.controls.email.touched
                 "
-                >This field is required!</mat-error
+                >Input valid email!</mat-error
               >
             </mat-form-field>
-            <!--role-->
+            <!--role
 
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" #roleForm>
               <mat-label>Role</mat-label>
               <select
-                matNativeControl
-                required
-                [formControl]="form.controls['role']['role']"
+                matNativeControl                
+                [formControl]="form.controls['role']"
               >
                 <option value="standard">Standard</option>
                 <option value="admin">Admin</option>
               </select>
-            </mat-form-field>
+            </mat-form-field>-->
           </mat-card-content>
 
           <mat-card-actions>
