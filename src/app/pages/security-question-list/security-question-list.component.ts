@@ -23,7 +23,7 @@ import { MessageService } from "primeng/api";
   styleUrls: ["./security-question-list.component.css"],
 })
 export class SecurityQuestionListComponent implements OnInit {
-  securityQuestion: SecurityQuestion;
+  securityQuestion: SecurityQuestion[];
   _id: string;
   displayedColumns = ["text", "isDisabled", "edit", "delete"];
 
@@ -44,13 +44,14 @@ export class SecurityQuestionListComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  //Delete task function
   deleteSecurityQuestion(_id: string) {
     console.log(_id);
     this.confirmationService.confirm({
       message: "Are you sure you want to delete this security question?",
       accept: () => {
         if (_id) {
-          this.securityQuestionsService.deleteSecurityQuestion(this._id).subscribe(
+          this.securityQuestionsService.deleteSecurityQuestion(_id).subscribe(
             (res) => {
               this.securityQuestion = res.data;
             },
@@ -58,7 +59,7 @@ export class SecurityQuestionListComponent implements OnInit {
               console.log(err);
             },
             () => {
-              this._id = this.securityQuestion._id;
+              this.securityQuestion = this.securityQuestion.filter((q) => q._id !== _id);
 
               this.messageService.add({ severity: "warn", summary: "bcrs", detail: "Security question deleted" });
             }
@@ -68,5 +69,3 @@ export class SecurityQuestionListComponent implements OnInit {
     });
   }
 }
-
-//Delete task function
