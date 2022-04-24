@@ -7,6 +7,7 @@ import { SecurityQuestionListComponent } from "./pages/security-question-list/se
 import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component";
 import { SigninComponent } from "./pages/signin/signin.component";
 import { AuthGuard } from "./shared/auth.guard";
+import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,11 @@ const routes: Routes = [
       {
         path: "security-questions",
         component: SecurityQuestionListComponent,
+        // canActivate: [AuthGuard],
+      },
+      {
+        path: "security-questions/:id" ,
+        component: SecurityQuestionDetailsComponent,
         // canActivate: [AuthGuard],
       },
     ],

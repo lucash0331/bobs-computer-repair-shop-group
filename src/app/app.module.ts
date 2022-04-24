@@ -39,13 +39,13 @@ import {MatTabsModule} from '@angular/material/tabs';
     BaseLayoutComponent,
     AuthLayoutComponent,
     SecurityQuestionListComponent,
-    SigninComponent,  
+    SigninComponent,
     UserCreateComponent,
     UserDetailsComponent,
     UserListComponent,
     SecurityQuestionCreateComponent,
     SecurityQuestionDetailsComponent,
-    
+
   ],
   imports: [
     BrowserModule,
