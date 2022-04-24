@@ -1,16 +1,5 @@
 /*
 ============================================
-<<<<<<< HEAD
-; Title: WEB450 Bob's Computer Repair Shop Sprint1
-; Author: Professor Krasso
-; Date: April 24, 2022
-; Modified By: House Gryffindor
-; Description: Bob's Computer Repair Shop App user.service file
-; 
-;===========================================
-*/
-
-=======
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
 ; Date: April 23, 2022
@@ -18,7 +7,6 @@
 ; Description: Bob's Computer Repair Shop App services for users.
 ;===========================================
 */
->>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -28,13 +16,6 @@ import { User } from "../shared/interfaces/user.interface";
   providedIn: "root",
 })
 export class UserService {
-<<<<<<< HEAD
-  createUser(newUser: User) {
-    throw new Error("Method not implemented.");
-  }
-=======
-
->>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
   constructor(private http: HttpClient) {}
 
   createUser(newUser: User): Observable<any> {

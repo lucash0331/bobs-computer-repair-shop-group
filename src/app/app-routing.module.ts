@@ -43,11 +43,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-<<<<<<< HEAD
-        path: "security-questions/:id",
-=======
         path: "security-questions/update/:id" ,
->>>>>>> 26be4755a6a077caf224044df7999ec82cb874c3
         component: SecurityQuestionDetailsComponent,
         // canActivate: [AuthGuard],
       },
