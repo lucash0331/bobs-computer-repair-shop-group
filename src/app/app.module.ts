@@ -29,8 +29,11 @@ import { UserListComponent } from "./pages/user-list/user-list.component";
 import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
 import { SecurityQuestionDetailsComponent } from "./pages/security-question-details/security-question-details.component";
 import { PickListModule } from "primeng/picklist";
-import {MatTabsModule} from '@angular/material/tabs';
-
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ConfirmationService } from "primeng/api";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -45,7 +48,6 @@ import {MatTabsModule} from '@angular/material/tabs';
     UserListComponent,
     SecurityQuestionCreateComponent,
     SecurityQuestionDetailsComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -67,9 +69,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDividerModule,
     PickListModule,
     MatTableModule,
-    MatTabsModule
+    ToastModule,
+    ConfirmDialogModule,
+    MatTabsModule,
   ],
-  providers: [],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
       if (err) {
         console.log(err);
         status = 500;
-        const createSecurityQuestionMongodbErrorResponse = new ErrorResponse(status, "Internal server error", err);
+        const createSecurityQuestionMongodbErrorResponse = new BaseResponse(status, "Internal server error", err);
         return res.status(status).send(createSecurityQuestionMongodbErrorResponse.toObject());
       }
 
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
     // Server error goes here
     console.log(error);
     status = 500;
-    const createSecurityQuestionCatchErrorResponse = new ErrorResponse(status, "Internal server error", error.message);
+    const createSecurityQuestionCatchErrorResponse = new BaseResponse(status, "Internal server error", error.message);
     res.status(status).send(createSecurityQuestionCatchErrorResponse.toObject());
   }
 });
@@ -142,7 +142,7 @@ router.delete("/:id", async (req, res) => {
       if (err) {
         console.log(err);
         const deleteSecurityQuestionMongoErrorResponse = new BaseResponse("500", "MongoDB Server Error", err);
-        res.status(500).send(deleteSecurityQuestionMongoErrorResponse.toObjects());
+        res.status(500).send(deleteSecurityQuestionMongoErrorResponse.toObject());
       } else {
         console.log(securityQuestion);
 

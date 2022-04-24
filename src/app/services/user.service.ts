@@ -7,9 +7,16 @@ import { User } from "../shared/interfaces/user.interface";
   providedIn: "root",
 })
 export class UserService {
+  createUser(newUser: User) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient) {}
 
   findAllUsers(): Observable<any> {
     return this.http.get("/api/users");
+  }
+
+  deleteUser(_id: string): Observable<any> {
+    return this.http.delete("/api/users/:id");
   }
 }
