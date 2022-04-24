@@ -1,6 +1,6 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
 ; Author: Professor Krasso
 ; Date: April 23, 2022
 ; Modified By: House Gryffindor
@@ -30,11 +30,9 @@ export class SecurityQuestionsService {
     return this.http.get("/api/security-questions/" + _id);
   }
 
-  createSecurityQuestion(
-    newSecurityQuestion: SecurityQuestion
-  ): Observable<any> {
+  createSecurityQuestion(newSecurityQuestion: SecurityQuestion): Observable<any> {
     console.log(newSecurityQuestion);
-    return this.http.post('/api/security-questions', {
+    return this.http.post("/api/security-questions", {
       text: newSecurityQuestion.text,
     });
   }

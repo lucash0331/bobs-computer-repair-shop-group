@@ -1,6 +1,6 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
 ; Author: Professor Krasso
 ; Date: April 21, 2022
 ; Modified By: House Gryffindor
@@ -37,13 +37,21 @@ router.post("/signin", async (req, res) => {
             res.json(signinResponse.toObject());
           } else {
             console.log(`Invalid password for username: ${user.userName}`);
-            const invalidPasswordResponse = new BaseResponse(401, "Invalid username and/or password.  Please try again", null);
+            const invalidPasswordResponse = new BaseResponse(
+              401,
+              "Invalid username and/or password.  Please try again",
+              null
+            );
             console.log(invalidPasswordResponse.toObject());
             res.status(401).send(invalidPasswordResponse.toObject());
           }
         } else {
           console.log(`Username: ${req.body.userName} is invalid`);
-          const invalidUserNameResponse = new BaseResponse(200, "Invalid username and/or password.  Please try again", null);
+          const invalidUserNameResponse = new BaseResponse(
+            200,
+            "Invalid username and/or password.  Please try again",
+            null
+          );
           console.log(invalidUserNameResponse.toObject());
           res.status(401).send(invalidUserNameResponse.toObject());
         }

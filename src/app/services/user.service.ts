@@ -16,7 +16,6 @@ import { User } from "../shared/interfaces/user.interface";
   providedIn: "root",
 })
 export class UserService {
-
   constructor(private http: HttpClient) {}
 
   createUser(newUser: User): Observable<any> {

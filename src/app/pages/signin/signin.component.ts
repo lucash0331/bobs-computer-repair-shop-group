@@ -2,7 +2,7 @@
 ============================================
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
-; Date: April 23, 2022
+; Date: April 24, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App signin.component file
 ;===========================================
@@ -30,6 +30,8 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient
   ) {}
+
+  //password validation pattern added
 
   ngOnInit(): void {
     this.form = this.fb.group({

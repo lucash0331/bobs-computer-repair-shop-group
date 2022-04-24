@@ -1,3 +1,14 @@
+/*
+============================================
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Author: Professor Krasso
+; Date: April 24, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App app-routing.module.ts
+; 
+;===========================================
+*/
+
 import { HomeComponent } from "./pages/home/home.component";
 import { BaseLayoutComponent } from "./shared/base-layout/base-layout.component";
 import { NgModule } from "@angular/core";
