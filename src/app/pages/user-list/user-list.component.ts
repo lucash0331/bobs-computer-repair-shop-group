@@ -1,3 +1,13 @@
+/*
+============================================
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Author: Professor Krasso
+; Date: April 23, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop user-list component
+;===========================================
+*/
+
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { User } from "src/app/shared/interfaces/user.interface";

@@ -1,6 +1,6 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop Sprint1
 ; Author: Professor Krasso
 ; Date: April 20, 2022
 ; Modified By: House Gryffindor
@@ -10,21 +10,20 @@
 */
 
 class ErrorResponse {
-    constructor(httpCode, message, data) {
-      this.httpCode = httpCode;
-      this.message = message;
-      this.data = data;
-    }
-  
-    toObject() {
-      return {
-        httpCode: this.httpCode,
-        message: this.message,
-        data: this.data,
-        timestamp: new Date().toLocaleDateString(),
-      };
-    }
+  constructor(httpCode, message, data) {
+    this.httpCode = httpCode;
+    this.message = message;
+    this.data = data;
   }
-  
-  module.exports = ErrorResponse;
-  
+
+  toObject() {
+    return {
+      httpCode: this.httpCode,
+      message: this.message,
+      data: this.data,
+      timestamp: new Date().toLocaleDateString(),
+    };
+  }
+}
+
+module.exports = ErrorResponse;

@@ -1,8 +1,8 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair SHop
+; Title: WEB450 Bob's Computer Repair Shop Sprint 1
 ; Author: Professor Krasso
-; Date: April 10, 2022
+; Date: April 23, 2022
 ; Modified By: William Talley
 ; Description: Bob's Computer Repair Shop auth.guard.ts file
 ; sign-in authorization
