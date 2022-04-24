@@ -24,12 +24,20 @@ export class SigninComponent implements OnInit {
   form: FormGroup;
   errorMessage: string;
 
-  constructor(private router: Router, private cookieService: CookieService, private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       userName: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])],
+      password: [
+        null,
+        Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
+      ],
     });
   }
 
