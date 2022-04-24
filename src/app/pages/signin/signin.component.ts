@@ -38,7 +38,7 @@ export class SigninComponent implements OnInit {
       userName: [null, Validators.compose([Validators.required])],
       password: [
         null,
-        Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
+        Validators.compose([Validators.required]),
       ],
     });
   }
@@ -57,10 +57,12 @@ export class SigninComponent implements OnInit {
           if (res["data"].userName) {
             this.cookieService.set("session_user", res["data"].userName, 1);
             // Need to be able to send lastName and firstName to home page to display in menu.
-            // May need to do additional http.get to get the info
-            //sessionStorage.setItem("name", `${res["firstName"]} ${res["lastName"]}`);
+            
+            sessionStorage.setItem("name", `${res["data"].firstName} ${res["data"].lastName}`);
             this.router.navigate(["/"]);
             console.log(res["data"].userName);
+            console.log(res["data"].firstName);
+            console.log(res["data"].lastName);
           }
         },
         (err) => {
