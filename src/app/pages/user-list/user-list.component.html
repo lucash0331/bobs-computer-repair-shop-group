@@ -1,3 +1,12 @@
+ <!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: April 23, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App html code for UserListComponent.
+===========================================
+-->
 <br />
 <br />
 <div fxLayout="column">
@@ -47,7 +56,7 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let user"> <mat-icon routerLink="/users/update/{{user._id}}" color="accent">edit</mat-icon></mat-cell>
+          <mat-cell *matCellDef="let user"> <mat-icon routerLink="/users/update/{{user._id}}" color="accent" class="icon-cursor">edit</mat-icon></mat-cell>
         </ng-container>
 
         <!-- Delete Column -->

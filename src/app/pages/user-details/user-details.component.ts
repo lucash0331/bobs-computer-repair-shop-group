@@ -13,6 +13,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { User } from "src/app/shared/interfaces/user.interface";
+//import { ConfirmationService } from "primeng/api";
+//import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-user-details",
@@ -30,7 +32,9 @@ export class UserDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    //private confirmationService: ConfirmationService,
+    //private messageService: MessageService
   ) {
     this.userId = this.route.snapshot.paramMap.get("id");
     console.log(this.route.snapshot.paramMap);
@@ -46,7 +50,7 @@ export class UserDetailsComponent implements OnInit {
       },
       () => {
         console.log("inside findUserById ");
-        this.userName=this.user.userName;        
+        this.userName = this.user.userName;
         this.form.controls.firstName.setValue(this.user.firstName);
         this.form.controls.lastName.setValue(this.user.lastName);
         this.form.controls.phoneNumber.setValue(this.user.phoneNumber);
@@ -55,14 +59,12 @@ export class UserDetailsComponent implements OnInit {
         //this.form.controls.role.setValue(this.user.role["role"]);
         //console.log(this.user.role["role"]);
         //console.log(this.form.controls.role.value);
-
       }
     );
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      
       firstName: [null, Validators.compose([Validators.required])],
       lastName: [null, Validators.compose([Validators.required])],
       phoneNumber: [null, Validators.compose([])],
@@ -74,7 +76,6 @@ export class UserDetailsComponent implements OnInit {
 
   saveUser(): void {
     const updatedUser: User = {
-      
       firstName: this.form.controls.firstName.value,
       lastName: this.form.controls.lastName.value,
       phoneNumber: this.form.controls.phoneNumber.value,
@@ -85,6 +86,12 @@ export class UserDetailsComponent implements OnInit {
     console.log(updatedUser);
     this.userService.updateUser(this.userId, updatedUser).subscribe((res) => {
       this.router.navigate(["/users"]);
+      
+    },
+    (err) => {
+      console.log(err);
+    },
+    () =>  {
       alert("User information is updated.");
     });
   }

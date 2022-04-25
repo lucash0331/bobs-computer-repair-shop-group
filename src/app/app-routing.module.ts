@@ -46,17 +46,17 @@ const routes: Routes = [
       {
         path: "security-questions/create/new" ,
         component: SecurityQuestionCreateComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: "security-questions/update/:id" ,
         component: SecurityQuestionDetailsComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: "security-questions/create/new" ,
         component: SecurityQuestionCreateComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
 
       {
@@ -67,12 +67,12 @@ const routes: Routes = [
       {
         path: "users/update/:id" ,
         component: UserDetailsComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
       {
         path: "users/create/new" ,
         component: UserCreateComponent,
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
       },
     ],
   },
