@@ -53,15 +53,22 @@ export class UserListComponent implements OnInit {
       message: "Are you sure you want to delete this user?",
       accept: () => {
         if (_id) {
-          this.userService.deleteUser(this._id).subscribe(
+          this.userService.deleteUser(_id).subscribe(
             (res) => {
-              this.user = res.data;
+              //this.user = res.data;
+              this.userService.findAllUsers().subscribe(
+                (res) => {
+                  this.user = res["data"];
+                },
+                (err) => {},
+                () => {}
+              );
             },
             (err) => {
               console.log(err);
             },
             () => {
-              this._id = this.user._id;
+              //this._id = this.user._id;
               // PrimeNG Toast message sender
               this.messageService.add({ severity: "warn", summary: "bcrs", detail: "Task deleted successfully" });
             }
