@@ -35,7 +35,9 @@ router.post("/", async (req, res) => {
       address: req.body.address,
       email: req.body.email,
       role: standardRole,
+      //securityQuestions: req.body.securityQuestions
     };
+    console.log(req.body);
 
     User.create(newUser, function (err, user) {
       if (err) {

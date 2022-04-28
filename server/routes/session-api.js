@@ -63,5 +63,58 @@ router.post("/signin", async (req, res) => {
     res.status(500).send(signinCatchErrorResponse.toObject());
   }
 });
+/**
+ * API to verify security questions (OK)
+ */
+
+ router.post("/verify/users/:userName/security-questions", async (req, res) => {
+  try {
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+      if (err) {
+        console.log(err);
+        const verifySecurityQuestionsMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(verifySecurityQuestionsMongodbErrorResponse.toObject());
+      } else {
+        if (!user) {
+          const response = `Invalid userName`;
+          console.log(response);
+          res.send(response);
+        } else {
+
+          const firstQuestion = user.securityQuestions.find(
+            (question) => question.question === req.body.question1
+          );
+          const secondQuestion = user.securityQuestions.find(
+            (question) => question.question === req.body.question2
+          );
+          const thirdQuestion = user.securityQuestions.find(
+            (question) => question.question === req.body.question3
+          );
+
+          const isValidFirstAnswer =
+            firstQuestion.answer === req.body.answer1;
+          const isValidSecondAnswer =
+            secondQuestion.answer === req.body.answer2;
+          const isValidThirdAnswer =
+            thirdQuestion.answer === req.body.answer3;
+
+            if (isValidFirstAnswer && isValidSecondAnswer && isValidThirdAnswer) {
+              console.log("Answers are correct");
+              const validSecurityQuestionsResponse = new BaseResponse("200", "Answers are correct", user);
+              res.json(validSecurityQuestionsResponse.toObject());
+            } else {
+              console.log("Answers are incorrect");
+              const invalidSecurityQuestionsResponse = new BaseResponse("200", "Answers are incorrect", user);
+              res.json(invalidSecurityQuestionsResponse.toObject());
+            }
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const verifySecurityQuestionsErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    res.status(500).send(verifySecurityQuestionsErrorResponse.toObject());
+  }
+});
 
 module.exports = router;
