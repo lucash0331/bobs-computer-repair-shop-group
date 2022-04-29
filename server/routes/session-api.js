@@ -119,9 +119,9 @@ router.post("/verify/users/:userName/security-questions", async (req, res) => {
           console.log(response);
           res.send(response);
         } else {
-          const firstQuestion = user.securityQuestions.find((question) => question.question === req.body.question1);
-          const secondQuestion = user.securityQuestions.find((question) => question.question === req.body.question2);
-          const thirdQuestion = user.securityQuestions.find((question) => question.question === req.body.question3);
+          const firstQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question1);
+          const secondQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question2);
+          const thirdQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question3);
 
           const isValidFirstAnswer = firstQuestion.answer === req.body.answer1;
           const isValidSecondAnswer = secondQuestion.answer === req.body.answer2;

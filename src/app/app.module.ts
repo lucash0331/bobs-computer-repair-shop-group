@@ -46,6 +46,9 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
 import { MatTabsModule } from "@angular/material/tabs";
 import { RegisterComponent } from './pages/register/register.component';
+import { ResetPasswordFormComponent } from './forms/reset-password-form/reset-password-form.component';
+import { VerifySecurityQuestionsFormComponent } from './forms/verify-security-questions-form/verify-security-questions-form.component';
+import { VerifyUsernameFormComponent } from './forms/verify-username-form/verify-username-form.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +64,9 @@ import { RegisterComponent } from './pages/register/register.component';
     SecurityQuestionCreateComponent,
     SecurityQuestionDetailsComponent,
     RegisterComponent,
+    ResetPasswordFormComponent,
+    VerifySecurityQuestionsFormComponent,
+    VerifyUsernameFormComponent,
   ],
   imports: [
     BrowserModule,
