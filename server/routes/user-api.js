@@ -1,8 +1,8 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Title: WEB450 Bob's Computer Repair Shop Sprint2
 ; Author: Professor Krasso
-; Date: April 21, 2022
+; Date: April 28, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App user-api.js file
 ; APIs for the user APIs
@@ -93,19 +93,19 @@ router.get("/:userName", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     User.find({})
-    .where("isDisabled")
-    .equals(false)
-    .exec (function (err, users) {
-      if (err) {
-        console.log(err);
-        const readUsersMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
-        res.status(500).send(readUsersMongodbErrorResponse.toObject());
-      } else {
-        console.log(users);
-        const readUsersResponse = new BaseResponse(200, "Query successful", users);
-        res.json(readUsersResponse.toObject());
-      }
-    });
+      .where("isDisabled")
+      .equals(false)
+      .exec(function (err, users) {
+        if (err) {
+          console.log(err);
+          const readUsersMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+          res.status(500).send(readUsersMongodbErrorResponse.toObject());
+        } else {
+          console.log(users);
+          const readUsersResponse = new BaseResponse(200, "Query successful", users);
+          res.json(readUsersResponse.toObject());
+        }
+      });
   } catch (e) {
     console.log(e);
     const readUserCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
@@ -203,7 +203,7 @@ router.delete("/:id", async (req, res) => {
  * API to find user by ID (OK)
  */
 
- router.get("/user/:id", async (req, res) => {
+router.get("/user/:id", async (req, res) => {
   try {
     User.findOne({ _id: req.params.id }, function (err, user) {
       console.log(req.params.id);
@@ -227,6 +227,32 @@ router.delete("/:id", async (req, res) => {
     console.log(e);
     const readUserCatchErrorResponse = new BaseResponse(500, "Internal server error", err);
     res.status(500).send(readUserCatchErrorResponse.toObject());
+  }
+});
+
+// find Selected Security Questions
+
+router.get("/:userName/security-questions", async (req, res) => {
+  try {
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+      if (err) {
+        console.log(err);
+        const findSelectedSecurityQuestionsMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+        res.status(500).send(findSelectedSecurityQuestionsMongodbErrorResponse.toObject());
+      } else {
+        console.log(user);
+        const findSelectedSecurityQuestionsResponse = new BaseResponse(
+          "200",
+          "Query successful",
+          user.selectedSecurityQuestions
+        );
+        res.json(findSelectedSecurityQuestionsResponse.toObject());
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const findSelectedSecurityQuestionsCatchErrorResponse = new BaseResponse("500", "Internal server error", e);
+    res.status(500).send(findSelectedSecurityQuestionsCatchErrorResponse.toObject());
   }
 });
 

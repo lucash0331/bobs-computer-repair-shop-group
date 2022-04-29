@@ -1,8 +1,8 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Title: WEB450 Bob's Computer Repair Shop Sprint2
 ; Author: Professor Krasso
-; Date: April 21, 2022
+; Date: April 28, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App session-api.js file
 ; API for user session sign-in
@@ -67,7 +67,7 @@ router.post("/signin", async (req, res) => {
  * API to verify security questions (OK)
  */
 
- router.post("/verify/users/:userName/security-questions", async (req, res) => {
+router.post("/verify/users/:userName/security-questions", async (req, res) => {
   try {
     User.findOne({ userName: req.params.userName }, function (err, user) {
       if (err) {
@@ -80,33 +80,23 @@ router.post("/signin", async (req, res) => {
           console.log(response);
           res.send(response);
         } else {
+          const firstQuestion = user.securityQuestions.find((question) => question.question === req.body.question1);
+          const secondQuestion = user.securityQuestions.find((question) => question.question === req.body.question2);
+          const thirdQuestion = user.securityQuestions.find((question) => question.question === req.body.question3);
 
-          const firstQuestion = user.securityQuestions.find(
-            (question) => question.question === req.body.question1
-          );
-          const secondQuestion = user.securityQuestions.find(
-            (question) => question.question === req.body.question2
-          );
-          const thirdQuestion = user.securityQuestions.find(
-            (question) => question.question === req.body.question3
-          );
+          const isValidFirstAnswer = firstQuestion.answer === req.body.answer1;
+          const isValidSecondAnswer = secondQuestion.answer === req.body.answer2;
+          const isValidThirdAnswer = thirdQuestion.answer === req.body.answer3;
 
-          const isValidFirstAnswer =
-            firstQuestion.answer === req.body.answer1;
-          const isValidSecondAnswer =
-            secondQuestion.answer === req.body.answer2;
-          const isValidThirdAnswer =
-            thirdQuestion.answer === req.body.answer3;
-
-            if (isValidFirstAnswer && isValidSecondAnswer && isValidThirdAnswer) {
-              console.log("Answers are correct");
-              const validSecurityQuestionsResponse = new BaseResponse("200", "Answers are correct", user);
-              res.json(validSecurityQuestionsResponse.toObject());
-            } else {
-              console.log("Answers are incorrect");
-              const invalidSecurityQuestionsResponse = new BaseResponse("200", "Answers are incorrect", user);
-              res.json(invalidSecurityQuestionsResponse.toObject());
-            }
+          if (isValidFirstAnswer && isValidSecondAnswer && isValidThirdAnswer) {
+            console.log("Answers are correct");
+            const validSecurityQuestionsResponse = new BaseResponse("200", "Answers are correct", user);
+            res.json(validSecurityQuestionsResponse.toObject());
+          } else {
+            console.log("Answers are incorrect");
+            const invalidSecurityQuestionsResponse = new BaseResponse("200", "Answers are incorrect", user);
+            res.json(invalidSecurityQuestionsResponse.toObject());
+          }
         }
       }
     });
@@ -114,6 +104,46 @@ router.post("/signin", async (req, res) => {
     console.log(e);
     const verifySecurityQuestionsErrorResponse = new BaseResponse(500, "Internal server error", e.message);
     res.status(500).send(verifySecurityQuestionsErrorResponse.toObject());
+  }
+});
+
+//Reset Password API
+
+router.post("users/:userName/resetPassword", async (req, res) => {
+  try {
+    const password = req.body.password;
+
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+      if (err) {
+        console.log(err);
+        const resetPasswordMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+        res.status(500).send(resetPasswordMongodbErrorResponse.toObject());
+      } else {
+        console.log(user);
+        //Salt and hash the password
+        let hashedPassword = bcrypt.hashSync(password, saltRounds);
+
+        user.set({
+          password: hashedPassword,
+        });
+
+        user.save(function (err, updatedUser) {
+          if (err) {
+            console.log(err);
+            const updatedUserMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+            res.status(500).send(updatedUserMongodbErrorResponse.toObject());
+          } else {
+            console.log(updatedUser);
+            const updatedPasswordResponse = new BaseResponse("200", "Query Successful", updatedUser);
+            res.json(updatedPasswordResponse.toObject());
+          }
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const resetPasswordCatchError = new BaseResponse("500", "Internal server error", e);
+    res.status(500).send(resetPasswordCatchError.toObject());
   }
 });
 
