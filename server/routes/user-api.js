@@ -18,44 +18,44 @@ const router = express.Router();
 const saltRounds = 10;
 
 // CreateUser API
-router.post("/", async (req, res) => {
-  try {
-    let hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
-    standardRole = {
-      role: "standard",
-    };
+// router.post("/", async (req, res) => {
+//   try {
+//     let hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+//     standardRole = {
+//       role: "standard",
+//     };
 
-    //user object
-    let newUser = {
-      userName: req.body.userName,
-      password: hashedPassword,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      phoneNumber: req.body.phoneNumber,
-      address: req.body.address,
-      email: req.body.email,
-      role: standardRole,
-      //securityQuestions: req.body.securityQuestions
-    };
-    console.log(req.body);
+//     //user object
+//     let newUser = {
+//       userName: req.body.userName,
+//       password: hashedPassword,
+//       firstName: req.body.firstName,
+//       lastName: req.body.lastName,
+//       phoneNumber: req.body.phoneNumber,
+//       address: req.body.address,
+//       email: req.body.email,
+//       role: standardRole,
+//       securityQuestions: req.body.securityQuestions
+//     };
+//     console.log(req.body);
 
-    User.create(newUser, function (err, user) {
-      if (err) {
-        console.log(err);
-        const createUserMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
-        res.status(500).send(createUserMongodbErrorResponse.toObject());
-      } else {
-        console.log(user);
-        const createUserResponse = new BaseResponse(200, "Query Successful", user);
-        res.json(createUserResponse.toObject());
-      }
-    });
-  } catch (e) {
-    console.log(e);
-    const createUserCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
-    res.status(500).send(createUserCatchErrorResponse.toObject());
-  }
-});
+//     User.create(newUser, function (err, user) {
+//       if (err) {
+//         console.log(err);
+//         const createUserMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
+//         res.status(500).send(createUserMongodbErrorResponse.toObject());
+//       } else {
+//         console.log(user);
+//         const createUserResponse = new BaseResponse(200, "Query Successful", user);
+//         res.json(createUserResponse.toObject());
+//       }
+//     });
+//   } catch (e) {
+//     console.log(e);
+//     const createUserCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
+//     res.status(500).send(createUserCatchErrorResponse.toObject());
+//   }
+// });
 
 /**
  * API to find user by username (OK)
@@ -241,11 +241,7 @@ router.get("/:userName/security-questions", async (req, res) => {
         res.status(500).send(findSelectedSecurityQuestionsMongodbErrorResponse.toObject());
       } else {
         console.log(user);
-        const findSelectedSecurityQuestionsResponse = new BaseResponse(
-          "200",
-          "Query successful",
-          user.selectedSecurityQuestions
-        );
+        const findSelectedSecurityQuestionsResponse = new BaseResponse("200", "Query successful", user.selectedSecurityQuestions);
         res.json(findSelectedSecurityQuestionsResponse.toObject());
       }
     });
