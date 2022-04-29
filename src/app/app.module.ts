@@ -45,6 +45,7 @@ import { MessageService } from "primeng/api";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
 import { MatTabsModule } from "@angular/material/tabs";
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     UserListComponent,
     SecurityQuestionCreateComponent,
     SecurityQuestionDetailsComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
