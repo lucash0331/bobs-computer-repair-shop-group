@@ -17,6 +17,8 @@ import { HttpClient } from "@angular/common/http";
 import { Message } from "primeng/api/message";
 import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
 import { SecurityQuestionsService } from "src/app/services/security-questions.service";
+import { MessageService } from "primeng/api";
+import { ConfirmationService } from "primeng/api";
 
 @Component({
   selector: "app-signin",
@@ -33,13 +35,19 @@ export class SigninComponent implements OnInit {
   credentialsForm: FormGroup;
 
   errorMessages: Message[];
+  display: boolean = false;
+  showDialog() {
+    this.display = true;
+  }
 
   constructor(
     private router: Router,
     private cookieService: CookieService,
     private fb: FormBuilder,
     private http: HttpClient,
-    private securityQuestionsService: SecurityQuestionsService
+    private securityQuestionsService: SecurityQuestionsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     this.securityQuestionsService.findAllSecurityQuestions().subscribe(
       (res) => {
@@ -78,10 +86,16 @@ export class SigninComponent implements OnInit {
     });
     this.credentialsForm = this.fb.group({
       userName: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")])],
+      password: [
+        null,
+        Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
+      ],
     });
   }
 
+  redirectLogIn() {
+    this.router.navigateByUrl("/");
+  }
   // Register function
   register() {
     const contactInformation = this.contactForm.value;
@@ -116,8 +130,9 @@ export class SigninComponent implements OnInit {
       })
       .subscribe(
         (res) => {
-          this.cookieService.set("sessionuser", credentials.userName, 1);
-          this.router.navigate(["/"]);
+          this.cookieService.set("session_user", credentials.userName, 1);
+          // this.router.navigate(["/"]);
+          sessionStorage.setItem("name", `${res["data"].firstName} ${res["data"].lastName}`);
         },
         (err) => {
           this.errorMessages = [{ severity: "error", summary: "Error", detail: err.message }];

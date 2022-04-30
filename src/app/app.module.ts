@@ -55,6 +55,7 @@ import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatListModule } from "@angular/material/list";
 import { MatSelectModule } from "@angular/material/select";
+import { DialogModule } from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { MatSelectModule } from "@angular/material/select";
     MatStepperModule,
     MatListModule,
     MatSelectModule,
+    DialogModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
