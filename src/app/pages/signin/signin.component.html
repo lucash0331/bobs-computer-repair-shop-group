@@ -75,7 +75,8 @@
                       </mat-error>
                     </mat-form-field>
                   </mat-list-item>
-                  <br /><br />
+                  <br />
+                  <br />
                   <mat-list-item>
                     <mat-form-field fxFlex appearance="fill">
                       <mat-label>Phone number</mat-label>
@@ -99,7 +100,29 @@
                       </mat-error>
                     </mat-form-field>
                   </mat-list-item>
+                  <br />
+                  <br />
+                  <mat-list-item>
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Address</mat-label>
+                      <input matInput [formControl]="contactForm.controls['address']" />
+                      <mat-error
+                        class="error"
+                        *ngIf="contactForm.controls['address'].hasError('required') && contactForm.controls['address'].touched"
+                      >
+                        Address is a required field
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-list-item>
                 </mat-list>
+                <div fxLayoutAlign="end">
+                  <button mat-raised-button color="accent" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="securityQuestionsForm" errorMessage="Security questions are required">
+              <form [formGroup]="securityQuestionsForm">
+                <ng-template matStepLabel="Security Questions"></ng-template>
               </form>
             </mat-step>
           </mat-vertical-stepper>
