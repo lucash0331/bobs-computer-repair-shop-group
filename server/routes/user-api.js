@@ -244,7 +244,7 @@ router.get("/:userName/security-questions", async (req, res) => {
         const findSelectedSecurityQuestionsResponse = new BaseResponse(
           "200",
           "Query successful",
-          user.selectedSecurityQuestions
+          user.securityQuestions
         );
         res.json(findSelectedSecurityQuestionsResponse.toObject());
       }
