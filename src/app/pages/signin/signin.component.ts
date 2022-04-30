@@ -16,6 +16,7 @@ import { HttpClient } from "@angular/common/http";
 //import { SigninService } from 'src/app/shared/services/sign-in.service';
 import { Message } from "primeng/api/message";
 import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
+import { SecurityQuestionsService } from "src/app/services/security-questions.service";
 
 @Component({
   selector: "app-signin",
@@ -33,7 +34,22 @@ export class SigninComponent implements OnInit {
 
   errorMessages: Message[];
 
-  constructor(private router: Router, private cookieService: CookieService, private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private securityQuestionsService: SecurityQuestionsService
+  ) {
+    this.securityQuestionsService.findAllSecurityQuestions().subscribe(
+      (res) => {
+        this.securityQuestions = res["data"];
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   //password validation pattern added
 

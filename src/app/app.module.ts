@@ -54,6 +54,7 @@ import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatListModule } from "@angular/material/list";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { MatListModule } from "@angular/material/list";
     MessagesModule,
     MatStepperModule,
     MatListModule,
+    MatSelectModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
