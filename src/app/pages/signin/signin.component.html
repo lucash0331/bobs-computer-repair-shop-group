@@ -47,6 +47,7 @@
         </mat-tab>
         <mat-tab label="Sign up">
           <mat-vertical-stepper #stepper linear>
+            <!-- Contact info page on stepper -->
             <mat-step fxFlex [stepControl]="contactForm" class="required" errorMessage="Contact is required">
               <form [formGroup]="contactForm">
                 <ng-template matStepLabel>Contact Information</ng-template>
@@ -120,6 +121,7 @@
                 </div>
               </form>
             </mat-step>
+            <!-- Security Questions page on stepper -->
             <mat-step [stepControl]="securityQuestionsForm" errorMessage="Security questions are required">
               <form [formGroup]="securityQuestionsForm">
                 <ng-template matStepLabel="Security Questions"></ng-template>
@@ -230,8 +232,15 @@
                     </mat-form-field>
                   </mat-list-item>
                 </mat-list>
+                <br />
+                <div fxLayoutAlign="end">
+                  <button mat-raised-button color="accent" matStepperPrevious>Back</button>&nbsp;&nbsp;
+                  <button mat-raised-button color="accent" [disabled]="!securityQuestionsForm.valid" matStepperNext>Next</button>
+                </div>
               </form>
             </mat-step>
+            <!-- Credentials page on stepper -->
+            <mat-step> </mat-step>
           </mat-vertical-stepper>
         </mat-tab>
       </mat-tab-group>
