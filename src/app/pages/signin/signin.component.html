@@ -123,6 +123,113 @@
             <mat-step [stepControl]="securityQuestionsForm" errorMessage="Security questions are required">
               <form [formGroup]="securityQuestionsForm">
                 <ng-template matStepLabel="Security Questions"></ng-template>
+                <br />
+                <mat-list>
+                  <!-- Question 1 -->
+                  <mat-list-item>
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Security Question</mat-label>
+                      <mat-select [formControl]="securityQuestionsForm.controls['securityQuestion1']">
+                        <mat-option *ngFor="let question of securityQuestions" [value]="question.text">
+                          {{ question.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          securityQuestionsForm.controls['securityQuestion1'].hasError('required') &&
+                          securityQuestionsForm.controls['securityQuestion1'].touched
+                        "
+                      >
+                        Required Field
+                      </mat-error>
+                    </mat-form-field>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Answer</mat-label>
+                      <input matInput [formControl]="securityQuestionsForm.controls['answerToSecurityQuestion1']" />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          securityQuestionsForm.controls['answerToSecurityQuestion1'].hasError('required') &&
+                          securityQuestionsForm.controls['answerToSecurityQuestion1'].touched
+                        "
+                      >
+                        Required Field
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-list-item>
+
+                  <!-- Question 2 -->
+                  <mat-list-item>
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Security Question</mat-label>
+                      <mat-select [formControl]="securityQuestionsForm.controls['securityQuestion2']">
+                        <mat-option *ngFor="let question of securityQuestions" [value]="question.text">
+                          {{ question.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          securityQuestionsForm.controls['securityQuestion2'].hasError('required') &&
+                          securityQuestionsForm.controls['securityQuestion2'].touched
+                        "
+                      >
+                        Required Field
+                      </mat-error>
+                    </mat-form-field>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Answer</mat-label>
+                      <input matInput [formControl]="securityQuestionsForm.controls['answerToSecurityQuestion2']" />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          securityQuestionsForm.controls['answerToSecurityQuestion2'].hasError('required') &&
+                          securityQuestionsForm.controls['answerToSecurityQuestion2'].touched
+                        "
+                      >
+                        Required Field
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-list-item>
+
+                  <!-- Question 3 -->
+                  <mat-list-item>
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Security Question</mat-label>
+                      <mat-select [formControl]="securityQuestionsForm.controls['securityQuestion3']">
+                        <mat-option *ngFor="let question of securityQuestions" [value]="question.text">
+                          {{ question.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          securityQuestionsForm.controls['securityQuestion3'].hasError('required') &&
+                          securityQuestionsForm.controls['securityQuestion3'].touched
+                        "
+                      >
+                        Required Field
+                      </mat-error>
+                    </mat-form-field>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label>Answer</mat-label>
+                      <input matInput [formControl]="securityQuestionsForm.controls['answerToSecurityQuestion3']" />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          securityQuestionsForm.controls['answerToSecurityQuestion3'].hasError('required') &&
+                          securityQuestionsForm.controls['answerToSecurityQuestion3'].touched
+                        "
+                      >
+                        Required Field
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-list-item>
+                </mat-list>
               </form>
             </mat-step>
           </mat-vertical-stepper>
