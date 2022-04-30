@@ -47,11 +47,13 @@ import { MessagesModule } from "primeng/messages";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
 import { MatTabsModule } from "@angular/material/tabs";
-import { RegisterComponent } from './pages/register/register.component';
-import { ResetPasswordFormComponent } from './forms/reset-password-form/reset-password-form.component';
-import { VerifySecurityQuestionsFormComponent } from './forms/verify-security-questions-form/verify-security-questions-form.component';
-import { VerifyUsernameFormComponent } from './forms/verify-username-form/verify-username-form.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RegisterComponent } from "./pages/register/register.component";
+import { ResetPasswordFormComponent } from "./forms/reset-password-form/reset-password-form.component";
+import { VerifySecurityQuestionsFormComponent } from "./forms/verify-security-questions-form/verify-security-questions-form.component";
+import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify-username-form.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     ConfirmDialogModule,
     MatTabsModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    MatStepperModule,
+    MatListModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
