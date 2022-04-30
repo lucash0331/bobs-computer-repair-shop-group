@@ -117,14 +117,14 @@
                   </mat-list-item>
                 </mat-list>
                 <div fxLayoutAlign="end">
-                  <button mat-raised-button color="accent" matStepperNext>Next</button>
+                  <button mat-raised-button color="primary" matStepperNext>Next</button>
                 </div>
               </form>
             </mat-step>
             <!-- Security Questions page on stepper -->
             <mat-step [stepControl]="securityQuestionsForm" errorMessage="Security questions are required">
               <form [formGroup]="securityQuestionsForm">
-                <ng-template matStepLabel="Security Questions"></ng-template>
+                <ng-template matStepLabel>Security Questions</ng-template>
                 <br />
                 <mat-list>
                   <!-- Question 1 -->
@@ -234,8 +234,8 @@
                 </mat-list>
                 <br />
                 <div fxLayoutAlign="end">
-                  <button mat-raised-button color="accent" matStepperPrevious>Back</button>&nbsp;&nbsp;
-                  <button mat-raised-button color="accent" [disabled]="!securityQuestionsForm.valid" matStepperNext>Next</button>
+                  <button mat-raised-button color="primary" matStepperPrevious>Back</button>&nbsp;&nbsp;
+                  <button mat-raised-button color="primary" [disabled]="!securityQuestionsForm.valid" matStepperNext>Next</button>
                 </div>
               </form>
             </mat-step>
@@ -280,8 +280,8 @@
                   </mat-list>
                   <br />
                   <div fxLayoutAlign="end">
-                    <button mat-raised-button color="accent" matStepperPrevious>Back</button>&nbsp;&nbsp;
-                    <button mat-raised-button (click)="register()" [disabled]="!credentialsForm.valid" color="accent">Register</button>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>&nbsp;&nbsp;
+                    <button mat-raised-button (click)="register()" [disabled]="!credentialsForm.valid" color="primary">Register</button>
                   </div>
                 </div>
               </form>
