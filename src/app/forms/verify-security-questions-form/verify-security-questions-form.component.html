@@ -1,1 +1,94 @@
-<p>verify-security-questions-form works!</p>
+<!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: April 29, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App html code for VerifySecurityQuestionsFormComponent.
+===========================================
+-->
+
+<div fxLayout="column" class="main-div">
+  <mat-card fxFlex class="mat-elevation-z8 main-container">
+    <mat-card-title>Forgot your Password?</mat-card-title>
+    <h3>
+      Enter the answers to security questions, and you’ll be able to reset your
+      password.
+    </h3>
+    <mat-card-content>
+      <p-messages
+        [(value)]="errorMessages"
+        [enableService]="false"
+      ></p-messages>
+
+      <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
+        <form
+          *ngIf="selectedSecurityQuestions"
+          [formGroup]="form"
+          (ngSubmit)="verifySecurityQuestions()"
+          #securityQuestionsForm
+        >
+          <mat-card-content>
+            <mat-form-field appearance="fill">
+              <mat-label>{{ question1 }}</mat-label>
+              <input
+                type="text"
+                matInput
+                [formControl]="form.controls['answer1']"
+              />
+              <mat-error
+                class="error"
+                *ngIf="
+                  form.controls.answer1.hasError('required') &&
+                  form.controls.answer1.touched
+                "
+                >You must enter an answer.</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>{{ question2 }}</mat-label>
+              <input
+                type="text"
+                matInput
+                [formControl]="form.controls['answer2']"
+              />
+              <mat-error
+                class="error"
+                *ngIf="
+                  form.controls.answer2.hasError('required') &&
+                  form.controls.answer2.touched
+                "
+                >You must enter an answer.</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>{{ question3 }}</mat-label>
+              <input
+                type="text"
+                matInput
+                [formControl]="form.controls['answer3']"
+              />
+              <mat-error
+                class="error"
+                *ngIf="
+                  form.controls.answer3.hasError('required') &&
+                  form.controls.answer3.touched
+                "
+                >You must enter an answer.</mat-error
+              >
+            </mat-form-field>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button class="cancel" (click)="cancel()" mat-raised-button>
+              Cancel
+            </button>
+            <button class="submit" [disabled]="!form.valid" mat-raised-button>
+              Submit
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>

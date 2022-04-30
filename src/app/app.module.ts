@@ -42,6 +42,8 @@ import { SecurityQuestionDetailsComponent } from "./pages/security-question-deta
 import { PickListModule } from "primeng/picklist";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
+import { MessageModule } from "primeng/message";
+import { MessagesModule } from "primeng/messages";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -93,6 +95,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     ToastModule,
     ConfirmDialogModule,
     MatTabsModule,
+    MessageModule,
+    MessagesModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
