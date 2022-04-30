@@ -22,6 +22,9 @@ import { SecurityQuestionDetailsComponent } from "./pages/security-question-deta
 import { UserDetailsComponent } from "./pages/user-details/user-details.component";
 import { UserCreateComponent } from "./pages/user-create/user-create.component";
 import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
+import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify-username-form.component";
+import { VerifySecurityQuestionsFormComponent } from "./forms/verify-security-questions-form/verify-security-questions-form.component";
+import { ResetPasswordFormComponent } from "./forms/reset-password-form/reset-password-form.component";
 
 const routes: Routes = [
   {
@@ -84,6 +87,18 @@ const routes: Routes = [
         path: "signin",
         component: SigninComponent,
       },
+      {
+        path: "forgot-password",
+        component: VerifyUsernameFormComponent
+      },
+      {
+        path: "verify-security-questions",
+        component: VerifySecurityQuestionsFormComponent
+      },
+      {
+        path: "reset-password",
+        component: ResetPasswordFormComponent
+      }
     ],
   },
 ];
