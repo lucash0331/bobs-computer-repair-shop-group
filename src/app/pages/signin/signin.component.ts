@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
 import { HttpClient } from "@angular/common/http";
 //import { SigninService } from 'src/app/shared/services/sign-in.service';
+import { Message } from "primeng/api/message";
+import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
 
 @Component({
   selector: "app-signin",
@@ -23,10 +25,13 @@ import { HttpClient } from "@angular/common/http";
 export class SigninComponent implements OnInit {
   form: FormGroup;
   errorMessage: string;
+  securityQuestions: SecurityQuestion[];
 
   contactForm: FormGroup;
   securityQuestionsForm: FormGroup;
   credentialsForm: FormGroup;
+
+  errorMessages: Message[];
 
   constructor(private router: Router, private cookieService: CookieService, private fb: FormBuilder, private http: HttpClient) {}
 
@@ -62,7 +67,47 @@ export class SigninComponent implements OnInit {
   }
 
   // Register function
-  register() {}
+  register() {
+    const contactInformation = this.contactForm.value;
+    const securityQuestions = this.securityQuestionsForm.value;
+    const credentials = this.credentialsForm.value;
+
+    const selectedSecurityQuestions = [
+      {
+        questionText: securityQuestions.securityQuestion1,
+        answerText: securityQuestions.answerToSecurityQuestion1,
+      },
+      {
+        questionText: securityQuestions.securityQuestion2,
+        answerText: securityQuestions.answerToSecurityQuestion2,
+      },
+      {
+        questionText: securityQuestions.securityQuestion3,
+        answerText: securityQuestions.answerToSecurityQuestion3,
+      },
+    ];
+
+    this.http
+      .post("/api/session/register", {
+        userName: credentials.userName,
+        password: credentials.password,
+        firstName: contactInformation.firstName,
+        lastName: contactInformation.lastName,
+        phoneNumber: contactInformation.phoneNumber,
+        address: contactInformation.address,
+        email: contactInformation.email,
+        selectedSecurityQuestions: selectedSecurityQuestions,
+      })
+      .subscribe(
+        (res) => {
+          this.cookieService.set("sessionuser", credentials.userName, 1);
+          this.router.navigate(["/"]);
+        },
+        (err) => {
+          this.errorMessages = [{ severity: "error", summary: "Error", detail: err.message }];
+        }
+      );
+  }
 
   onSubmit(): void {
     const userName = this.form.controls.userName.value;
