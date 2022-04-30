@@ -128,18 +128,18 @@ router.post("/verify/users/:userName/security-questions", async (req, res) => {
           res.send(response);
         } else {
           const firstQuestion = user.selectedSecurityQuestions.find(
-            (question) => question.question === req.body.question1
+            (question) => question.questionText === req.body.question1
           );
           const secondQuestion = user.selectedSecurityQuestions.find(
-            (question) => question.question === req.body.question2
+            (question) => question.questionText === req.body.question2
           );
           const thirdQuestion = user.selectedSecurityQuestions.find(
-            (question) => question.question === req.body.question3
+            (question) => question.questionText === req.body.question3
           );
 
-          const isValidFirstAnswer = firstQuestion.answer === req.body.answer1;
-          const isValidSecondAnswer = secondQuestion.answer === req.body.answer2;
-          const isValidThirdAnswer = thirdQuestion.answer === req.body.answer3;
+          const isValidFirstAnswer = firstQuestion.answerText === req.body.answer1;
+          const isValidSecondAnswer = secondQuestion.answerText === req.body.answer2;
+          const isValidThirdAnswer = thirdQuestion.answerText === req.body.answer3;
 
           if (isValidFirstAnswer && isValidSecondAnswer && isValidThirdAnswer) {
             console.log("Answers are correct");
@@ -216,7 +216,7 @@ router.get("/verify/users/:userName", async (req, res) => {
         }
       } else {
         const invalidUserNameResponse = new BaseResponse("400", "Invalid username", req.params.userName);
-        res.status(400).send(invalidUserResponse.toObject());
+        res.status(400).send(invalidUserNameResponse.toObject());
       }
     });
   } catch (e) {

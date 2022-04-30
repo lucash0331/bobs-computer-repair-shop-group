@@ -28,7 +28,7 @@ export class VerifyUsernameFormComponent implements OnInit {
     private http: HttpClient
   ) {}
 
- ngOnInit(): void {
+  ngOnInit(): void {
     this.form = this.fb.group({
       userName: [null, Validators.compose([Validators.required])],
     });
@@ -37,8 +37,8 @@ export class VerifyUsernameFormComponent implements OnInit {
   validateUsername(): void {
     const username = this.form.controls.userName.value;
 
-    //this.http.get("/api/session/verify/users/" + username).subscribe(
-    this.http.get("/api/users/" + username).subscribe(
+    //this.http.get("/api/users/" + username).subscribe(
+    this.http.get("/api/session/verify/users/" + username).subscribe(
       (res) => {
         this.router.navigate(["/session/verify-security-questions"], {
           queryParams: { username: username },
@@ -51,16 +51,17 @@ export class VerifyUsernameFormComponent implements OnInit {
           {
             severity: "error",
             summary: "Error",
-            detail: err['message'],
+            detail: err.error.msg,
           },
         ];
         console.log(err);
+        console.log(err.error.msg);
       }
     );
   }
 
   cancel(): void {
     this.router.navigate(["/session/signin"]);
-  
+    
   }
 }

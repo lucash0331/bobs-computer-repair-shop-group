@@ -13,8 +13,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let selectedSecurityQuestionsSchema = new Schema({
-  question: { type: String },
-  answer: { type: String },
+  questionText: { type: String },
+  answerText: { type: String },
 });
 
 module.export = selectedSecurityQuestionsSchema;

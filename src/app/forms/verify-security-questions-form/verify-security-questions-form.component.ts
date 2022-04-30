@@ -48,9 +48,9 @@ export class VerifySecurityQuestionsFormComponent implements OnInit {
           console.log(err);
         },
         () => {
-          this.question1 = this.selectedSecurityQuestions[0].question;
-          this.question2 = this.selectedSecurityQuestions[1].question;
-          this.question3 = this.selectedSecurityQuestions[2].question;
+          this.question1 = this.selectedSecurityQuestions[0].questionText;
+          this.question2 = this.selectedSecurityQuestions[1].questionText;
+          this.question3 = this.selectedSecurityQuestions[2].questionText;
           console.log(this.question1);
           console.log(this.question2);
           console.log(this.question3);
