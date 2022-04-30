@@ -33,6 +33,13 @@ export class SigninComponent implements OnInit {
   //password validation pattern added
 
   ngOnInit(): void {
+    // Sign in form portion
+    this.form = this.fb.group({
+      userName: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])],
+    });
+
+    // Sign-up/register form portion
     this.contactForm = this.fb.group({
       firstName: [null, Validators.compose([Validators.required])],
       lastName: [null, Validators.compose([Validators.required])],
@@ -51,10 +58,6 @@ export class SigninComponent implements OnInit {
     this.credentialsForm = this.fb.group({
       userName: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")])],
-    });
-    this.form = this.fb.group({
-      userName: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])],
     });
   }
 
