@@ -30,6 +30,10 @@
 
   .toolbar {
     border-bottom: 9px solid #FBC02D;
+    position: fixed;
+    top: 0;
+    height: 80px;
+    z-index:1;
   }
 
   .top-line {
@@ -40,14 +44,19 @@
   
   .main-content {
     padding-left: 30px;
+    position: relative;
+    min-height: 100vh;
+    z-index:0;
   }
   
   .footer {
     bottom: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
     color: #F2F2F2;
     background-color: #C62828;
+    height: 80px;
+    z-index:1;
   }
   
   .footer-content {
@@ -57,6 +66,7 @@
     letter-spacing: 3px;
     color: #F2F2F2;
     background-color: #C62828;
+    height: 80px;
   }
   
   .bu-link {
@@ -68,4 +78,9 @@
     text-decoration: underline;
     color: #FBC02D; 
   }
+
+  #content-wrap {
+    padding-bottom: 80px;    /* Footer height */
+    padding-top: 80px; /* Toolbar height */
+  } 
   

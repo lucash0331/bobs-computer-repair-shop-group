@@ -37,21 +37,13 @@ router.post("/signin", async (req, res) => {
             res.json(signinResponse.toObject());
           } else {
             console.log(`Invalid password for username: ${user.userName}`);
-            const invalidPasswordResponse = new BaseResponse(
-              401,
-              "Invalid username and/or password.  Please try again",
-              null
-            );
+            const invalidPasswordResponse = new BaseResponse(401, "Invalid username and/or password.  Please try again", null);
             console.log(invalidPasswordResponse.toObject());
             res.status(401).send(invalidPasswordResponse.toObject());
           }
         } else {
           console.log(`Username: ${req.body.userName} is invalid`);
-          const invalidUserNameResponse = new BaseResponse(
-            200,
-            "Invalid username and/or password.  Please try again",
-            null
-          );
+          const invalidUserNameResponse = new BaseResponse(200, "Invalid username and/or password.  Please try again", null);
           console.log(invalidUserNameResponse.toObject());
           res.status(401).send(invalidUserNameResponse.toObject());
         }
@@ -63,6 +55,53 @@ router.post("/signin", async (req, res) => {
     res.status(500).send(signinCatchErrorResponse.toObject());
   }
 });
+
+// Register API
+
+router.post("/register", async (req, res) => {
+  try {
+    User.findOne({ userName: req.body.userName }, function (err, user) {
+      if (err) {
+        const registerUserMongodbErrorResponse = new BaseResponse("500", "Internal Server Error", err);
+        res.status(500).send(registerUserMongodbErrorResponse.toObject());
+      } else {
+        if (!user) {
+          let hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+          standardRole = {
+            role: "standard",
+          };
+          let registeredUser = {
+            userName: req.body.userName,
+            password: hashedPassword,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phoneNumber: req.body.phoneNumber,
+            address: req.body.address,
+            email: req.body.email,
+            role: standardRole,
+            selectedSecurityQuestions: req.body.selectedSecurityQuestions,
+          };
+          User.create(registeredUser, function (err, newUser) {
+            if (err) {
+              const newUserMongodbErrorResponse = new BaseResponse("500", "Internal Server Error", err);
+              res.status(500).send(newUserMongodbErrorResponse.toObject());
+            } else {
+              const registeredUserResponse = new BaseResponse("200", "Query Successful", newUser);
+              res.json(registeredUserResponse.toObject());
+            }
+          });
+        } else {
+          const userInUseError = new BaseResponse("400", `The username '${req.body.userName}' is already in use`, null);
+          res.status(400).send(userInUseError.toObject());
+        }
+      }
+    });
+  } catch (e) {
+    const registeredUserCatchErrorResponse = new BaseResponse("500", "Internal Server Error", e.message);
+    res.status(500).send(registeredUserCatchErrorResponse.toObject());
+  }
+});
+
 /**
  * API to verify security questions (OK)
  */
@@ -80,9 +119,9 @@ router.post("/verify/users/:userName/security-questions", async (req, res) => {
           console.log(response);
           res.send(response);
         } else {
-          const firstQuestion = user.securityQuestions.find((question) => question.question === req.body.question1);
-          const secondQuestion = user.securityQuestions.find((question) => question.question === req.body.question2);
-          const thirdQuestion = user.securityQuestions.find((question) => question.question === req.body.question3);
+          const firstQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question1);
+          const secondQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question2);
+          const thirdQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question3);
 
           const isValidFirstAnswer = firstQuestion.answer === req.body.answer1;
           const isValidSecondAnswer = secondQuestion.answer === req.body.answer2;
