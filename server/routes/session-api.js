@@ -37,13 +37,21 @@ router.post("/signin", async (req, res) => {
             res.json(signinResponse.toObject());
           } else {
             console.log(`Invalid password for username: ${user.userName}`);
-            const invalidPasswordResponse = new BaseResponse(401, "Invalid username and/or password.  Please try again", null);
+            const invalidPasswordResponse = new BaseResponse(
+              401,
+              "Invalid username and/or password.  Please try again",
+              null
+            );
             console.log(invalidPasswordResponse.toObject());
             res.status(401).send(invalidPasswordResponse.toObject());
           }
         } else {
           console.log(`Username: ${req.body.userName} is invalid`);
-          const invalidUserNameResponse = new BaseResponse(200, "Invalid username and/or password.  Please try again", null);
+          const invalidUserNameResponse = new BaseResponse(
+            200,
+            "Invalid username and/or password.  Please try again",
+            null
+          );
           console.log(invalidUserNameResponse.toObject());
           res.status(401).send(invalidUserNameResponse.toObject());
         }
@@ -119,13 +127,19 @@ router.post("/verify/users/:userName/security-questions", async (req, res) => {
           console.log(response);
           res.send(response);
         } else {
-          const firstQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question1);
-          const secondQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question2);
-          const thirdQuestion = user.selectedSecurityQuestions.find((question) => question.question === req.body.question3);
+          const firstQuestion = user.selectedSecurityQuestions.find(
+            (question) => question.questionText === req.body.question1
+          );
+          const secondQuestion = user.selectedSecurityQuestions.find(
+            (question) => question.questionText === req.body.question2
+          );
+          const thirdQuestion = user.selectedSecurityQuestions.find(
+            (question) => question.questionText === req.body.question3
+          );
 
-          const isValidFirstAnswer = firstQuestion.answer === req.body.answer1;
-          const isValidSecondAnswer = secondQuestion.answer === req.body.answer2;
-          const isValidThirdAnswer = thirdQuestion.answer === req.body.answer3;
+          const isValidFirstAnswer = firstQuestion.answerText === req.body.answer1;
+          const isValidSecondAnswer = secondQuestion.answerText === req.body.answer2;
+          const isValidThirdAnswer = thirdQuestion.answerText === req.body.answer3;
 
           if (isValidFirstAnswer && isValidSecondAnswer && isValidThirdAnswer) {
             console.log("Answers are correct");
@@ -148,7 +162,7 @@ router.post("/verify/users/:userName/security-questions", async (req, res) => {
 
 //Reset Password API
 
-router.post("users/:userName/resetPassword", async (req, res) => {
+router.post("/users/:userName/reset-password", async (req, res) => {
   try {
     const password = req.body.password;
 
@@ -183,6 +197,32 @@ router.post("users/:userName/resetPassword", async (req, res) => {
     console.log(e);
     const resetPasswordCatchError = new BaseResponse("500", "Internal server error", e);
     res.status(500).send(resetPasswordCatchError.toObject());
+  }
+});
+
+//verify user API
+router.get("/verify/users/:userName", async (req, res) => {
+  try {
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+      if (user) {
+        if (err) {
+          console.log(err);
+          const verifyUserMongodbErrorResponse = new BaseResponse("500", "Internal server", err);
+          res.status(500).send(verifyUserMongodbErrorResponse.toObject());
+        } else {
+          console.log(user);
+          const verifyUserResponse = new BaseResponse("200", "Query successful", user);
+          res.json(verifyUserResponse.toObject());
+        }
+      } else {
+        const invalidUserNameResponse = new BaseResponse("400", "Invalid username", req.params.userName);
+        res.status(400).send(invalidUserNameResponse.toObject());
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const verifyUserCatchErrorResponse = new BaseResponse("500", "Internal server error", e.message);
+    res.status(500).send(verifyUserCatchErrorResponse.toObject());
   }
 });
 

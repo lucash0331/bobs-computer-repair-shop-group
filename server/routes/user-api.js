@@ -241,7 +241,12 @@ router.get("/:userName/security-questions", async (req, res) => {
         res.status(500).send(findSelectedSecurityQuestionsMongodbErrorResponse.toObject());
       } else {
         console.log(user);
-        const findSelectedSecurityQuestionsResponse = new BaseResponse("200", "Query successful", user.selectedSecurityQuestions);
+        const findSelectedSecurityQuestionsResponse = new BaseResponse(
+          "200",
+          "Query successful",
+          //user.securityQuestions
+          user.selectedSecurityQuestions
+        );
         res.json(findSelectedSecurityQuestionsResponse.toObject());
       }
     });

@@ -42,13 +42,19 @@ import { SecurityQuestionDetailsComponent } from "./pages/security-question-deta
 import { PickListModule } from "primeng/picklist";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
+import { MessageModule } from "primeng/message";
+import { MessagesModule } from "primeng/messages";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmationService } from "primeng/api";
 import { MatTabsModule } from "@angular/material/tabs";
-import { RegisterComponent } from './pages/register/register.component';
-import { ResetPasswordFormComponent } from './forms/reset-password-form/reset-password-form.component';
-import { VerifySecurityQuestionsFormComponent } from './forms/verify-security-questions-form/verify-security-questions-form.component';
-import { VerifyUsernameFormComponent } from './forms/verify-username-form/verify-username-form.component';
+import { RegisterComponent } from "./pages/register/register.component";
+import { ResetPasswordFormComponent } from "./forms/reset-password-form/reset-password-form.component";
+import { VerifySecurityQuestionsFormComponent } from "./forms/verify-security-questions-form/verify-security-questions-form.component";
+import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify-username-form.component";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatListModule } from "@angular/material/list";
+import { MatSelectModule } from "@angular/material/select";
+import { DialogModule } from "primeng/dialog";
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -99,6 +105,12 @@ import { AboutComponent } from './pages/about/about.component';
     ToastModule,
     ConfirmDialogModule,
     MatTabsModule,
+    MessageModule,
+    MessagesModule,
+    MatStepperModule,
+    MatListModule,
+    MatSelectModule,
+    DialogModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

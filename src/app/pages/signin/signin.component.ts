@@ -14,6 +14,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
 import { HttpClient } from "@angular/common/http";
 //import { SigninService } from 'src/app/shared/services/sign-in.service';
+import { Message } from "primeng/api/message";
+import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
+import { SecurityQuestionsService } from "src/app/services/security-questions.service";
+import { MessageService } from "primeng/api";
+import { ConfirmationService } from "primeng/api";
 
 @Component({
   selector: "app-signin",
@@ -23,24 +28,116 @@ import { HttpClient } from "@angular/common/http";
 export class SigninComponent implements OnInit {
   form: FormGroup;
   errorMessage: string;
+  securityQuestions: SecurityQuestion[];
+
+  contactForm: FormGroup;
+  securityQuestionsForm: FormGroup;
+  credentialsForm: FormGroup;
+
+  errorMessages: Message[];
+  display: boolean = false;
+  showDialog() {
+    this.display = true;
+  }
 
   constructor(
     private router: Router,
     private cookieService: CookieService,
     private fb: FormBuilder,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private securityQuestionsService: SecurityQuestionsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {
+    this.securityQuestionsService.findAllSecurityQuestions().subscribe(
+      (res) => {
+        this.securityQuestions = res["data"];
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   //password validation pattern added
 
   ngOnInit(): void {
+    // Sign in form portion
     this.form = this.fb.group({
+      userName: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])],
+    });
+
+    // Sign-up/register form portion
+    this.contactForm = this.fb.group({
+      firstName: [null, Validators.compose([Validators.required])],
+      lastName: [null, Validators.compose([Validators.required])],
+      phoneNumber: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      address: [null, Validators.compose([Validators.required])],
+    });
+    this.securityQuestionsForm = this.fb.group({
+      securityQuestion1: [null, Validators.compose([Validators.required])],
+      securityQuestion2: [null, Validators.compose([Validators.required])],
+      securityQuestion3: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion1: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion2: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion3: [null, Validators.compose([Validators.required])],
+    });
+    this.credentialsForm = this.fb.group({
       userName: [null, Validators.compose([Validators.required])],
       password: [
         null,
-        Validators.compose([Validators.required]),
+        Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
       ],
     });
+  }
+
+  redirectLogIn() {
+    this.router.navigateByUrl("/");
+  }
+  // Register function
+  register() {
+    const contactInformation = this.contactForm.value;
+    const securityQuestions = this.securityQuestionsForm.value;
+    const credentials = this.credentialsForm.value;
+
+    const selectedSecurityQuestions = [
+      {
+        questionText: securityQuestions.securityQuestion1,
+        answerText: securityQuestions.answerToSecurityQuestion1,
+      },
+      {
+        questionText: securityQuestions.securityQuestion2,
+        answerText: securityQuestions.answerToSecurityQuestion2,
+      },
+      {
+        questionText: securityQuestions.securityQuestion3,
+        answerText: securityQuestions.answerToSecurityQuestion3,
+      },
+    ];
+
+    this.http
+      .post("/api/session/register", {
+        userName: credentials.userName,
+        password: credentials.password,
+        firstName: contactInformation.firstName,
+        lastName: contactInformation.lastName,
+        phoneNumber: contactInformation.phoneNumber,
+        address: contactInformation.address,
+        email: contactInformation.email,
+        selectedSecurityQuestions: selectedSecurityQuestions,
+      })
+      .subscribe(
+        (res) => {
+          this.cookieService.set("session_user", credentials.userName, 1);
+          // this.router.navigate(["/"]);
+          sessionStorage.setItem("name", `${res["data"].firstName} ${res["data"].lastName}`);
+        },
+        (err) => {
+          this.errorMessages = [{ severity: "error", summary: "Error", detail: err.message }];
+        }
+      );
   }
 
   onSubmit(): void {
@@ -57,7 +154,7 @@ export class SigninComponent implements OnInit {
           if (res["data"].userName) {
             this.cookieService.set("session_user", res["data"].userName, 1);
             // Need to be able to send lastName and firstName to home page to display in menu.
-            
+
             sessionStorage.setItem("name", `${res["data"].firstName} ${res["data"].lastName}`);
             this.router.navigate(["/"]);
             console.log(res["data"].userName);

@@ -22,6 +22,9 @@ import { SecurityQuestionDetailsComponent } from "./pages/security-question-deta
 import { UserDetailsComponent } from "./pages/user-details/user-details.component";
 import { UserCreateComponent } from "./pages/user-create/user-create.component";
 import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
+import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify-username-form.component";
+import { VerifySecurityQuestionsFormComponent } from "./forms/verify-security-questions-form/verify-security-questions-form.component";
+import { ResetPasswordFormComponent } from "./forms/reset-password-form/reset-password-form.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { ErrorComponent } from "./pages/error/error.component";
 import { AboutComponent } from "./pages/about/about.component";
@@ -51,7 +54,9 @@ const routes: Routes = [
       {
         path: "contact",
         component: ContactComponent,
+
       },
+
       {
         path: "security-questions",
         component: SecurityQuestionListComponent,
@@ -98,25 +103,32 @@ const routes: Routes = [
         path: "signin",
         component: SigninComponent,
       },
-
+      {
+        path: "forgot-password",
+        component: VerifyUsernameFormComponent,
+      },
+      {
+        path: "verify-security-questions",
+        component: VerifySecurityQuestionsFormComponent,
+      },
+      {
+        path: "reset-password",
+        component: ResetPasswordFormComponent,
+      },
       {
         path: "404",
         component: NotFoundComponent,
       },
-    
       {
         path: "500",
         component: ErrorComponent,
       },
-    
     ],
   },
-
- 
   {
     path: "**",
-    redirectTo: "session/404"
-  }
+    redirectTo: "session/404",
+  },
 ];
 
 @NgModule({

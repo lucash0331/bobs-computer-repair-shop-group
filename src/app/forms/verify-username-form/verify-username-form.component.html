@@ -1,1 +1,59 @@
-<p>verify-username-form works!</p>
+<!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: April 29, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App html code to verify a username.
+===========================================
+-->
+
+<div fxLayout="column" class="main-div">
+  <mat-card fxFlex class="mat-elevation-z8 main-container">
+    <mat-card-title>Forgot your Password?</mat-card-title>
+    <h3>
+      Enter the username associated with your account, and you’ll be able to
+      reset your password.
+    </h3>
+    <mat-card-content>
+      <p-messages
+        [(value)]="errorMessages"
+        [enableService]="false"
+      ></p-messages>
+
+      <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
+        <form [formGroup]="form" (ngSubmit)="validateUsername()" #usernameForm>
+          <mat-card-content>
+            <mat-form-field fxFlex appearance="fill">
+              <mat-label for="txtUserName" id="lbluserName"
+                >Username</mat-label
+              >
+              <input
+                type="text"
+                matInput
+                [formControl]="form.controls['userName']"
+                id="txtUserName"
+                name="txtUserName"
+              />
+              <mat-error
+                class="error"
+                *ngIf="
+                  form.controls.userName.hasError('required') &&
+                  form.controls.userName.touched
+                "
+                >You must enter a username.</mat-error
+              >
+            </mat-form-field>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button class="cancel" (click)="cancel()"  mat-raised-button>Cancel</button>
+            <button class="submit" [disabled]="!form.valid" mat-raised-button>
+              Submit
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>
