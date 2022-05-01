@@ -25,6 +25,10 @@ import { SecurityQuestionCreateComponent } from "./pages/security-question-creat
 import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify-username-form.component";
 import { VerifySecurityQuestionsFormComponent } from "./forms/verify-security-questions-form/verify-security-questions-form.component";
 import { ResetPasswordFormComponent } from "./forms/reset-password-form/reset-password-form.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { ErrorComponent } from "./pages/error/error.component";
+import { AboutComponent } from "./pages/about/about.component";
+import { ContactComponent } from "./pages/contact/contact.component";
 
 const routes: Routes = [
   {
@@ -89,17 +93,29 @@ const routes: Routes = [
       },
       {
         path: "forgot-password",
-        component: VerifyUsernameFormComponent
+        component: VerifyUsernameFormComponent,
       },
       {
         path: "verify-security-questions",
-        component: VerifySecurityQuestionsFormComponent
+        component: VerifySecurityQuestionsFormComponent,
       },
       {
         path: "reset-password",
-        component: ResetPasswordFormComponent
-      }
+        component: ResetPasswordFormComponent,
+      },
+      {
+        path: "404",
+        component: NotFoundComponent,
+      },
+      {
+        path: "500",
+        component: ErrorComponent,
+      },
     ],
+  },
+  {
+    path: "**",
+    redirectTo: "session/404",
   },
 ];
 

@@ -51,11 +51,14 @@ import { RegisterComponent } from "./pages/register/register.component";
 import { ResetPasswordFormComponent } from "./forms/reset-password-form/reset-password-form.component";
 import { VerifySecurityQuestionsFormComponent } from "./forms/verify-security-questions-form/verify-security-questions-form.component";
 import { VerifyUsernameFormComponent } from "./forms/verify-username-form/verify-username-form.component";
-import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatListModule } from "@angular/material/list";
 import { MatSelectModule } from "@angular/material/select";
 import { DialogModule } from "primeng/dialog";
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +78,9 @@ import { DialogModule } from "primeng/dialog";
     VerifySecurityQuestionsFormComponent,
     VerifyUsernameFormComponent,
     NotFoundComponent,
+    ErrorComponent,
+    ContactComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
