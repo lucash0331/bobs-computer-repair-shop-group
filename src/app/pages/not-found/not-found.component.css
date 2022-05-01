@@ -1,0 +1,11 @@
+* {
+color: #c5000c;
+    margin: 0 auto;
+  }
+
+
+
+.mat-elevation-z0 {
+  margin: 50px;
+border: 2px solid #c5000c;
+}

@@ -22,6 +22,10 @@ import { SecurityQuestionDetailsComponent } from "./pages/security-question-deta
 import { UserDetailsComponent } from "./pages/user-details/user-details.component";
 import { UserCreateComponent } from "./pages/user-create/user-create.component";
 import { SecurityQuestionCreateComponent } from "./pages/security-question-create/security-question-create.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { ErrorComponent } from "./pages/error/error.component";
+import { AboutComponent } from "./pages/about/about.component";
+import { ContactComponent } from "./pages/contact/contact.component";
 
 const routes: Routes = [
   {
@@ -37,6 +41,16 @@ const routes: Routes = [
         path: "user",
         component: UserListComponent,
         canActivate: [AuthGuard],
+      },
+
+      {
+        path: "about",
+        component: AboutComponent,
+      },
+
+      {
+        path: "contact",
+        component: ContactComponent,
       },
       {
         path: "security-questions",
@@ -84,8 +98,25 @@ const routes: Routes = [
         path: "signin",
         component: SigninComponent,
       },
+
+      {
+        path: "404",
+        component: NotFoundComponent,
+      },
+    
+      {
+        path: "500",
+        component: ErrorComponent,
+      },
+    
     ],
   },
+
+ 
+  {
+    path: "**",
+    redirectTo: "session/404"
+  }
 ];
 
 @NgModule({

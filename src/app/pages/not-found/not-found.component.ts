@@ -1,3 +1,15 @@
+/*
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: April 29, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App ts code for when a 4040 error occurs 
+===========================================
+*/
+
+
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
