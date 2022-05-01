@@ -1,4 +1,14 @@
 * {
-    background-color: #c50000 ;
-    margin: 0 auto;
-  }
+  margin: 0 auto;
+}
+
+mat-card-title {
+  color: #c62828;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+mat-card-subtitle {
+  color: #c62828;
+  font-size: 1.5rem;
+}

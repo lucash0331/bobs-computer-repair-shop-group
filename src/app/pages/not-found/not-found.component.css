@@ -1,11 +1,14 @@
 * {
-color: #c5000c;
-    margin: 0 auto;
-  }
+  margin: 0 auto;
+}
 
+mat-card-title {
+  color: #c62828;
+  font-size: 2rem;
+  font-weight: bold;
+}
 
-
-.mat-elevation-z0 {
-  margin: 50px;
-border: 2px solid #c5000c;
+mat-card-subtitle {
+  color: #c62828;
+  font-size: 1.5rem;
 }

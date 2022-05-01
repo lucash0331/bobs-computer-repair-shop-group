@@ -7,40 +7,32 @@
 ; Description: Bob's Computer Repair Shop App html code to show content when a 404 error
 ===========================================
 -->
-<br />
-<br />
-<br />
-<br />
 
+<br />
+<br />
+<br />
 <div class="red">
-<div fxLayout="row wrap"
-     fxLayoutAlign="center start">
-  <div fxFlex.gt-sm="100"
-       fxFlex="100"
-  >
-    <!-- This is the mat-card -->
-    <mat-card fxFlex fxLayout="column" class="mat-elevation-z0 main-container" >
+  <div fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex.gt-sm="75" fxFlex="100">
+      <!-- This is the mat-card -->
+      <mat-card fxFlex fxLayout="column" class="mat-elevation-z4 main-container">
         <!-- This is the mat card content  -->
-        <mat-card-content  fxLayout="column"  fxLayoutAlign="center"  style="justify-content: center">
-            <!-- This is the not found image.  -->
-            <img src="~/../../../../assets/404.png" alt="404 Not Found" width="50%" align="center">
-            <br>
-            <a href="https://harrypotter.fandom.com/wiki/User:Rjd1922"></a>
-            <br>
+        <mat-card-content fxLayout="column" fxLayoutAlign="center" style="justify-content: center">
+          <!-- This is the not found image.  -->
+          <img src="~/../../../../assets/404a.png" alt="404 not found error" width="70%" align="center" />
+          <br />
+          <br />
+          <mat-card-title>Page not found</mat-card-title>
+          <br />
+          <mat-card-subtitle>Click the "Back Home" button to return to the home page.</mat-card-subtitle>
+          <br />
         </mat-card-content>
-        <mat-card-actions align="end">
-            <!--  Submit button to go to the homepage. -->
-            <button
-                mat-raised-button
-                routerLink="/"
-                align="center"
-                color="primary">
-                Back Home
-            </button>
+        <mat-card-actions align="center">
+          <!--  Submit button to go to the homepage. -->
+          <button mat-raised-button routerLink="/" align="center" color="primary">Back Home</button>
         </mat-card-actions>
-    </mat-card>
+      </mat-card>
+    </div>
+    <br />
   </div>
-  <br />
-
-</div>
 </div>

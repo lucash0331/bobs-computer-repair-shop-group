@@ -1,4 +1,4 @@
- <!--
+<!--
 ============================================
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
@@ -20,6 +20,7 @@
         <!-- <div fxFlex></div> -->
 
         <div fxLayoutAlign="end center" fxFlex="85">
+          <button class="navbar-link" routerLink="/home" mat-button>Home</button>
           <button class="navbar-link" routerLink="/user" mat-button>Users</button>
           <button class="navbar-link" routerLink="/security-questions" mat-button>Security Questions</button>
           <button class="navbar-link" routerLink="/about" mat-button>About Us</button>
@@ -49,8 +50,8 @@
   <div fxFlex>
     <main class="main-content" fxFlex="100%;">
       <div id="content-wrap">
-      <router-outlet></router-outlet>
-    </div>
+        <router-outlet></router-outlet>
+      </div>
     </main>
   </div>
 
@@ -58,7 +59,10 @@
   <div fxFlex>
     <footer class="footer">
       <mat-toolbar class="footer-content">
-        <p>&copy; {{ year | date: "yyyy" }} - BCRS - <a href="https://www.bellevue.edu/" class="bu-link" target="_blank">Bellevue University</a></p>
+        <p>
+          &copy; {{ year | date: "yyyy" }} - BCRS -
+          <a href="https://www.bellevue.edu/" class="bu-link" target="_blank">Bellevue University</a>
+        </p>
       </mat-toolbar>
     </footer>
   </div>
