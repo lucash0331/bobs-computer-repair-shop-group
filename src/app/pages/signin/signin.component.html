@@ -29,16 +29,8 @@
               <mat-card-content>
                 <mat-form-field fxFlex appearance="fill">
                   <mat-label for="txtUserName" id="lbluserName">Username</mat-label>
-                  <input
-                    type="text"
-                    matInput
-                    [formControl]="form.controls['userName']"
-                    id="txtUserName"
-                    name="txtUserName"
-                  />
-                  <mat-error
-                    class="error"
-                    *ngIf="form.controls.userName.hasError('required') && form.controls.userName.touched"
+                  <input type="text" matInput [formControl]="form.controls['userName']" id="txtUserName" name="txtUserName" />
+                  <mat-error class="error" *ngIf="form.controls.userName.hasError('required') && form.controls.userName.touched"
                     >You must enter a username.</mat-error
                   >
                 </mat-form-field>
@@ -46,16 +38,8 @@
               <mat-card-content>
                 <mat-form-field fxFlex appearance="fill">
                   <mat-label for="pswdPassword" id="lblpassword">Password</mat-label>
-                  <input
-                    type="password"
-                    matInput
-                    [formControl]="form.controls['password']"
-                    id="pswdPassword"
-                    name="pswdPassword"
-                  />
-                  <mat-error
-                    class="error"
-                    *ngIf="form.controls.password.hasError('required') && form.controls.password.touched"
+                  <input type="password" matInput [formControl]="form.controls['password']" id="pswdPassword" name="pswdPassword" />
+                  <mat-error class="error" *ngIf="form.controls.password.hasError('required') && form.controls.password.touched"
                     >You must enter a password.</mat-error
                   >
                 </mat-form-field>
@@ -84,10 +68,7 @@
                       <input matInput [formControl]="contactForm.controls['firstName']" />
                       <mat-error
                         class="error"
-                        *ngIf="
-                          contactForm.controls['firstName'].hasError('required') &&
-                          contactForm.controls['firstName'].touched
-                        "
+                        *ngIf="contactForm.controls['firstName'].hasError('required') && contactForm.controls['firstName'].touched"
                       >
                         First name is a required field.
                       </mat-error>
@@ -98,10 +79,7 @@
                       <input matInput [formControl]="contactForm.controls['lastName']" />
                       <mat-error
                         class="error"
-                        *ngIf="
-                          contactForm.controls['lastName'].hasError('required') &&
-                          contactForm.controls['lastName'].touched
-                        "
+                        *ngIf="contactForm.controls['lastName'].hasError('required') && contactForm.controls['lastName'].touched"
                       >
                         Last name is a required field.
                       </mat-error>
@@ -115,10 +93,7 @@
                       <input matInput [formControl]="contactForm.controls['phoneNumber']" />
                       <mat-error
                         class="error"
-                        *ngIf="
-                          contactForm.controls['phoneNumber'].hasError('required') &&
-                          contactForm.controls['phoneNumber'].touched
-                        "
+                        *ngIf="contactForm.controls['phoneNumber'].hasError('required') && contactForm.controls['phoneNumber'].touched"
                       >
                         Phone number is a required field.
                       </mat-error>
@@ -127,18 +102,10 @@
                     <mat-form-field fxFlex appearance="fill">
                       <mat-label>Email</mat-label>
                       <input matInput [formControl]="contactForm.controls['email']" />
-                      <mat-error
-                        class="error"
-                        *ngIf="
-                          contactForm.controls['email'].hasError('required') && contactForm.controls['email'].touched
-                        "
-                      >
+                      <mat-error class="error" *ngIf="contactForm.controls['email'].hasError('required') && contactForm.controls['email'].touched">
                         Email is a required field.
                       </mat-error>
-                      <mat-error
-                        class="error"
-                        *ngIf="contactForm.controls['email'].hasError('email') && contactForm.controls['email'].touched"
-                      >
+                      <mat-error class="error" *ngIf="contactForm.controls['email'].hasError('email') && contactForm.controls['email'].touched">
                         Invalid email format.
                       </mat-error>
                     </mat-form-field>
@@ -151,10 +118,7 @@
                       <input matInput [formControl]="contactForm.controls['address']" />
                       <mat-error
                         class="error"
-                        *ngIf="
-                          contactForm.controls['address'].hasError('required') &&
-                          contactForm.controls['address'].touched
-                        "
+                        *ngIf="contactForm.controls['address'].hasError('required') && contactForm.controls['address'].touched"
                       >
                         Address is a required field
                       </mat-error>
@@ -280,9 +244,7 @@
                 <br />
                 <div fxLayoutAlign="end">
                   <button mat-raised-button color="primary" matStepperPrevious>Back</button>&nbsp;&nbsp;
-                  <button mat-raised-button color="primary" [disabled]="!securityQuestionsForm.valid" matStepperNext>
-                    Next
-                  </button>
+                  <button mat-raised-button color="primary" [disabled]="!securityQuestionsForm.valid" matStepperNext>Next</button>
                 </div>
               </form>
             </mat-step>
@@ -300,10 +262,7 @@
                         <input matInput [formControl]="credentialsForm.controls['userName']" />
                         <mat-error
                           class="error"
-                          *ngIf="
-                            credentialsForm.controls['userName'].hasError('required') &&
-                            credentialsForm.controls['userName'].touched
-                          "
+                          *ngIf="credentialsForm.controls['userName'].hasError('required') && credentialsForm.controls['userName'].touched"
                         >
                           Username is a required field
                         </mat-error>
@@ -316,19 +275,13 @@
                         <input type="password" matInput [formControl]="credentialsForm.controls['password']" />
                         <mat-error
                           class="error"
-                          *ngIf="
-                            credentialsForm.controls['password'].hasError('required') &&
-                            credentialsForm.controls['password'].touched
-                          "
+                          *ngIf="credentialsForm.controls['password'].hasError('required') && credentialsForm.controls['password'].touched"
                         >
                           Password is a required field
                         </mat-error>
                         <mat-error
                           class="error"
-                          *ngIf="
-                            credentialsForm.controls['password'].hasError('pattern') &&
-                            credentialsForm.controls['password'].touched
-                          "
+                          *ngIf="credentialsForm.controls['password'].hasError('pattern') && credentialsForm.controls['password'].touched"
                           >Password must be at least 8 characters, contain one letter and one number.</mat-error
                         >
                       </mat-form-field>
@@ -337,14 +290,7 @@
                   <br />
                   <div fxLayoutAlign="end">
                     <button mat-raised-button color="primary" matStepperPrevious>Back</button>&nbsp;&nbsp;
-                    <button
-                      mat-raised-button
-                      (click)="register(); showDialog()"
-                      [disabled]="!credentialsForm.valid"
-                      color="primary"
-                    >
-                      Register
-                    </button>
+                    <button mat-raised-button (click)="register(); showDialog()" [disabled]="!credentialsForm.valid" color="primary">Register</button>
                   </div>
                 </div>
               </form>
