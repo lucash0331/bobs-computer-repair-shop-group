@@ -17,8 +17,6 @@
           <img class="nav-logo" src="../../../assets/yellowLion.png" height="50px" />
           <h1>&nbsp;Bob's Computer Repair Shop</h1>
         </div>
-        <!-- <div fxFlex></div> -->
-
         <div fxLayoutAlign="end center" fxFlex="85">
           <button class="navbar-link" routerLink="/" mat-button>Home</button>
           <button class="navbar-link" routerLink="/user" mat-button>Users</button>
@@ -26,13 +24,10 @@
           <button class="navbar-link" routerLink="/about" mat-button>About Us</button>
           <button class="navbar-link" routerLink="/contact" mat-button>Contact</button>
         </div>
-        <!-- <div fxFlex></div> -->
-
         <div *ngIf="isLoggedIn" fxLayoutAlign="end center" fxFlex="5">
           <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="User Profile Menu">
             <mat-icon>perm_identity</mat-icon>
           </button>
-
           <mat-menu #profileMenu>
             <p style="padding: 10px">Signed in as {{ name }}</p>
             <mat-divider></mat-divider>
@@ -46,6 +41,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
   <hr class="top-line" />
+
   <!-- main content -->
   <div fxFlex>
     <main class="main-content" fxFlex="100%;">
