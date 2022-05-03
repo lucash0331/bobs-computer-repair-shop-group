@@ -5,7 +5,7 @@
 ; Date: May 2, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App invoice.js file
-; Schema for services for purchase
+; Model for services for purchase
 ;===========================================
 */
 
