@@ -18,8 +18,20 @@ import { User } from "../shared/interfaces/user.interface";
 export class UserService {
   constructor(private http: HttpClient) {}
 
+  // createUser(newUser: User): Observable<any> {
+  // return this.http.post("/api/users", {
+  // userName: newUser.userName,
+  // password: newUser.password,
+  // firstName: newUser.firstName,
+  // lastName: newUser.lastName,
+  // phoneNumber: newUser.phoneNumber,
+  // address: newUser.address,
+  // email: newUser.email,
+  //  });
+  // }
+
   createUser(newUser: User): Observable<any> {
-    return this.http.post("/api/users", {
+    return this.http.post("/api/session/register", {
       userName: newUser.userName,
       password: newUser.password,
       firstName: newUser.firstName,
@@ -27,6 +39,7 @@ export class UserService {
       phoneNumber: newUser.phoneNumber,
       address: newUser.address,
       email: newUser.email,
+      selectedSecurityQuestions: newUser.selectedSecurityQuestions
     });
   }
 
@@ -44,7 +57,6 @@ export class UserService {
 
   updateUser(_id: string, updatedUser: User): Observable<any> {
     const result = this.http.put("/api/users/" + _id, {
-      
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       phoneNumber: updatedUser.phoneNumber,
