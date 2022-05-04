@@ -80,7 +80,8 @@ export class UserDetailsComponent implements OnInit {
       lastName: this.form.controls.lastName.value,
       phoneNumber: this.form.controls.phoneNumber.value,
       address: this.form.controls.address.value,
-      email: this.form.controls.email.value,      
+      email: this.form.controls.email.value, 
+      selectedSecurityQuestions: this.user.selectedSecurityQuestions,
       //role: {role: this.form.controls.role.value}
     };
     console.log(updatedUser);

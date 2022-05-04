@@ -18,7 +18,7 @@ const router = express.Router();
 const saltRounds = 10;
 
 //CreateUser API
-router.post("/", async (req, res) => {
+/* router.post("/", async (req, res) => {
    try {
      let hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
      standardRole = {
@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
      const createUserCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
      res.status(500).send(createUserCatchErrorResponse.toObject());
    }
- });
+ }); */
 
 /**
  * API to find user by username (OK)
