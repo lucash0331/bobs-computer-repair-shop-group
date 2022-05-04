@@ -43,7 +43,7 @@ router.put("/:id", async (req, res) => {
               const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
               res.status(500).send(saveRoleInvalidIdResponse.toObject);
             } else {
-              console.log(updatedSecurityQuestion);
+              console.log(updatedRole);
               const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
               res.json(updateRoleResponse.toObject());
             }

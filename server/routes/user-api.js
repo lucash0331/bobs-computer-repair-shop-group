@@ -257,4 +257,35 @@ router.get("/:userName/security-questions", async (req, res) => {
   }
 });
 
+/**
+ * API to find user's role by user ID (OK)
+ */
+
+ router.get("/:userId/role", async (req, res) => {
+  try {
+    User.findOne({ _id: req.params.userId }, function (err, user) {
+      console.log(req.params.userId);
+      if (err) {
+        console.log(err);
+        const findUserRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(findUserRoleMongodbErrorResponse.toObject());
+      } else {
+        if (!user) {
+          const response = `Invalid user ID`;
+          console.log(response);
+          res.send(response);
+        } else {
+          const findUserRoleResponse = new BaseResponse(200, "Query successful", user.role);
+          console.log(user.role);
+          res.json(findUserRoleResponse.toObject());
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const findUserRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", err);
+    res.status(500).send(findUserRoleCatchErrorResponse.toObject());
+  }
+});
+
 module.exports = router;

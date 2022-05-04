@@ -22,6 +22,7 @@ const UserApi = require("./routes/user-api");
 const SecurityQuestionsApi = require("./routes/security-questions-api");
 const SessionApi = require("./routes/session-api");
 const ServicesApi = require("./routes/services-api");
+const RolesApi = require("./routes/role-api");
 
 /**
  * App configurations
@@ -64,7 +65,7 @@ app.use("/api/security-questions", SecurityQuestionsApi);
 app.use("/api/session", SessionApi);
 app.use("/api/users", UserApi);
 app.use("/api/services", ServicesApi);
-app.use("/api/services", ServicesApi);
+app.use("/api/roles", RolesApi);
 
 /**
  * Create and start server
