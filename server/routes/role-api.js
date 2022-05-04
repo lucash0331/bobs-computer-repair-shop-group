@@ -19,45 +19,44 @@ const User = require("../models/user");
  * API to update a role (OK)
  */
 
- router.put("/:id", async (req, res) => {
-    try {
-      Role.findOne({ _id: req.params.id }, function (err, role) {
-        if (err) {
-          console.log(err);
-          const updateRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
-          res.status(500).send(updateRoleMongodbErrorResponse.toObject());
+router.put("/:id", async (req, res) => {
+  try {
+    Role.findOne({ _id: req.params.id }, function (err, role) {
+      if (err) {
+        console.log(err);
+        const updateRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(updateRoleMongodbErrorResponse.toObject());
+      } else {
+        if (!role) {
+          const response = `Invalid ID`;
+          console.log(response);
+          res.send(response);
         } else {
-          if (!role) {
-            const response = `Invalid ID`;
-            console.log(response);
-            res.send(response);
-          } else {
-            console.log(role);
-            role.set({
-              text: req.body.text,
-            });
-  
-            role.save(function (err, updatedRole) {
-              if (err) {
-                console.log(err);
-                const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
-                res.status(500).send(saveRoleInvalidIdResponse.toObject);
-              } else {
-                console.log(updatedSecurityQuestion);
-                const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
-                res.json(updateRoleResponse.toObject());
-              }
-            });
-          }
+          console.log(role);
+          role.set({
+            name: req.body.name,
+          });
+
+          role.save(function (err, updatedRole) {
+            if (err) {
+              console.log(err);
+              const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
+              res.status(500).send(saveRoleInvalidIdResponse.toObject);
+            } else {
+              console.log(updatedSecurityQuestion);
+              const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
+              res.json(updateRoleResponse.toObject());
+            }
+          });
         }
-      });
-    } catch (e) {
-      console.log(e);
-      const updateRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
-      res.status(500).send(updateRoleCatchErrorResponse.toObject());
-    }
-  });
-  
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const updateRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    res.status(500).send(updateRoleCatchErrorResponse.toObject());
+  }
+});
 
 //Find all roles API
 router.get("/", async (req, res) => {
@@ -82,5 +81,7 @@ router.get("/", async (req, res) => {
     res.status(500).send(findAllRolesCatchErrorResponse.toObject());
   }
 });
+
+//Delete role API
 
 module.exports = router;
