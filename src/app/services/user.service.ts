@@ -18,20 +18,8 @@ import { User } from "../shared/interfaces/user.interface";
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  // createUser(newUser: User): Observable<any> {
-  // return this.http.post("/api/users", {
-  // userName: newUser.userName,
-  // password: newUser.password,
-  // firstName: newUser.firstName,
-  // lastName: newUser.lastName,
-  // phoneNumber: newUser.phoneNumber,
-  // address: newUser.address,
-  // email: newUser.email,
-  //  });
-  // }
-
   createUser(newUser: User): Observable<any> {
-    return this.http.post("/api/session/register", {
+    return this.http.post("/api/users", {
       userName: newUser.userName,
       password: newUser.password,
       firstName: newUser.firstName,
@@ -39,9 +27,21 @@ export class UserService {
       phoneNumber: newUser.phoneNumber,
       address: newUser.address,
       email: newUser.email,
-      selectedSecurityQuestions: newUser.selectedSecurityQuestions
     });
   }
+
+  //createUser(newUser: User): Observable<any> {
+  //  return this.http.post("/api/session/register", {
+  //    userName: newUser.userName,
+  //   password: newUser.password,
+  //   firstName: newUser.firstName,
+  //    lastName: newUser.lastName,
+  //     phoneNumber: newUser.phoneNumber,
+  //   address: newUser.address,
+  //    email: newUser.email,
+  //     selectedSecurityQuestions: newUser.selectedSecurityQuestions
+  //  });
+  // }
 
   findAllUsers(): Observable<any> {
     return this.http.get("/api/users");

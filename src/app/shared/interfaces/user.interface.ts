@@ -18,6 +18,6 @@ export interface User {
   phoneNumber: string;
   address: string;
   email: string;
-  selectedSecurityQuestions: [any];
+  //selectedSecurityQuestions: any;
   //role: {};
 }
