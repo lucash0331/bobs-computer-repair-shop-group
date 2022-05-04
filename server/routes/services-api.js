@@ -70,4 +70,27 @@ router.get("/:id", async (req, res) => {
 });
 //Create Service API
 
+router.post("/services", async (req, res) => {
+  try {
+    const newService = {
+      name: req.body.name,
+      price: req.body.price,
+    };
+    Service.create(newService, function (err, service) {
+      if (err) {
+        console.log(err);
+        const newServiceMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
+        res.status(500).send(newServiceMongodbErrorResponse.toObject());
+      } else {
+        console.log(newService);
+        const newServiceResponse = new BaseResponse(200, "Query Successful", err);
+        res.json(newServiceResponse.toObject());
+      }
+    });
+  } catch (e) {
+    const newServiceCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
+    res.status(500).send(newServiceCatchErrorResponse.toObject());
+  }
+});
+
 module.exports = router;
