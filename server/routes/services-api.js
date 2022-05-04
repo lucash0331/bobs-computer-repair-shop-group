@@ -1,8 +1,8 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Title: WEB450 Bob's Computer Repair Shop Sprint3
 ; Author: Professor Krasso
-; Date: April 24, 2022
+; Date: May 3, 2022
 ; Modified By: House Gryffindor
 ; Description: Bob's Computer Repair Shop App services-api.js file
 ; API for services operations
@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
  * API to find service by ID (OK)
  */
 
- router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     Service.findOne({ _id: req.params.id }, function (err, service) {
       console.log(req.params.id);
@@ -68,5 +68,6 @@ router.get("/", async (req, res) => {
     res.status(500).send(readServiceCatchErrorResponse.toObject());
   }
 });
+//Create Service API
 
 module.exports = router;
