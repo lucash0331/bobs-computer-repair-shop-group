@@ -38,6 +38,36 @@ router.get("/", async (req, res) => {
   }
 });
 
+/**
+ * API to find service by ID (OK)
+ */
+
+router.get("/:id", async (req, res) => {
+  try {
+    Service.findOne({ _id: req.params.id }, function (err, service) {
+      console.log(req.params.id);
+      if (err) {
+        console.log(err);
+        const readServiceMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(readServiceMongodbErrorResponse.toObject());
+      } else {
+        if (!service) {
+          const response = `Invalid service ID`;
+          console.log(response);
+          res.send(response);
+        } else {
+          const readServiceResponse = new BaseResponse(200, "Query successful", service);
+          console.log(service);
+          res.json(readServiceResponse.toObject());
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const readServiceCatchErrorResponse = new BaseResponse(500, "Internal server error", err);
+    res.status(500).send(readServiceCatchErrorResponse.toObject());
+  }
+});
 //Create Service API
 
 module.exports = router;
