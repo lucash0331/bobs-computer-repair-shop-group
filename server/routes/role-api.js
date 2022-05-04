@@ -34,7 +34,7 @@ const User = require("../models/user");
           } else {
             console.log(role);
             role.set({
-              name: req.body.name,
+              text: req.body.text,
             });
   
             role.save(function (err, updatedRole) {
