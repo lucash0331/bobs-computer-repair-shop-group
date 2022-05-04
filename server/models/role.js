@@ -1,23 +1,20 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Title: WEB450 Bob's Computer Repair Shop Sprint3
 ; Author: Professor Krasso
-; Date: May 3, 2022
+; Date: May2, 2022
 ; Modified By: House Gryffindor
-; Description: Bob's Computer Repair Shop App service.js file
-; Model for the role
+; Description: Bob's Computer Repair Shop App role.js file
+; Model for the application's user roles
 ;===========================================
 */
 
-// Mongoose require statements
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let roleSchema = new Schema(
-  {
-    name: { type: String },    
-  },
-  { collection: "roles" }
-);
+const roleSchema = new Schema({
+  text: { type: String, unique: true },
+  isDisabled: { type: Boolean, default: false },
+});
 
-module.exports = mongoose.model("Roles", roleSchema);
+module.exports = mongoose.model("Role", roleSchema);
