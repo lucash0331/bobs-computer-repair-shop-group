@@ -19,5 +19,5 @@ export interface User {
   address: string;
   email: string;
   selectedSecurityQuestions: Array<any>;
-  //role: {};
+  role: any;
 }

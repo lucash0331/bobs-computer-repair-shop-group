@@ -130,8 +130,11 @@ router.put("/:id", async (req, res) => {
           lastName: req.body.lastName,
           phoneNumber: req.body.phoneNumber,
           address: req.body.address,
-          email: req.body.email,
+          email: req.body.email,        
         });
+        user.role.set({
+          role: req.body.role,
+        }) 
 
         user.save(function (err, savedUser) {
           if (err) {
