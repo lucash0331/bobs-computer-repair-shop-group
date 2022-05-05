@@ -15,6 +15,36 @@ const BaseResponse = require("../models/base-response");
 const router = express.Router();
 const User = require("../models/user");
 
+// Create role API - SHOULD BE DELETED (ONLY FOR TEST) - OK
+router.post("/", async (req, res) => {
+  let status = 200;
+  try {
+    const newRole = {
+      text: req.body.text,
+    };
+    Role.create(newRole, function (err, role) {
+      // If statement for an error with Mongo
+      if (err) {
+        console.log(err);
+        status = 500;
+        const createRoleMongodbErrorResponse = new BaseResponse(status, "Internal server error", err);
+        return res.status(status).send(createRoleMongodbErrorResponse.toObject());
+      }
+
+      //  new Role
+      console.log(role);
+      const createRoleResponse = new BaseResponse(status, "Query Successful", role);
+      return res.status(status).send(createRoleResponse.toObject());
+    });
+  } catch (error) {
+    // Server error goes here
+    console.log(error);
+    status = 500;
+    const createRoleCatchErrorResponse = new BaseResponse(status, "Internal server error", error.message);
+    res.status(status).send(createRoleCatchErrorResponse.toObject());
+  }
+});
+
 /**
  * API to update a role (OK)
  */
@@ -32,20 +62,34 @@ router.put("/:id", async (req, res) => {
           console.log(response);
           res.send(response);
         } else {
-          console.log(role);
-          role.set({
-            name: req.body.name,
-          });
-
-          role.save(function (err, updatedRole) {
+          Role.findOne({ text: req.body.text }, function (err, existedRole) {
             if (err) {
               console.log(err);
-              const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
-              res.status(500).send(saveRoleInvalidIdResponse.toObject);
+              const updateRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+              res.status(500).send(updateRoleMongodbErrorResponse.toObject());
             } else {
-              console.log(updatedRole);
-              const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
-              res.json(updateRoleResponse.toObject());
+              if (existedRole) {
+                const response = `Role: ${req.body.text} already exists`;
+                console.log(response);
+                const roleAlreadyExistsErrorResponse = new BaseResponse(400, response);
+                res.send(roleAlreadyExistsErrorResponse.toObject());
+              } else {
+                console.log(role);
+                role.set({
+                  text: req.body.text,
+                });
+                role.save(function (err, updatedRole) {
+                  if (err) {
+                    console.log(err);
+                    const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
+                    res.status(500).send(saveRoleInvalidIdResponse.toObject);
+                  } else {
+                    console.log(updatedRole);
+                    const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
+                    res.json(updateRoleResponse.toObject());
+                  }
+                });
+              }
             }
           });
         }
@@ -155,5 +199,32 @@ router.delete("/:roleId", async (req, res) => {
     res.status(500).send(deleteRoleCatchErrorResponse.toObject());
   }
 });
+
+// API to delete role - SHOULD BE DELETED (ONLY FOR TEST) - OK
+
+//  router.delete("/:id", async (req, res) => {
+//   try {
+//     const roleId = req.params.id;
+
+//     Role.findByIdAndDelete(
+//       { _id: roleId },
+//       function (err, role) {
+//         if (err) {
+//           console.log(err);
+//           res.status(501).send({
+//             message: `MongoDB Exception: ${err}`,
+//           });
+//         } else {
+//           console.log(role);
+//           res.json(role);
+//         }
+//       }
+//     );
+//   } catch (e) {
+//     console.log(e);
+//     res.status(500).send({
+//       message: `Server Exception: ${e.message}`,
+//     });
+//   }
 
 module.exports = router;

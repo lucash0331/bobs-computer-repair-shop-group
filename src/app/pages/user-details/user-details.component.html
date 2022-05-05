@@ -82,18 +82,36 @@
                 >Input valid email!</mat-error
               >
             </mat-form-field>
-            <!--role
+            <!--role-->
 
             <mat-form-field appearance="fill" #roleForm>
               <mat-label>Role</mat-label>
-              <select
+<!--               <select
                 matNativeControl                
                 [formControl]="form.controls['role']"
               >
-                <option value="standard">Standard</option>
-                <option value="admin">Admin</option>
+                <option value="standard">standard</option>
+                <option value="admin">admin</option>
               </select>
-            </mat-form-field>-->
+ -->            
+              <mat-select [formControl]="form.controls['role']" [(value)]="selectedRole">
+                 <!--  <mat-option></mat-option> -->
+                <mat-option *ngFor="let role of roles" [value]="role.text">
+                  {{ role.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                class="error"
+                *ngIf="
+                  form.controls['role'].hasError('required') &&
+                  form.controls['role'].touched
+                "
+              >
+              This field is required!
+              </mat-error>           
+
+            </mat-form-field>
+            <!-- <p>You selected: {{selectedRole}}</p> -->
           </mat-card-content>
 
           <mat-card-actions>
