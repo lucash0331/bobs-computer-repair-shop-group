@@ -98,7 +98,7 @@ export class UserDetailsComponent implements OnInit {
       address: this.form.controls.address.value,
       email: this.form.controls.email.value,
       selectedSecurityQuestions: this.user.selectedSecurityQuestions,
-      role: { role: this.form.controls.role.value },
+      role: this.form.controls.role.value,
     };
     console.log(updatedUser);
     this.userService.updateUser(this.userId, updatedUser).subscribe(

@@ -62,7 +62,7 @@ export class UserService {
       phoneNumber: updatedUser.phoneNumber,
       address: updatedUser.address,
       email: updatedUser.email,
-      //role: updatedUser.role,
+      role: updatedUser.role,
     });
     console.log(result);
     return result;
