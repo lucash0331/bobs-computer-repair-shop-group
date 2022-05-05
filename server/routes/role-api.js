@@ -62,25 +62,38 @@ router.put("/:id", async (req, res) => {
           console.log(response);
           res.send(response);
         } else {
-          console.log(role);
-          role.set({
-            text: req.body.text,
-          });
-
-          role.save(function (err, updatedRole) {
+          Role.findOne({ text: req.body.text }, function (err, existedRole) {
             if (err) {
               console.log(err);
-              const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
-              res.status(500).send(saveRoleInvalidIdResponse.toObject);
+              const updateRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+              res.status(500).send(updateRoleMongodbErrorResponse.toObject());
             } else {
-              console.log(updatedRole);
-              const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
-              res.json(updateRoleResponse.toObject());
+              if (existedRole) {
+                const response = `Role: ${req.body.text} already exists`;
+                console.log(response);
+                const roleAlreadyExistsErrorResponse = new BaseResponse(400, response);
+                res.send(roleAlreadyExistsErrorResponse.toObject());
+              } else {                
+                console.log(role);
+                role.set({
+                  text: req.body.text,
+                });      
+                role.save(function (err, updatedRole) {
+                  if (err) {
+                    console.log(err);
+                    const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
+                    res.status(500).send(saveRoleInvalidIdResponse.toObject);
+                  } else {
+                    console.log(updatedRole);
+                    const updateRoleResponse = new BaseResponse(200, "Query successful", updatedRole);
+                    res.json(updateRoleResponse.toObject());
+                  }
+                });
+              }
             }
           });
         }
-      }
-    });
+      }});
   } catch (e) {
     console.log(e);
     const updateRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);

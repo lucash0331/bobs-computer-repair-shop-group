@@ -42,4 +42,8 @@ export class RoleService {
       text: updatedRole.text,
     });
   }
+
+  findUserRole(userId: string): Observable<any> {
+    return this.http.get(`/api/users/${userId}/role`);
+  }
 }
