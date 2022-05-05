@@ -84,4 +84,76 @@ router.get("/", async (req, res) => {
 
 //Delete role API
 
+router.delete("/:roleId", async (req, res) => {
+  try {
+    // Find the role by id
+    Role.findOne({ _id: req.params.roleId }, function (err, role) {
+      if (err) {
+        console.log(err);
+        const deleteRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(deleteRoleMongodbErrorResponse.toObject());
+        // Successful
+      } else {
+        console.log(role);
+        // check if the role assigned to a user.
+        User.aggregate(
+          [
+            {
+              $lookup: {
+                from: "roles",
+                localField: "role.role",
+                foreignField: "text",
+                as: "userRoles",
+              },
+            },
+            {
+              $match: {
+                "userRoles.text": role.text,
+              },
+            },
+          ],
+          function (err, users) {
+            console.log(users);
+            if (err) {
+              console.log(err);
+              const usersMongodbErrorResponse = new BaseResponse("500", "Internal server error", err);
+              res.status(500).send(usersMongodbErrorResponse.toObject());
+            } else {
+              //  If the new role is already in use, then role shouldn't be disabled.
+              if (users.length > 0) {
+                console.log(`Role <${role.text}> is already in use and cannot be deleted`);
+                const userRoleAlreadyInUseResponse = new BaseResponse(400, `Role '${role.text}' is in use.`, role);
+                res.status(400).send(userRoleAlreadyInUseResponse.toObject());
+              } else {
+                console.log(`Role <${role.text}> is not an active role and can be safely removed`);
+                role.set({ isDisabled: true });
+
+                role.save(function (err, updatedRole) {
+                  if (err) {
+                    console.log(err);
+                    const updatedRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+                    res.status(500).send(updatedRoleMongodbErrorResponse.toObject());
+                  } else {
+                    console.log(updatedRole);
+                    const roleDeletedResponse = new BaseResponse(
+                      200,
+                      `Role '${role.text}' has been removed successfully`,
+                      updatedRole
+                    );
+                    res.json(roleDeletedResponse.toObject());
+                  }
+                });
+              }
+            }
+          }
+        );
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const deleteRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    res.status(500).send(deleteRoleCatchErrorResponse.toObject());
+  }
+});
+
 module.exports = router;
