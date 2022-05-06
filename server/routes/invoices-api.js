@@ -15,11 +15,15 @@ const router = express.Router();
 const Invoice = require("../models/invoice");
 
 // Create invoice
-router.post("/", async (req, res) => {
-  let status = 200;
+router.post("/:userName", async (req, res) => {
   try {
     const newInvoice = {
-      text: req.body.text,
+      userName: req.params.userName,
+      lineItems: req.body.lineItems,
+      partsAmount: req.body.partsAmounts,
+      laborAmount: req.body.laborAmount,
+      lineItemTotal: req.body.lineItemTotal,
+      total: req.body.total,
     };
     Invoice.create(newInvoice, function (err, invoice) {
       // If statement for an error with Mongo
@@ -27,7 +31,7 @@ router.post("/", async (req, res) => {
         console.log(err);
         status = 500;
         const createInvoiceMongodbErrorResponse = new BaseResponse(status, "Internal server error", err);
-        return res.status(status).send(createInvoiceMongodbErrorResponse.toObject());
+        return res.status(200).send(createInvoiceMongodbErrorResponse.toObject());
       }
 
       //  new invoice
@@ -38,9 +42,8 @@ router.post("/", async (req, res) => {
   } catch (error) {
     // Server error goes here
     console.log(error);
-    status = 500;
     const createInvoiceCatchErrorResponse = new BaseResponse(status, "Internal server error", error.message);
-    res.status(status).send(createInvoiceCatchErrorResponse.toObject());
+    res.status(500).send(createInvoiceCatchErrorResponse.toObject());
   }
 });
 

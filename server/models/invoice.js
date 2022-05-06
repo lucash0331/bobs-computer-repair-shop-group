@@ -11,17 +11,18 @@
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const lineItemSchema = require("../schemas/line-item");
+const lineItemDocument = require("../schemas/line-item");
 
 const invoiceSchema = new Schema(
   {
-    lineItems: [lineItemSchema],
+    userName: { type: String },
+    lineItems: [lineItemDocument],
     partsAmount: { type: Number },
     laborAmount: { type: Number },
     lineItemTotal: { type: Number },
     total: { type: Number },
     userName: { type: String },
-    orderDate: { type: Date },
+    orderDate: { type: Date, default: new Date() },
   },
   { collection: "invoices" }
 );
