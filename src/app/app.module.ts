@@ -59,6 +59,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AboutComponent } from './pages/about/about.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { AboutComponent } from './pages/about/about.component';
     ErrorComponent,
     ContactComponent,
     AboutComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

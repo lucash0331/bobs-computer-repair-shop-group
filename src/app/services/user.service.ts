@@ -55,6 +55,10 @@ export class UserService {
     return this.http.get("/api/users/user/" + _id);
   }
 
+  findUserByUserName(userName: string): Observable<any> {
+    return this.http.get("/api/users/" + userName);
+  }
+
   updateUser(_id: string, updatedUser: User): Observable<any> {
     const result = this.http.put("/api/users/" + _id, {
       firstName: updatedUser.firstName,

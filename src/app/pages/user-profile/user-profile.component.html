@@ -1,0 +1,174 @@
+<!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: May 5, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App - User Profile
+===========================================
+-->
+
+<div fxLayout="column" class="profile-div">
+  <mat-card fxFlex class="mat-elevation-z8 profile-container">
+    <mat-card-content>
+      <!--         <p-dialog header="Welcome to Bob's" [(visible)]="display">
+          <p>User successfully created and signed in. You will now be redirected to the homepage.</p>
+          <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="redirectLogIn()" label="Ok" styleClass="p-button-text"></p-button>
+          </ng-template>
+        </p-dialog> -->
+
+      <mat-tab-group>
+        <mat-tab label="User Profile">
+          <!--             <div class="msg-error" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div> -->
+          <mat-card fxFlex class="mat-elevation-z8 update-container">
+            <mat-card-content>
+              <mat-card
+                class="mat-elevation-z0"
+                fxLayout="column"
+                fxLayoutGap="10px"
+              >
+                <form
+                  [formGroup]="form"
+                  (ngSubmit)="saveUser()"
+                  #userProfileForm
+                >
+                  <mat-card-content>
+                    <!--userName-->
+                    <mat-form-field *ngIf = "!edit">
+                      <input
+                        matInput
+                        [formControl]="form.controls['userName']"
+                        placeholder="User name"
+                        readonly="true"
+                      />
+                    </mat-form-field>
+
+                    <!--firstName-->
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [formControl]="form.controls['firstName']"
+                        placeholder="First name"
+                        readonly="{{ readonly }}"
+                      />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          form.controls.firstName.hasError('required') &&
+                          form.controls.firstName.touched
+                        "
+                        >This field is required!</mat-error
+                      >
+                    </mat-form-field>
+                    <!--lastName-->
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [formControl]="form.controls['lastName']"
+                        placeholder="Last name"
+                        readonly="{{ readonly }}"
+                      />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          form.controls.lastName.hasError('required') &&
+                          form.controls.lastName.touched
+                        "
+                        >This field is required!</mat-error
+                      >
+                    </mat-form-field>
+                    <!--phone-->
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [formControl]="form.controls['phoneNumber']"
+                        placeholder="Phone number"
+                        readonly="{{ readonly }}"
+                      />
+                    </mat-form-field>
+                    <!--address-->
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [formControl]="form.controls['address']"
+                        placeholder="Address"
+                        readonly="{{ readonly }}"
+                      />
+                    </mat-form-field>
+                    <!--email-->
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [formControl]="form.controls['email']"
+                        placeholder="Email"
+                        readonly="{{ readonly }}"
+                      />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                          form.controls.email.hasError('email') &&
+                          form.controls.email.touched
+                        "
+                        >Input valid email!</mat-error
+                      >
+                    </mat-form-field>
+                    <!--role-->
+                    <mat-form-field  *ngIf = "!edit">
+                      <input
+                        matInput
+                        [formControl]="form.controls['role']"
+                        placeholder="Role"
+                        readonly="true"
+                      />
+                    </mat-form-field>
+                  </mat-card-content>
+
+                  <mat-card-actions>
+                    <button
+                      *ngIf="edit"
+                      class="cancel"
+                      (click)="cancel()"
+                      mat-raised-button
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      *ngIf="edit"
+                      class="submit"
+                      [disabled]="!form.valid"
+                      mat-raised-button
+                    >
+                      Submit
+                    </button>
+                    <button
+                    *ngIf="!edit"
+                    class="exit"
+                    (click)="exit()"
+                    mat-raised-button
+                  >
+                    Exit
+                  </button>
+                    <button
+                    *ngIf="!edit"
+                    class="edit"
+                    [disabled]="!form.valid"
+                    (click)="editProfile()"
+                    mat-raised-button
+                  >
+                    Edit Profile
+                  </button>
+                  </mat-card-actions>
+                </form>
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Security Questions"> </mat-tab>
+        <mat-tab label="Change Password"> </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -29,6 +29,7 @@ import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { ErrorComponent } from "./pages/error/error.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { ContactComponent } from "./pages/contact/contact.component";
+import { UserProfileComponent } from "./pages/user-profile/user-profile.component";
 
 const routes: Routes = [
   {
@@ -93,6 +94,12 @@ const routes: Routes = [
         component: UserCreateComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: "users/user/profile",
+        component: UserProfileComponent,
+        canActivate: [AuthGuard],
+      },
+
     ],
   },
   {
