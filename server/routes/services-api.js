@@ -70,7 +70,7 @@ router.get("/:id", async (req, res) => {
 });
 //Create Service API
 
-router.post("/services", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const newService = {
       name: req.body.name,
@@ -83,7 +83,7 @@ router.post("/services", async (req, res) => {
         res.status(500).send(newServiceMongodbErrorResponse.toObject());
       } else {
         console.log(newService);
-        const newServiceResponse = new BaseResponse(200, "Query Successful", err);
+        const newServiceResponse = new BaseResponse(200, "Query Successful", service);
         res.json(newServiceResponse.toObject());
       }
     });

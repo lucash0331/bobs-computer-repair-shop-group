@@ -21,10 +21,9 @@ const invoiceSchema = new Schema(
     laborAmount: { type: Number },
     lineItemTotal: { type: Number },
     total: { type: Number },
-    userName: { type: String },
     orderDate: { type: Date, default: new Date() },
-  },
-  { collection: "invoices" }
+  }
+  // { collection: "invoices" }
 );
 
 module.exports = mongoose.model("Invoice", invoiceSchema);

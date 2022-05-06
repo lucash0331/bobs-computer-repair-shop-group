@@ -20,7 +20,7 @@ router.post("/:userName", async (req, res) => {
     const newInvoice = {
       userName: req.params.userName,
       lineItems: req.body.lineItems,
-      partsAmount: req.body.partsAmounts,
+      partsAmount: req.body.partsAmount,
       laborAmount: req.body.laborAmount,
       lineItemTotal: req.body.lineItemTotal,
       total: req.body.total,
@@ -29,20 +29,19 @@ router.post("/:userName", async (req, res) => {
       // If statement for an error with Mongo
       if (err) {
         console.log(err);
-        status = 500;
-        const createInvoiceMongodbErrorResponse = new BaseResponse(status, "Internal server error", err);
-        return res.status(200).send(createInvoiceMongodbErrorResponse.toObject());
+        const createInvoiceMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        return res.status(500).send(createInvoiceMongodbErrorResponse.toObject());
       }
 
       //  new invoice
       console.log(invoice);
-      const createInvoiceResponse = new BaseResponse(status, "Query Successful", invoice);
-      return res.status(status).send(createInvoiceResponse.toObject());
+      const createInvoiceResponse = new BaseResponse(200, "Query Successful", invoice);
+      return res.status(200).send(createInvoiceResponse.toObject());
     });
   } catch (error) {
     // Server error goes here
     console.log(error);
-    const createInvoiceCatchErrorResponse = new BaseResponse(status, "Internal server error", error.message);
+    const createInvoiceCatchErrorResponse = new BaseResponse(500, "Internal server error", error.message);
     res.status(500).send(createInvoiceCatchErrorResponse.toObject());
   }
 });
