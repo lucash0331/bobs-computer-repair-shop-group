@@ -71,4 +71,14 @@ export class UserService {
     console.log(result);
     return result;
   }
+
+  saveSelectedSecurityQuestions(userId: string, selectedSecurityQuestions: Array<any>): Observable<any> {
+    const result = this.http.put("/api/users/" + userId +"/security-questions", {
+      selectedSecurityQuestions: selectedSecurityQuestions,
+
+    });
+    console.log(result);
+    return result;
+  }
+
 }

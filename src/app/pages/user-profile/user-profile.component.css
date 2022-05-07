@@ -65,6 +65,14 @@
     margin: 60px auto;
     width: 40%;
   }
+
+  .mat-list-base, .mat-list-item, .mat-list-item-ripple {
+    margin-bottom: 20px !important;
+  }
+
+  h3 {
+    padding-bottom: 20px;
+  }
   
    
 

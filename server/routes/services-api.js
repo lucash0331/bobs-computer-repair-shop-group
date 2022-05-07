@@ -93,6 +93,50 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Delete service API
+router.delete("/:id", async (req, res) => {
+  try {
+    Service.findOne({ _id: req.params.id }, function (err, service) {
+
+      if (err) {
+        console.log(err);
+        const deleteServiceMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        return res.status(500).send(deleteServiceMongodbErrorResponse.toObject());
+      } else {
+
+        // If statement for service not found in DB
+        if (!service) {
+          console.log("Service not found");
+          const deleteServiceResponse = new BaseResponse(404, "Service not found");
+          return res.status(404).send(deleteServiceResponse.toObject());
+        } else {
+          console.log(service);
+          service.set({
+            isDisabled: true,
+          });
+          service.save(function (err, savedService) {
+            // If statement 
+            if (err) {
+              console.log(err);
+              const deleteServiceMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+              return res.status(500).send(deleteServiceMongodbErrorResponse.toObject());
+            } else {
+              console.log(savedService);
+              // This will return the deleted service
+              const deleteServiceResponse = new BaseResponse(200, "Query successful", service);
+              res.json(deleteServiceResponse.toObject());
+            }
+          });
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const deleteServiceCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    return res.status(500).send(deleteServiceCatchErrorResponse.toObject());
+  }
+});
+
 // Update service API
 
 router.put("/:id", async (req, res) => {

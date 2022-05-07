@@ -31,6 +31,11 @@
           <mat-menu #profileMenu>
             <p style="padding: 10px">Signed in as {{ name }}</p>
             <mat-divider></mat-divider>
+            <button mat-menu-item (click)="redirectToProfile()">
+              <mat-icon>settings</mat-icon>
+              <span>Profile</span>
+            </button>
+            <mat-divider></mat-divider>
             <button mat-menu-item (click)="signOut()">
               <mat-icon>logout</mat-icon>
               <span>Signout</span>
