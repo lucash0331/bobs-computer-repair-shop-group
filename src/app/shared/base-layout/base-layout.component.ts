@@ -42,6 +42,6 @@ export class BaseLayoutComponent implements OnInit {
   }
 
   redirectToServices(): void {
-    this.router.navigate(["/services/create/new"]);
+    this.router.navigate(["/services/"]);
   }
 }
