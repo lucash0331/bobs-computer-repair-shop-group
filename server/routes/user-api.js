@@ -130,12 +130,12 @@ router.put("/:id", async (req, res) => {
           lastName: req.body.lastName,
           phoneNumber: req.body.phoneNumber,
           address: req.body.address,
-          email: req.body.email,        
+          email: req.body.email,
         });
         console.log(req.body.role);
         user.role.set({
-          role: req.body.role,          
-        }) 
+          role: req.body.role,
+        })
 
         user.save(function (err, savedUser) {
           if (err) {
@@ -265,7 +265,7 @@ router.get("/:userName/security-questions", async (req, res) => {
  * API to find user's role by user ID (OK)
  */
 
- router.get("/:userId/role", async (req, res) => {
+router.get("/:userId/role", async (req, res) => {
   try {
     User.findOne({ _id: req.params.userId }, function (err, user) {
       console.log(req.params.userId);
@@ -291,5 +291,51 @@ router.get("/:userName/security-questions", async (req, res) => {
     res.status(500).send(findUserRoleCatchErrorResponse.toObject());
   }
 });
+
+/**
+ * API to update selected security questions (OK)
+ */
+
+router.put("/:userId/security-questions", async (req, res) => {
+  try {
+    User.findOne({ _id: req.params.userId }, function (err, user) {
+      if (err) {
+        console.log(err);
+        const updateRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(updateRoleMongodbErrorResponse.toObject());
+      } else {
+        if (!user) {
+          const response = `Invalid ID`;
+          console.log(response);
+          const userInvalidIdErrorResponse = new BaseResponse(400, response);
+          res.send(userInvalidIdErrorResponse.toObject());
+
+        } else {
+
+          user.set(
+            {selectedSecurityQuestions: req.body.selectedSecurityQuestions}
+            );
+          user.save(function (err, updatedUser) {
+            if (err) {
+              console.log(err);
+              const saveRoleInvalidIdResponse = new BaseResponse(500, "Internal server error", err);
+              res.status(500).send(saveRoleInvalidIdResponse.toObject);
+            } else {
+              console.log(updatedUser);
+              const updateRoleResponse = new BaseResponse(200, "Query successful", updatedUser);
+              res.json(updateRoleResponse.toObject());
+            }
+          });
+        }
+      }
+    });
+  }
+  catch (e) {
+    console.log(e);
+    const updateRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    res.status(500).send(updateRoleCatchErrorResponse.toObject());
+  }
+});
+
 
 module.exports = router;

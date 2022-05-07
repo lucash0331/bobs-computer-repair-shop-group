@@ -17,6 +17,7 @@ let serviceSchema = new Schema(
   {
     name: { type: String },
     price: { type: String },
+    isDisabled: { type: Boolean, default: false },
   },
   { collection: "services" }
 );

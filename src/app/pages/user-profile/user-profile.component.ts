@@ -18,6 +18,9 @@ import { User } from "src/app/shared/interfaces/user.interface";
 import { Role } from "src/app/shared/interfaces/role-interface";
 import { RoleService } from "src/app/services/roles.service";
 import { CookieService } from "ngx-cookie-service";
+import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
+import { SecurityQuestionsService } from "src/app/services/security-questions.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-user-profile",
@@ -33,6 +36,14 @@ export class UserProfileComponent implements OnInit {
   name: string;
   readonly: Boolean;
   edit: Boolean;
+  passwordForm: FormGroup;
+  securityQuestionsForm: FormGroup;
+  errorMessage: string;
+  securityQuestions: SecurityQuestion[];
+  isFilled: string;
+  selectedRole: string;
+  selectedIndex: number = 0;
+  isSelectedSecurityQuestions: Boolean;
 
   constructor(
     private router: Router,
@@ -40,19 +51,60 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private roleService: RoleService,
     private fb: FormBuilder,
-    private cookieService: CookieService //private confirmationService: ConfirmationService, //private messageService: MessageService
+    private cookieService: CookieService, //private confirmationService: ConfirmationService, //private messageService: MessageService
+    private securityQuestionsService: SecurityQuestionsService,
+    private http: HttpClient
   ) {
     this.userName = this.cookieService.get("session_user");
     //console.log(this.route.snapshot.paramMap);
     console.log(this.userName);
     this.readonly = true;
     this.edit = false;
+    this.isFilled = "";
+    this.http
+      .get("/api/users/" + this.userName + "/security-questions")
+      .subscribe(
+        (res) => {
+          console.log(res["data"]);
+          this.isSelectedSecurityQuestions = res["data"].length > 0 ? true : false;
+          console.log(this.isSelectedSecurityQuestions);
+
+        },
+        (err) => {
+          console.log("ERROR");
+          console.log(err.message);
+        }
+      );
+    if (!this.isSelectedSecurityQuestions) {
+      this.securityQuestionsService.findAllSecurityQuestions().subscribe(
+        (res) => {
+          this.securityQuestions = res["data"];
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      userName: [null, Validators.compose([])],
+      firstName: [null, Validators.compose([Validators.required])],
+      lastName: [null, Validators.compose([Validators.required])],
+      phoneNumber: [null, Validators.compose([])],
+      address: [null, Validators.compose([])],
+      email: [null, Validators.compose([Validators.email])],
+      role: [null, Validators.compose([])],
+    });
+
     this.userService.findUserByUserName(this.userName).subscribe(
       (res) => {
         this.user = res["data"];
         this.userId = this.user._id;
+        this.selectedRole = this.user.role.role;
         console.log("1");
-        console.log(this.user.role.role);
+        console.log(this.selectedRole);
       },
       (err) => {
         console.log(err);
@@ -71,22 +123,41 @@ export class UserProfileComponent implements OnInit {
         console.log(this.form.controls.userName.value);
       }
     );
-  }
+    
+    // Sign-up/register form portion
 
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      userName: [null, Validators.compose([])],
-      firstName: [null, Validators.compose([Validators.required])],
-      lastName: [null, Validators.compose([Validators.required])],
-      phoneNumber: [null, Validators.compose([])],
-      address: [null, Validators.compose([])],
-      email: [null, Validators.compose([Validators.email])],
-      role: [null, Validators.compose([])],
+    this.securityQuestionsForm = this.fb.group({
+      securityQuestion1: [null, Validators.compose([Validators.required])],
+      securityQuestion2: [null, Validators.compose([Validators.required])],
+      securityQuestion3: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion1: [
+        null,
+        Validators.compose([Validators.required]),
+      ],
+      answerToSecurityQuestion2: [
+        null,
+        Validators.compose([Validators.required]),
+      ],
+      answerToSecurityQuestion3: [
+        null,
+        Validators.compose([Validators.required]),
+      ],
     });
+    this.passwordForm = this.fb.group({
+      password: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"),
+        ]),
+      ],
+    });
+    
   }
 
   saveUser(): void {
     const updatedUser: User = {
+      userName: this.form.controls.userName.value,
       firstName: this.form.controls.firstName.value,
       lastName: this.form.controls.lastName.value,
       phoneNumber: this.form.controls.phoneNumber.value,
@@ -98,21 +169,21 @@ export class UserProfileComponent implements OnInit {
     console.log(updatedUser);
     this.userService.updateUser(this.userId, updatedUser).subscribe(
       (res) => {
-        this.edit = false;
-        this.readonly = true;
+        this.isSelectedSecurityQuestions = true;
       },
       (err) => {
         console.log(err);
       },
-     /*  () => {
+      () => {
         alert("User information is updated.");
-      } */
+      }
     );
   }
 
-  cancel(): void {
+  cancelProfile(): void {
     this.edit = false;
     this.readonly = true;
+    this.isFilled = "";
     //alert("User information is canceled.");
   }
 
@@ -120,8 +191,66 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
-  editProfile() {
+  editProfile(): void {
     this.edit = true;
     this.readonly = false;
+    this.isFilled = "fill";
   }
+
+
+  // Register function
+  saveSelectedQuestions() {
+    const securityQuestions = this.securityQuestionsForm.value;
+    console.log(securityQuestions);
+
+    const selectedSecurityQuestions = [
+      {
+        questionText: securityQuestions.securityQuestion1,
+        answerText: securityQuestions.answerToSecurityQuestion1,
+      },
+      {
+        questionText: securityQuestions.securityQuestion2,
+        answerText: securityQuestions.answerToSecurityQuestion2,
+      },
+      {
+        questionText: securityQuestions.securityQuestion3,
+        answerText: securityQuestions.answerToSecurityQuestion3,
+      },
+    ];
+    console.log(selectedSecurityQuestions);
+    this.userService
+      .saveSelectedSecurityQuestions(this.userId, selectedSecurityQuestions)
+      .subscribe(
+        (res) => {
+          this.isSelectedSecurityQuestions = false;
+        },
+        (err) => {
+          console.log(err);
+        },
+        () => {
+          alert("Security questions is saved.");
+        }
+      );    
+  }
+  resetPassword(): void {
+    console.log(this.passwordForm.controls["password"].value);
+    this.http
+      .post("/api/session/users/" + this.userName + "/reset-password", {
+        password: this.passwordForm.controls["password"].value,        
+      })
+      .subscribe(
+        (res) => {
+          this.router.navigate(["/"]);
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        },
+        () => {
+          alert("New password is saved.");
+        }
+      );
+  }
+
+
 }
