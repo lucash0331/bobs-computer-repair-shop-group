@@ -1,4 +1,4 @@
- <!--
+<!--
 ============================================
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
@@ -7,42 +7,29 @@
 ; Description: Bob's Computer Repair Shop App html code to create a security question.
 ===========================================
 -->
- <div fxLayout="column">
-    <mat-card class="mat-elevation-z0">
-      <mat-card-title> Create Security Question </mat-card-title>
-  
-      <br />
+<div fxLayout="column">
+  <mat-card class="mat-elevation-z0">
+    <mat-card-title> Create Security Question </mat-card-title>
 
-      <form [formGroup]="form" (ngSubmit)="create()" #securityQuestionForm>
-        <mat-card-content>
-          <div fxLayout="column" fxLayoutGap="10px">
-            <mat-form-field>
-              <input
-                type="text"
-                matInput
-                [formControl]="form.controls['text']"
-                placeholder="Question text"
-                (keydown.enter)="create()"
-              />
-              <mat-error
-              class="error"
-              *ngIf="
-                form.controls.text.hasError('required') &&
-                form.controls.text.touched
-              "
+    <br />
+
+    <form [formGroup]="form" (ngSubmit)="create()" #securityQuestionForm>
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field>
+            <input type="text" matInput [formControl]="form.controls['text']" placeholder="Question text" (keydown.enter)="create()" />
+            <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
               >You must enter a security question.</mat-error
             >
-            </mat-form-field>
-          </div>
-        </mat-card-content>
-  
-        <br />
-        <mat-card-actions align="end">
-          <button mat-raised-button (click)="cancel()" color="primary">
-            Cancel
-          </button>
-          <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">Submit</button>
-        </mat-card-actions>
-      </form>
-    </mat-card>
-  </div> 
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <br />
+      <mat-card-actions align="end">
+        <button mat-raised-button (click)="cancel()" color="primary">Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

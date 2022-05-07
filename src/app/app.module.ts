@@ -60,6 +60,9 @@ import { ErrorComponent } from './pages/error/error.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AboutComponent } from './pages/about/about.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { ServicesListComponent } from './pages/services-list/services-list.component';
+import { ServicesCreateComponent } from './pages/services-create/services-create.component';
+import { ServicesDetailsComponent } from './pages/services-details/services-details.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,9 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     ContactComponent,
     AboutComponent,
     UserProfileComponent,
+    ServicesListComponent,
+    ServicesCreateComponent,
+    ServicesDetailsComponent,
   ],
   imports: [
     BrowserModule,

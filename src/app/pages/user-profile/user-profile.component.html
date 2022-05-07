@@ -25,149 +25,287 @@
             </div> -->
           <mat-card fxFlex class="mat-elevation-z8 update-container">
             <mat-card-content>
-              <mat-card
-                class="mat-elevation-z0"
-                fxLayout="column"
-                fxLayoutGap="10px"
-              >
-                <form
-                  [formGroup]="form"
-                  (ngSubmit)="saveUser()"
-                  #userProfileForm
-                >
+              <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
+                <form [formGroup]="form" (ngSubmit)="saveUser()" #userProfileForm>
                   <mat-card-content>
                     <!--userName-->
-                    <mat-form-field *ngIf = "!edit">
-                      <input
-                        matInput
-                        [formControl]="form.controls['userName']"
-                        placeholder="User name"
-                        readonly="true"
-                      />
+                    <mat-form-field *ngIf="!edit">
+                      <mat-label>User name</mat-label>
+                      <input matInput [formControl]="form.controls['userName']" value="{{ userName }}"
+                        readonly="true" />
                     </mat-form-field>
 
                     <!--firstName-->
-                    <mat-form-field>
-                      <input
-                        matInput
-                        [formControl]="form.controls['firstName']"
-                        placeholder="First name"
-                        readonly="{{ readonly }}"
-                      />
-                      <mat-error
-                        class="error"
-                        *ngIf="
+                    <mat-form-field appearance="{{ isFilled }}">
+                      <mat-label>First name</mat-label>
+                      <input matInput [formControl]="form.controls['firstName']" value="form.controls['firstName']"
+                        readonly="{{ readonly }}" />
+                      <mat-error class="error" *ngIf="
                           form.controls.firstName.hasError('required') &&
                           form.controls.firstName.touched
-                        "
-                        >This field is required!</mat-error
-                      >
+                        ">This field is required!</mat-error>
                     </mat-form-field>
                     <!--lastName-->
-                    <mat-form-field>
-                      <input
-                        matInput
-                        [formControl]="form.controls['lastName']"
-                        placeholder="Last name"
-                        readonly="{{ readonly }}"
-                      />
-                      <mat-error
-                        class="error"
-                        *ngIf="
+                    <mat-form-field appearance="{{ isFilled }}">
+                      <mat-label>Last name</mat-label>
+                      <input matInput [formControl]="form.controls['lastName']" value="form.controls['lastName']"
+                        readonly="{{ readonly }}" />
+                      <mat-error class="error" *ngIf="
                           form.controls.lastName.hasError('required') &&
                           form.controls.lastName.touched
-                        "
-                        >This field is required!</mat-error
-                      >
+                        ">This field is required!</mat-error>
                     </mat-form-field>
                     <!--phone-->
-                    <mat-form-field>
-                      <input
-                        matInput
-                        [formControl]="form.controls['phoneNumber']"
-                        placeholder="Phone number"
-                        readonly="{{ readonly }}"
-                      />
+                    <mat-form-field appearance="{{ isFilled }}">
+                      <mat-label>Phone number</mat-label>
+                      <input matInput [formControl]="form.controls['phoneNumber']" value="form.controls['phoneNumber']"
+                        readonly="{{ readonly }}" />
                     </mat-form-field>
                     <!--address-->
-                    <mat-form-field>
-                      <input
-                        matInput
-                        [formControl]="form.controls['address']"
-                        placeholder="Address"
-                        readonly="{{ readonly }}"
-                      />
+                    <mat-form-field appearance="{{ isFilled }}">
+                      <mat-label>Address</mat-label>
+                      <input matInput [formControl]="form.controls['address']" value="form.controls['address']"
+                        readonly="{{ readonly }}" />
                     </mat-form-field>
                     <!--email-->
-                    <mat-form-field>
-                      <input
-                        matInput
-                        [formControl]="form.controls['email']"
-                        placeholder="Email"
-                        readonly="{{ readonly }}"
-                      />
-                      <mat-error
-                        class="error"
-                        *ngIf="
+                    <mat-form-field appearance="{{ isFilled }}">
+                      <mat-label>Email</mat-label>
+                      <input matInput [formControl]="form.controls['email']" value="form.controls['email']"
+                        readonly="{{ readonly }}" />
+                      <mat-error class="error" *ngIf="
                           form.controls.email.hasError('email') &&
                           form.controls.email.touched
-                        "
-                        >Input valid email!</mat-error
-                      >
+                        ">Input valid email!</mat-error>
                     </mat-form-field>
                     <!--role-->
-                    <mat-form-field  *ngIf = "!edit">
-                      <input
-                        matInput
-                        [formControl]="form.controls['role']"
-                        placeholder="Role"
-                        readonly="true"
-                      />
+                    <mat-form-field *ngIf="!edit">
+                      <mat-label>Role</mat-label>
+                      <input matInput [formControl]="form.controls['role']" value="{{ selectedRole }}"
+                        readonly="true" />
                     </mat-form-field>
                   </mat-card-content>
 
                   <mat-card-actions>
-                    <button
-                      *ngIf="edit"
-                      class="cancel"
-                      (click)="cancel()"
-                      mat-raised-button
-                    >
+                    <button *ngIf="edit" class="cancel" (click)="cancelProfile()" mat-raised-button>
                       Cancel
                     </button>
-                    <button
-                      *ngIf="edit"
-                      class="submit"
-                      [disabled]="!form.valid"
-                      mat-raised-button
-                    >
+                    <button *ngIf="edit" class="submit" [disabled]="!form.valid" mat-raised-button>
                       Submit
                     </button>
-                    <button
-                    *ngIf="!edit"
-                    class="exit"
-                    (click)="exit()"
-                    mat-raised-button
-                  >
-                    Exit
-                  </button>
-                    <button
-                    *ngIf="!edit"
-                    class="edit"
-                    [disabled]="!form.valid"
-                    (click)="editProfile()"
-                    mat-raised-button
-                  >
-                    Edit Profile
-                  </button>
+                    <button *ngIf="!edit" class="exit" (click)="exit()" mat-raised-button>
+                      Exit
+                    </button>
+                    <button *ngIf="!edit" class="edit" [disabled]="!form.valid" (click)="editProfile()"
+                      mat-raised-button>
+                      Edit Profile
+                    </button>
                   </mat-card-actions>
                 </form>
               </mat-card>
             </mat-card-content>
           </mat-card>
         </mat-tab>
-        <mat-tab label="Security Questions"> </mat-tab>
-        <mat-tab label="Change Password"> </mat-tab>
+        <mat-tab label="Security Questions" *ngIf="!isSelectedSecurityQuestions">
+          <mat-card fxFlex class="mat-elevation-z8 update-container">
+            <mat-card-content>
+              <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="20px">
+                <h3>Set up security questions so you can reset your password if you forget it.</h3>
+                <form [formGroup]="securityQuestionsForm" (ngSubmit)="saveSelectedQuestions()"
+                  #securityQuestionsProfileForm>
+                  <mat-list>
+                    <!-- Question 1 -->
+                    <mat-list-item>
+                      <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Security Question</mat-label>
+                        <mat-select [formControl]="
+                          securityQuestionsForm.controls['securityQuestion1']
+                        ">
+                          <mat-option *ngFor="let question of securityQuestions" [value]="question.text">
+                            {{ question.text }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error class="error" *ngIf="
+                          securityQuestionsForm.controls[
+                            'securityQuestion1'
+                          ].hasError('required') &&
+                          securityQuestionsForm.controls['securityQuestion1']
+                            .touched
+                        ">
+                        This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Answer</mat-label>
+                        <input matInput [formControl]="
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion1'
+                          ]
+                        " />
+                        <mat-error class="error" *ngIf="
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion1'
+                          ].hasError('required') &&
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion1'
+                          ].touched
+                        ">
+                        This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </mat-list-item>
+                    <br />
+                    <!-- Question 2 -->
+                    <mat-list-item>
+                      <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Security Question</mat-label>
+                        <mat-select [formControl]="
+                          securityQuestionsForm.controls['securityQuestion2']
+                        ">
+                          <mat-option *ngFor="let question of securityQuestions" [value]="question.text">
+                            {{ question.text }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error class="error" *ngIf="
+                          securityQuestionsForm.controls[
+                            'securityQuestion2'
+                          ].hasError('required') &&
+                          securityQuestionsForm.controls['securityQuestion2']
+                            .touched
+                        ">
+                        This field is required!
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Answer</mat-label>
+                        <input matInput [formControl]="
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion2'
+                          ]
+                        " />
+                        <mat-error class="error" *ngIf="
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion2'
+                          ].hasError('required') &&
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion2'
+                          ].touched
+                        ">
+                        This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </mat-list-item>
+                    <br />
+                    <!-- Question 3 -->
+                    <mat-list-item>
+                      <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Security Question</mat-label>
+                        <mat-select [formControl]="
+                          securityQuestionsForm.controls['securityQuestion3']
+                        ">
+                          <mat-option *ngFor="let question of securityQuestions" [value]="question.text">
+                            {{ question.text }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error class="error" *ngIf="
+                          securityQuestionsForm.controls[
+                            'securityQuestion3'
+                          ].hasError('required') &&
+                          securityQuestionsForm.controls['securityQuestion3']
+                            .touched
+                        ">
+                        This field is required!
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field fxFlex appearance="fill">
+                        <mat-label>Answer</mat-label>
+                        <input matInput [formControl]="
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion3'
+                          ]
+                        " />
+                        <mat-error class="error" *ngIf="
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion3'
+                          ].hasError('required') &&
+                          securityQuestionsForm.controls[
+                            'answerToSecurityQuestion3'
+                          ].touched
+                        ">
+                        This field is required!
+                        </mat-error>
+                      </mat-form-field>
+                    </mat-list-item>
+                  </mat-list>
+                  <mat-card-actions>
+                    <button class="cancel" (click)="exit()" mat-raised-button>
+                      Exit
+                    </button>
+                    <button class="submit" [disabled]="!securityQuestionsForm.valid" mat-raised-button>
+                      Submit
+                    </button>
+                  </mat-card-actions>
+                </form>
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Change Password">
+          <mat-card fxFlex class="mat-elevation-z8 main-container">   
+            <h3>Use a strong password.</h3>
+            <mat-card-content>
+              <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="20px">
+                <form
+                  [formGroup]="passwordForm"
+                  (ngSubmit)="resetPassword()"
+                  #resetPasswordForm
+                >
+                  <mat-card-content>
+                    <mat-form-field fxFlex appearance="fill">
+                      <mat-label for="pswPassword" id="lblpassword"
+                        >New password</mat-label
+                      >
+                      <input
+                        type="password"
+                        matInput
+                        [formControl]="passwordForm.controls['password']"
+                        id="pswPassword"
+                        name="pswPassword"
+                      />
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                        passwordForm.controls.password.hasError('required') &&
+                        passwordForm.controls.password.touched
+                        "
+                        >This field is required!</mat-error
+                      >
+                      <mat-error
+                        class="error"
+                        *ngIf="
+                        passwordForm.controls.password.hasError('pattern') &&
+                        passwordForm.controls.password.touched
+                        "
+                        >Password must be at least 8 characters, contain one letter, and
+                        one number!</mat-error
+                      >
+                    </mat-form-field>
+                  </mat-card-content>
+        
+                  <mat-card-actions>
+                    <button class="cancel" (click)="exit()" mat-raised-button>
+                      Exit
+                    </button>
+                    <button class="submit" [disabled]="!passwordForm.valid" mat-raised-button>
+                      Submit
+                    </button>
+                  </mat-card-actions>
+                </form>
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+        </mat-tab>
       </mat-tab-group>
     </mat-card-content>
   </mat-card>

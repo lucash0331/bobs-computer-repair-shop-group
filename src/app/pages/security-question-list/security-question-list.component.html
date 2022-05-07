@@ -1,4 +1,4 @@
- <!--
+<!--
 ============================================
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
@@ -13,7 +13,7 @@
   <mat-card>
     <mat-card-title>Security Questions Configuration</mat-card-title>
     <br /><br />
-    <p-toast position="top-right"></p-toast>
+    <p-toast position="center"></p-toast>
     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
     <mat-card-content *ngIf="securityQuestion">
       <mat-table [dataSource]="securityQuestion" class="mat-elevation-z4">
@@ -33,7 +33,10 @@
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
           <mat-cell *matCellDef="let securityQuestion">
-            <mat-icon class="icon-cursor" routerLink="/security-questions/update/{{ securityQuestion._id }}" color="accent"
+            <mat-icon
+              class="icon-cursor"
+              routerLink="/security-questions/update/{{ securityQuestion._id }}"
+              color="accent"
               >edit</mat-icon
             ></mat-cell
           >

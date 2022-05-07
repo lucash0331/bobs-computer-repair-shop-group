@@ -1,4 +1,4 @@
- <!--
+<!--
 ============================================
 ; Title: WEB450 Bob's Computer Repair SHop
 ; Author: Professor Krasso
@@ -13,7 +13,7 @@
   <mat-card>
     <mat-card-title>User Configuration</mat-card-title>
     <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-    <p-toast position="top-right"></p-toast>
+    <p-toast position="center"></p-toast>
     <br /><br />
     <mat-card-content *ngIf="user">
       <mat-table [dataSource]="user" class="mat-elevation-z4">
@@ -56,7 +56,11 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-          <mat-cell *matCellDef="let user"> <mat-icon routerLink="/users/update/{{user._id}}" color="accent" class="icon-cursor">edit</mat-icon></mat-cell>
+          <mat-cell *matCellDef="let user">
+            <mat-icon routerLink="/users/update/{{ user._id }}" color="accent" class="icon-cursor"
+              >edit</mat-icon
+            ></mat-cell
+          >
         </ng-container>
 
         <!-- Delete Column -->

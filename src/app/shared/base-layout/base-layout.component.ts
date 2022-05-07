@@ -32,8 +32,16 @@ export class BaseLayoutComponent implements OnInit {
     this.name = sessionStorage.getItem("name");
   }
 
+  redirectToProfile(): void {
+    this.router.navigateByUrl("/users/user/profile");
+  }
+
   signOut() {
     this.cookieService.deleteAll();
     this.router.navigate(["/session/signin"]);
+  }
+
+  redirectToServices(): void {
+    this.router.navigate(["/services/"]);
   }
 }

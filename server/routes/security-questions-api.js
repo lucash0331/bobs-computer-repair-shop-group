@@ -28,12 +28,12 @@ router.post("/", async (req, res) => {
         status = 500;
         const createSecurityQuestionMongodbErrorResponse = new BaseResponse(status, "Internal server error", err);
         return res.status(status).send(createSecurityQuestionMongodbErrorResponse.toObject());
+      } else {
+        //  new securityQuestion
+        console.log(securityQuestion);
+        const createSecurityQuestionResponse = new BaseResponse(status, "Query Successful", securityQuestion);
+        return res.status(status).send(createSecurityQuestionResponse.toObject());
       }
-
-      //  new securityQuestion
-      console.log(securityQuestion);
-      const createSecurityQuestionResponse = new BaseResponse(status, "Query Successful", securityQuestion);
-      return res.status(status).send(createSecurityQuestionResponse.toObject());
     });
   } catch (error) {
     // Server error goes here
