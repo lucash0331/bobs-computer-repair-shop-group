@@ -22,7 +22,6 @@ router.get("/", async (req, res) => {
       .where("isDisabled")
       .equals(false)
       .exec(function (err, services) {
-
         if (err) {
           const readServicesMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
           res.status(500).send(readServicesMongodbErrorResponse.toObject());
@@ -74,6 +73,8 @@ router.post("/", async (req, res) => {
     const newService = {
       name: req.body.name,
       price: req.body.price,
+      image: req.body.image,
+      description: req.body.description,
     };
     Service.create(newService, function (err, service) {
       if (err) {
@@ -96,13 +97,11 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     Service.findOne({ _id: req.params.id }, function (err, service) {
-
       if (err) {
         console.log(err);
         const deleteServiceMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
         return res.status(500).send(deleteServiceMongodbErrorResponse.toObject());
       } else {
-
         // If statement for service not found in DB
         if (!service) {
           console.log("Service not found");
@@ -114,7 +113,7 @@ router.delete("/:id", async (req, res) => {
             isDisabled: true,
           });
           service.save(function (err, savedService) {
-            // If statement 
+            // If statement
             if (err) {
               console.log(err);
               const deleteServiceMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
@@ -186,6 +185,8 @@ router.put("/:id", async (req, res) => {
                 service.set({
                   name: req.body.name,
                   price: req.body.price,
+                  image: req.body.image,
+                  description: req.body.description,
                 });
                 service.save(function (err, updatedService) {
                   if (err) {
