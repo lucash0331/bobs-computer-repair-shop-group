@@ -13,7 +13,7 @@
 
     <br />
 
-    <form [formGroup]="form" (ngSubmit)="create()" #serviceForm>
+    <form [formGroup]="form" (ngSubmit)="createService()" #serviceForm>
       <mat-card-content>
         <div fxLayout="column" fxLayoutGap="10px">
           <mat-form-field>
@@ -22,28 +22,28 @@
               matInput
               [formControl]="form.controls['text']"
               placeholder="New Service Name"
-              (keydown.enter)="create()"
+              (keydown.enter)="createService()"
             />
             <input
               type="text"
               matInput
               [formControl]="form.controls['text']"
               placeholder="New Service Price"
-              (keydown.enter)="create()"
+              (keydown.enter)="createService()"
             />
             <input
               type="text"
               matInput
               [formControl]="form.controls['text']"
               placeholder="New Service Icon"
-              (keydown.enter)="create()"
+              (keydown.enter)="createService()"
             />
             <input
               type="text"
               matInput
               [formControl]="form.controls['text']"
               placeholder="New Service Description"
-              (keydown.enter)="create()"
+              (keydown.enter)="createService()"
             />
             <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
               >You must enter information in each field.</mat-error
@@ -54,7 +54,7 @@
 
       <br />
       <mat-card-actions align="end">
-        <button mat-raised-button (click)="cancel()" color="primary">Cancel</button>
+        <!-- <button mat-raised-button (click)="cancel()" color="primary">Cancel</button> -->
         <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">Submit</button>
       </mat-card-actions>
     </form>
