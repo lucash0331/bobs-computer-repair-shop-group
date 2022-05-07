@@ -32,6 +32,7 @@ import { ContactComponent } from "./pages/contact/contact.component";
 import { UserProfileComponent } from "./pages/user-profile/user-profile.component";
 import { ServicesListComponent } from "./pages/services-list/services-list.component";
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
+import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
 
 const routes: Routes = [
   {
@@ -108,6 +109,11 @@ const routes: Routes = [
       {
         path: "services/create/new",
         component: ServicesCreateComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "services/update/:id",
+        component: ServicesDetailsComponent,
         canActivate: [AuthGuard],
       },
     ],

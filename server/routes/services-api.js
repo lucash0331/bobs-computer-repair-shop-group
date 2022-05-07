@@ -163,7 +163,7 @@ router.delete("/:id", async (req, res) => {
 
 // Update service API
 
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     Service.findOne({ _id: req.params.id }, function (err, service) {
       if (err) {
@@ -179,7 +179,7 @@ router.put("/:id", async (req, res) => {
               res.status(500).send(updateServiceMongodbErrorResponse.toObject());
             } else {
               if (existedService) {
-                const serviceAlreadyExistsResponse = new BaseResponse(400, response);
+                const serviceAlreadyExistsResponse = new BaseResponse(400, "already Exist", response);
                 res.send(serviceAlreadyExistsResponse.toObject());
               } else {
                 service.set({

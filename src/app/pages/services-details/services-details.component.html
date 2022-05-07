@@ -1,1 +1,52 @@
-<p>services-details works!</p>
+<!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: April 23, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App html code to update a security question.
+===========================================
+-->
+<div fxLayout="column" class="update-div">
+  <mat-card fxFlex class="mat-elevation-z8 update-container">
+    <mat-card-title>Service Details: {{ name }}</mat-card-title>
+    <br />
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
+        <form [formGroup]="form" (ngSubmit)="saveService()" #userForm>
+          <mat-card-content>
+            <!--firstName-->
+            <mat-form-field appearance="fill">
+              <input matInput [formControl]="form.controls['name']" placeholder="Name" />
+              <mat-error class="error" *ngIf="form.controls.name.hasError('required') && form.controls.name.touched"
+                >This field is required!</mat-error
+              >
+            </mat-form-field>
+            <!--lastName-->
+            <mat-form-field appearance="fill">
+              <input matInput [formControl]="form.controls['price']" placeholder="Price" />
+              <mat-error class="error" *ngIf="form.controls.price.hasError('required') && form.controls.price.touched"
+                >This field is required!</mat-error
+              >
+            </mat-form-field>
+            <!--phone-->
+            <mat-form-field appearance="fill">
+              <input matInput [formControl]="form.controls['icon']" placeholder="Icon" />
+            </mat-form-field>
+            <!--address-->
+            <mat-form-field appearance="fill">
+              <input matInput [formControl]="form.controls['description']" placeholder="Description" />
+            </mat-form-field>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button class="cancel" (click)="cancel()" mat-raised-button>Cancel</button>
+            <button class="submit" [disabled]="!form.valid" mat-raised-button>Submit</button>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,1 +1,72 @@
-<p>services-list works!</p>
+<!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop
+; Author: Professor Krasso
+; Date: May 7, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App html code for ServiceListComponent.
+===========================================
+-->
+<br />
+<br />
+<div fxLayout="column">
+  <mat-card>
+    <mat-card-title>Services</mat-card-title>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <p-toast position="top-right"></p-toast>
+    <br /><br />
+    <mat-card-content *ngIf="service">
+      <mat-table [dataSource]="service" class="mat-elevation-z4">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let service"> {{ service.name }} </mat-cell>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let service"> {{ service.price }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="icon">
+          <mat-header-cell *matHeaderCellDef> Icon </mat-header-cell>
+          <mat-cell *matCellDef="let service"> {{ service.icon }} </mat-cell>
+        </ng-container>
+
+        <!-- Phone Column -->
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+          <mat-cell *matCellDef="let service"> {{ service.description }} </mat-cell>
+        </ng-container>
+
+        <!-- Edit Column -->
+        <ng-container matColumnDef="edit">
+          <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+          <mat-cell *matCellDef="let service">
+            <mat-icon routerLink="/services/update/{{ service._id }}" color="accent" class="icon-cursor"
+              >edit</mat-icon
+            ></mat-cell
+          >
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+          <mat-cell *matCellDef="let service">
+            <button mat-icon-button (click)="deleteService(service._id)">
+              <mat-icon color="primary">delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </mat-card-content>
+    <mat-card-subtitle>
+      <button mat-stroked-button color="primary" routerLink="/services/create/new">Add New Service</button>
+    </mat-card-subtitle>
+  </mat-card>
+</div>

@@ -16,14 +16,17 @@ export class ServicesCreateComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      text: [null, Validators.compose([Validators.required])],
+      name: [null, Validators.compose([Validators.required])],
+      price: [null, Validators.compose([Validators.required])],
+      icon: [null, Validators.compose([Validators.required])],
+      description: [null, Validators.compose([Validators.required])],
     });
   }
 
   createService() {
     const newService = {} as Service;
     newService.name = this.form.controls.name.value;
-    newService.price = this.form.controls.name.value;
+    newService.price = this.form.controls.price.value;
     newService.icon = this.form.controls.icon.value;
     newService.description = this.form.controls.description.value;
 

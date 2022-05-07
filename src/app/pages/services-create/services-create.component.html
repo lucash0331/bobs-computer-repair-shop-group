@@ -32,9 +32,6 @@
               [formControl]="form.controls['description']"
               placeholder="New Service Description"
             />
-            <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
-              >You must enter information in each field.</mat-error
-            >
           </mat-form-field>
         </div>
       </mat-card-content>

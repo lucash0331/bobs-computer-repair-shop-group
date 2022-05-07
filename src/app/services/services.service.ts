@@ -24,6 +24,20 @@ export class ServicesService {
     return this.http.get("/api/services");
   }
 
+  findServiceById(_id: string): Observable<any> {
+    return this.http.get("/api/services/" + _id);
+  }
+
+  updateService(_id: string, updatedService: Service): Observable<any> {
+    const result = this.http.put("/api/services/update/" + _id, {
+      name: updatedService.name,
+      price: updatedService.price,
+      icon: updatedService.icon,
+      description: updatedService.description,
+    });
+    return result;
+  }
+
   createService(newService: Service): Observable<any> {
     console.log(newService);
     return this.http.post("/api/services", {
