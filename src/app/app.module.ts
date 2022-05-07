@@ -63,6 +63,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { ServicesListComponent } from './pages/services-list/services-list.component';
 import { ServicesCreateComponent } from './pages/services-create/services-create.component';
 import { ServicesDetailsComponent } from './pages/services-details/services-details.component';
+import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { ServicesDetailsComponent } from './pages/services-details/services-deta
     ServicesListComponent,
     ServicesCreateComponent,
     ServicesDetailsComponent,
+    InvoiceDialogComponent,
   ],
   imports: [
     BrowserModule,
