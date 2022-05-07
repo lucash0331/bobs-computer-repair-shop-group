@@ -24,7 +24,7 @@ export class ServicesCreateComponent implements OnInit {
     })
   }
 
-  create() {
+  createService() {
     const newService = {} as Service;
     newService.name = this.form.controls.name.value
     this.servicesService.createService(newService).subscribe(
