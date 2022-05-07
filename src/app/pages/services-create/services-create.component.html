@@ -1,1 +1,62 @@
-<p>services-create works!</p>
+<!--
+============================================
+; Title: WEB450 Bob's Computer Repair SHop Sprint3
+; Author: Professor Krasso
+; Date: May 7, 2022
+; Modified By: House Gryffindor
+; Description: Bob's Computer Repair Shop App html code to create  services.
+===========================================
+-->
+<div fxLayout="column">
+  <mat-card class="mat-elevation-z0">
+    <mat-card-title> Add a New Service </mat-card-title>
+
+    <br />
+
+    <form [formGroup]="form" (ngSubmit)="create()" #serviceForm>
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutGap="10px">
+          <mat-form-field>
+            <input
+              type="text"
+              matInput
+              [formControl]="form.controls['text']"
+              placeholder="New Service Name"
+              (keydown.enter)="create()"
+            />
+            <input
+              type="text"
+              matInput
+              [formControl]="form.controls['text']"
+              placeholder="New Service Price"
+              (keydown.enter)="create()"
+            />
+            <input
+              type="text"
+              matInput
+              [formControl]="form.controls['text']"
+              placeholder="New Service Icon"
+              (keydown.enter)="create()"
+            />
+            <input
+              type="text"
+              matInput
+              [formControl]="form.controls['text']"
+              placeholder="New Service Description"
+              (keydown.enter)="create()"
+            />
+            <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
+              >You must enter information in each field.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <br />
+      <mat-card-actions align="end">
+        <button mat-raised-button (click)="cancel()" color="primary">Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
