@@ -41,4 +41,36 @@ export class ServicesListComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  deleteService(_id: string) {
+    console.log(_id);
+    // Rerouted function through PrimeNG ConfirmDialog
+    this.confirmationService.confirm({
+      message: "Are you sure you want to delete this service?",
+      accept: () => {
+        if (_id) {
+          this.servicesService.deleteService(_id).subscribe(
+            (res) => {
+              //this.user = res.data;
+              this.servicesService.findAllServices().subscribe(
+                (res) => {
+                  this.service = res["data"];
+                },
+                (err) => {},
+                () => {}
+              );
+            },
+            (err) => {
+              console.log(err);
+            },
+            () => {
+              //this._id = this.user._id;
+              // PrimeNG Toast message sender
+              this.messageService.add({ severity: "warn", summary: "bcrs", detail: "Service deleted successfully" });
+            }
+          );
+        }
+      },
+    });
+  }
 }

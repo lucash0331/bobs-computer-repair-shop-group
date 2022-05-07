@@ -28,6 +28,10 @@ export class ServicesService {
     return this.http.get("/api/services/" + _id);
   }
 
+  deleteService(_id: string): Observable<any> {
+    return this.http.delete("/api/services/" + _id);
+  }
+
   updateService(_id: string, updatedService: Service): Observable<any> {
     const result = this.http.put("/api/services/update/" + _id, {
       name: updatedService.name,
