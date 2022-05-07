@@ -116,6 +116,7 @@ router.put("/:id", async (req, res) => {
               } else {
                 service.set({
                   name: req.body.name,
+                  price: req.body.price,
                 });
                 service.save(function (err, updatedService) {
                   if (err) {
@@ -134,7 +135,7 @@ router.put("/:id", async (req, res) => {
     });
   } catch (e) {
     const updateServiceCatchErrorResponse = new BaseResponse(500, "Query Successful", updatedService);
-    res.json(updateServiceResponse.toObject());
+    res.json(updateServiceCatchErrorResponse.toObject());
   }
 });
 
