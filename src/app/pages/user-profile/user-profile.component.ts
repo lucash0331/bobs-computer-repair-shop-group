@@ -85,6 +85,18 @@ export class UserProfileComponent implements OnInit {
         }
       );
     }
+  }
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      userName: [null, Validators.compose([])],
+      firstName: [null, Validators.compose([Validators.required])],
+      lastName: [null, Validators.compose([Validators.required])],
+      phoneNumber: [null, Validators.compose([])],
+      address: [null, Validators.compose([])],
+      email: [null, Validators.compose([Validators.email])],
+      role: [null, Validators.compose([])],
+    });
 
     this.userService.findUserByUserName(this.userName).subscribe(
       (res) => {
@@ -111,7 +123,7 @@ export class UserProfileComponent implements OnInit {
         console.log(this.form.controls.userName.value);
       }
     );
-
+    
     // Sign-up/register form portion
 
     this.securityQuestionsForm = this.fb.group({
@@ -132,7 +144,6 @@ export class UserProfileComponent implements OnInit {
       ],
     });
     this.passwordForm = this.fb.group({
-      userName: [null, Validators.compose([Validators.required])],
       password: [
         null,
         Validators.compose([
@@ -141,18 +152,7 @@ export class UserProfileComponent implements OnInit {
         ]),
       ],
     });
-  }
-
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      userName: [null, Validators.compose([])],
-      firstName: [null, Validators.compose([Validators.required])],
-      lastName: [null, Validators.compose([Validators.required])],
-      phoneNumber: [null, Validators.compose([])],
-      address: [null, Validators.compose([])],
-      email: [null, Validators.compose([Validators.email])],
-      role: [null, Validators.compose([])],
-    });
+    
   }
 
   saveUser(): void {
@@ -173,10 +173,10 @@ export class UserProfileComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-      }
-      /*  () => {
+      },
+      () => {
         alert("User information is updated.");
-      } */
+      }
     );
   }
 
@@ -197,9 +197,7 @@ export class UserProfileComponent implements OnInit {
     this.isFilled = "fill";
   }
 
-/*   redirectLogIn() {
-    this.router.navigateByUrl("/");
-  } */
+
   // Register function
   saveSelectedQuestions() {
     const securityQuestions = this.securityQuestionsForm.value;
@@ -232,28 +230,27 @@ export class UserProfileComponent implements OnInit {
         () => {
           alert("Security questions is saved.");
         }
-      );
-
-    /*     this.http
-      .post("/api/session/register", {
-        userName: credentials.userName,
-        password: credentials.password,
-        firstName: contactInformation.firstName,
-        lastName: contactInformation.lastName,
-        phoneNumber: contactInformation.phoneNumber,
-        address: contactInformation.address,
-        email: contactInformation.email,
-        selectedSecurityQuestions: selectedSecurityQuestions,
+      );    
+  }
+  resetPassword(): void {
+    console.log(this.passwordForm.controls["password"].value);
+    this.http
+      .post("/api/session/users/" + this.userName + "/reset-password", {
+        password: this.passwordForm.controls["password"].value,        
       })
       .subscribe(
         (res) => {
-          this.cookieService.set("session_user", credentials.userName, 1);
-          // this.router.navigate(["/"]);
-          sessionStorage.setItem("name", `${res["data"].firstName} ${res["data"].lastName}`);
+          this.router.navigate(["/"]);
+          console.log(res);
         },
         (err) => {
-          this.errorMessages = [{ severity: "error", summary: "Error", detail: err.message }];
+          console.log(err);
+        },
+        () => {
+          alert("New password is saved.");
         }
-      ); */
+      );
   }
+
+
 }
