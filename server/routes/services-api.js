@@ -95,4 +95,47 @@ router.post("/", async (req, res) => {
 
 // Update service API
 
+router.put("/:id", async (req, res) => {
+  try {
+    Service.findOne({ _id: req.params.id }, function (err, service) {
+      if (err) {
+        const updateServiceMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
+        res.status(500).send(updateServiceMongodbErrorResponse.toObject());
+      } else {
+        if (!service) {
+          res.send("Invalid ID");
+        } else {
+          Service.findOne({ name: req.body.name }, function (err, existedService) {
+            if (err) {
+              const updateServiceMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
+              res.status(500).send(updateServiceMongodbErrorResponse.toObject());
+            } else {
+              if (existedService) {
+                const serviceAlreadyExistsResponse = new BaseResponse(400, response);
+                res.send(serviceAlreadyExistsResponse.toObject());
+              } else {
+                service.set({
+                  name: req.body.name,
+                });
+                service.save(function (err, updatedService) {
+                  if (err) {
+                    const saveServiceInvalidIdResponse = new BaseResponse(500, "Internal Server Error", err);
+                    res.status(500).send(saveServiceInvalidIdResponse.toObject());
+                  } else {
+                    const updateServiceResponse = new BaseResponse(200, "Query Successful", updatedService);
+                    res.json(updateServiceResponse.toObject());
+                  }
+                });
+              }
+            }
+          });
+        }
+      }
+    });
+  } catch (e) {
+    const updateServiceCatchErrorResponse = new BaseResponse(500, "Query Successful", updatedService);
+    res.json(updateServiceResponse.toObject());
+  }
+});
+
 module.exports = router;
