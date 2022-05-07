@@ -28,6 +28,9 @@ export class ServicesService {
     console.log(newService);
     return this.http.post("/api/services", {
       name: newService.name,
+      price: newService.price,
+      icon: newService.icon,
+      description: newService.description,
     });
   }
 }

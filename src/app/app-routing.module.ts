@@ -30,6 +30,8 @@ import { ErrorComponent } from "./pages/error/error.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { ContactComponent } from "./pages/contact/contact.component";
 import { UserProfileComponent } from "./pages/user-profile/user-profile.component";
+import { ServicesListComponent } from "./pages/services-list/services-list.component";
+import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 
 const routes: Routes = [
   {
@@ -55,7 +57,6 @@ const routes: Routes = [
       {
         path: "contact",
         component: ContactComponent,
-
       },
 
       {
@@ -99,7 +100,16 @@ const routes: Routes = [
         component: UserProfileComponent,
         canActivate: [AuthGuard],
       },
-
+      {
+        path: "services",
+        component: ServicesListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "services/create/new",
+        component: ServicesCreateComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {

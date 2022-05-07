@@ -23,6 +23,10 @@ export class ServicesCreateComponent implements OnInit {
   createService() {
     const newService = {} as Service;
     newService.name = this.form.controls.name.value;
+    newService.price = this.form.controls.name.value;
+    newService.icon = this.form.controls.icon.value;
+    newService.description = this.form.controls.description.value;
+
     this.servicesService.createService(newService).subscribe(
       (res) => {
         this.router.navigate(["/services"]);

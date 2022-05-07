@@ -17,33 +17,20 @@
       <mat-card-content>
         <div fxLayout="column" fxLayoutGap="10px">
           <mat-form-field>
+            <input type="text" matInput [formControl]="form.controls['name']" placeholder="New Service Name" />
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" matInput [formControl]="form.controls['price']" placeholder="New Service Price" />
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" matInput [formControl]="form.controls['icon']" placeholder="New Service Icon Name" />
+          </mat-form-field>
+          <mat-form-field>
             <input
               type="text"
               matInput
-              [formControl]="form.controls['text']"
-              placeholder="New Service Name"
-              (keydown.enter)="createService()"
-            />
-            <input
-              type="text"
-              matInput
-              [formControl]="form.controls['text']"
-              placeholder="New Service Price"
-              (keydown.enter)="createService()"
-            />
-            <input
-              type="text"
-              matInput
-              [formControl]="form.controls['text']"
-              placeholder="New Service Icon"
-              (keydown.enter)="createService()"
-            />
-            <input
-              type="text"
-              matInput
-              [formControl]="form.controls['text']"
+              [formControl]="form.controls['description']"
               placeholder="New Service Description"
-              (keydown.enter)="createService()"
             />
             <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
               >You must enter information in each field.</mat-error
