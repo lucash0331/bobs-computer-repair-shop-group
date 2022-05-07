@@ -126,6 +126,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Find by ID
+router.get("/:roleId", async (req, res) => {
+  try {
+    Role.findOne({ _id: req.params.roleId }, function (err, role) {
+      if (err) {
+        const findRoleByIdMongodbErrorResponse = new BaseResponse("500", "Internal Server Error", err);
+        res.status(500).send(findRoleByIdMongodbErrorResponse.toObject());
+      } else {
+        const findRoleByIdResponse = new BaseResponse("200", "Query Successful", role);
+        res.json(findRoleByIdResponse.toObject());
+      }
+    });
+  } catch (e) {
+    const findRoleByIdCatchErrorResponse = new BaseResponse("500", "Internal Server Error", e.message);
+    res.status(500).send(findRoleByIdCatchErrorResponse.toObject());
+  }
+});
+
 //Delete role API
 
 router.delete("/:roleId", async (req, res) => {
@@ -179,11 +197,7 @@ router.delete("/:roleId", async (req, res) => {
                     res.status(500).send(updatedRoleMongodbErrorResponse.toObject());
                   } else {
                     console.log(updatedRole);
-                    const roleDeletedResponse = new BaseResponse(
-                      200,
-                      `Role '${role.text}' has been removed successfully`,
-                      updatedRole
-                    );
+                    const roleDeletedResponse = new BaseResponse(200, `Role '${role.text}' has been removed successfully`, updatedRole);
                     res.json(roleDeletedResponse.toObject());
                   }
                 });
