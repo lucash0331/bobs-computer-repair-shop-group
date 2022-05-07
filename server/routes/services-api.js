@@ -73,7 +73,7 @@ router.post("/", async (req, res) => {
     const newService = {
       name: req.body.name,
       price: req.body.price,
-      image: req.body.image,
+      icon: req.body.icon,
       description: req.body.description,
     };
     Service.create(newService, function (err, service) {
@@ -185,7 +185,7 @@ router.put("/:id", async (req, res) => {
                 service.set({
                   name: req.body.name,
                   price: req.body.price,
-                  image: req.body.image,
+                  icon: req.body.icon,
                   description: req.body.description,
                 });
                 service.save(function (err, updatedService) {
