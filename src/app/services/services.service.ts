@@ -12,6 +12,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { Service } from "../shared/interfaces/services.interface";
 
 @Injectable({
   providedIn: "root",
@@ -21,5 +22,12 @@ export class ServicesService {
 
   findAllServices(): Observable<any> {
     return this.http.get("/api/services");
+  }
+
+  createService(newService: Service): Observable<any> {
+    console.log(newService);
+    return this.http.post("/api/services", {
+      name: newService.name,
+    });
   }
 }
