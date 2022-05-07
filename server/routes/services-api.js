@@ -15,23 +15,22 @@ const router = express.Router();
 const Service = require("../models/service");
 
 // Find all services
-//If deleted service becomes "Disabled", will uncomment 22-25 and delete 26
 
 router.get("/", async (req, res) => {
   try {
-    //Service.find({})
-    //.where("isDisabled")
-    //.equals(false)
-    //.exec(function (err, services) {
-    Service.find({}, function (err, services) {
-      if (err) {
-        const readServicesMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
-        res.status(500).send(readServicesMongodbErrorResponse.toObject());
-      } else {
-        const readServicesResponse = new BaseResponse(200, "Query Successful", services);
-        res.json(readServicesResponse.toObject());
-      }
-    });
+    Service.find({})
+      .where("isDisabled")
+      .equals(false)
+      .exec(function (err, services) {
+
+        if (err) {
+          const readServicesMongodbErrorResponse = new BaseResponse(500, "Internal Server Error", err);
+          res.status(500).send(readServicesMongodbErrorResponse.toObject());
+        } else {
+          const readServicesResponse = new BaseResponse(200, "Query Successful", services);
+          res.json(readServicesResponse.toObject());
+        }
+      });
   } catch (e) {
     const readServiceCatchErrorResponse = new BaseResponse(500, "Internal Server Error", e.message);
     res.status(500).send(readServiceCatchErrorResponse.toObject());
@@ -52,9 +51,9 @@ router.get("/:id", async (req, res) => {
         res.status(500).send(readServiceMongodbErrorResponse.toObject());
       } else {
         if (!service) {
-          const response = `Invalid service ID`;
-          console.log(response);
-          res.send(response);
+          console.log(err);
+          const invalidServiceIdErrorResponse = new BaseResponse(400, "Invalid service ID", err);
+          res.status(400).send(invalidServiceIdErrorResponse.toObject());
         } else {
           const readServiceResponse = new BaseResponse(200, "Query successful", service);
           console.log(service);
@@ -136,6 +135,32 @@ router.delete("/:id", async (req, res) => {
     return res.status(500).send(deleteServiceCatchErrorResponse.toObject());
   }
 });
+
+/* API to delete from DB service
+router.delete("/:id", async (req, res) => {
+  try {
+
+    Service.findByIdAndDelete(
+      { _id: req.params.id },
+      function (err, service) {
+        if (err) {
+          console.log(err);
+          res.status(501).send({
+            message: `MongoDB Exception: ${err}`,
+          });
+        } else {
+          console.log(service);
+          res.json(service);
+        }
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      message: `Server Exception: ${e.message}`,
+    });
+  }
+}); */
 
 // Update service API
 
