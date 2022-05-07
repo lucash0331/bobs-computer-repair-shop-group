@@ -197,7 +197,11 @@ router.delete("/:roleId", async (req, res) => {
                     res.status(500).send(updatedRoleMongodbErrorResponse.toObject());
                   } else {
                     console.log(updatedRole);
-                    const roleDeletedResponse = new BaseResponse(200, `Role '${role.text}' has been removed successfully`, updatedRole);
+                    const roleDeletedResponse = new BaseResponse(
+                      200,
+                      `Role '${role.text}' has been removed successfully`,
+                      updatedRole
+                    );
                     res.json(roleDeletedResponse.toObject());
                   }
                 });
