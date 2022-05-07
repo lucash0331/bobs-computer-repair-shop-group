@@ -22,20 +22,20 @@ export class RoleService {
     return this.http.get("/api/roles");
   }
 
-/*   deleteRole(_id: string): Observable<any> {
+deleteRole(_id: string): Observable<any> {
     return this.http.delete("/api/roles/" + _id);
-  } */
+  }
 
-/*   findRoleById(_id: string): Observable<any> {
+findRoleById(_id: string): Observable<any> {
     return this.http.get("/api/roles/" + _id);
-  } */
+  }
 
-/*   createRole(newRole: Role): Observable<any> {
+createRole(newRole: Role): Observable<any> {
     console.log(newRole);
     return this.http.post("/api/roles", {
       text: newRole.text,
     });
-  } */
+  }
 
   updateRole(_id: string, updatedRole: Role): Observable<any> {
     return this.http.put("/api/roles/" + _id, {
