@@ -33,6 +33,9 @@ import { UserProfileComponent } from "./pages/user-profile/user-profile.componen
 import { ServicesListComponent } from "./pages/services-list/services-list.component";
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
+import { RoleListComponent } from "./pages/role-list/role-list.component";
+import { RoleCreateComponent } from "./pages/role-create/role-create.component";
+import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
 
 const routes: Routes = [
   {
@@ -114,6 +117,21 @@ const routes: Routes = [
       {
         path: "services/update/:id",
         component: ServicesDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "roles",
+        component: RoleListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "roles/create/new",
+        component: RoleCreateComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "roles/update/:id",
+        component: RoleDetailsComponent,
         canActivate: [AuthGuard],
       },
     ],

@@ -15,9 +15,8 @@ import { UserService } from "src/app/services/user.service";
 import { User } from "src/app/shared/interfaces/user.interface";
 //import { ConfirmationService } from "primeng/api";
 //import { MessageService } from "primeng/api";
-import { Role } from "src/app/shared/interfaces/role-interface";
+import { Role } from "src/app/shared/interfaces/role.interface";
 import { RoleService } from "src/app/services/roles.service";
-
 
 @Component({
   selector: "app-user-details",
@@ -29,7 +28,7 @@ export class UserDetailsComponent implements OnInit {
   userId: string;
   userName: string;
   selectedRole: string;
-  roles: Role [];
+  roles: Role[];
   form: FormGroup;
 
   constructor(
@@ -37,9 +36,8 @@ export class UserDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private roleService: RoleService,
-    private fb: FormBuilder
-  ) //private confirmationService: ConfirmationService,
-  //private messageService: MessageService
+    private fb: FormBuilder //private confirmationService: ConfirmationService,
+  ) //private messageService: MessageService
   {
     this.userId = this.route.snapshot.paramMap.get("id");
     console.log(this.route.snapshot.paramMap);

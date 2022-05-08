@@ -30,26 +30,30 @@
             <p style="padding: 10px">Signed in as {{ name }}</p>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="redirectToProfile()">
-              <mat-icon>settings</mat-icon>
+              <mat-icon color="primary">settings</mat-icon>
               <span>Profile</span>
             </button>
             <!-- Next 3 should be admin-locked -->
             <button *ngIf="isAdmin()" mat-menu-item (click)="redirectToServices()">
-              <mat-icon>build</mat-icon>
+              <mat-icon color="primary">build</mat-icon>
               <span>Services</span>
             </button>
             <button *ngIf="isAdmin()" mat-menu-item routerLink="/user">
-              <mat-icon>person</mat-icon>
+              <mat-icon color="primary">person</mat-icon>
               <span>Users</span>
             </button>
             <button *ngIf="isAdmin()" mat-menu-item routerLink="/security-questions">
-              <mat-icon>lock</mat-icon>
+              <mat-icon color="primary">lock</mat-icon>
               <span>Security Questions</span>
+            </button>
+            <button *ngIf="isAdmin()" mat-menu-item routerLink="/roles">
+              <mat-icon color="primary">fingerprint</mat-icon>
+              <span>Role Configuration</span>
             </button>
             <!-- to here -->
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="signOut()">
-              <mat-icon>logout</mat-icon>
+              <mat-icon color="primary">logout</mat-icon>
               <span>Signout</span>
             </button>
           </mat-menu>
