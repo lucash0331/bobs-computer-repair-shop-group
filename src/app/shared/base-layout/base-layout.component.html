@@ -33,7 +33,7 @@
               <mat-icon color="primary">settings</mat-icon>
               <span>Profile</span>
             </button>
-            <!-- Next 3 should be admin-locked -->
+            <!-- admin-locked -->
             <button *ngIf="isAdmin()" mat-menu-item (click)="redirectToServices()">
               <mat-icon color="primary">build</mat-icon>
               <span>Services</span>
@@ -46,12 +46,10 @@
               <mat-icon color="primary">lock</mat-icon>
               <span>Security Questions</span>
             </button>
-            
             <button *ngIf="isAdmin()" mat-menu-item routerLink="/purchases-by-service-graph">
-              <mat-icon>chart</mat-icon>
-           <span> Purchases By Graph</span>
-          </button>
-
+              <mat-icon color="primary">pie_chart</mat-icon>
+              <span> Purchases By Graph</span>
+            </button>
             <button *ngIf="isAdmin()" mat-menu-item routerLink="/roles">
               <mat-icon color="primary">fingerprint</mat-icon>
               <span>Role Configuration</span>
