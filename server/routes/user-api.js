@@ -135,7 +135,7 @@ router.put("/:id", async (req, res) => {
         console.log(req.body.role);
         user.role.set({
           role: req.body.role,
-        })
+        });
 
         user.save(function (err, savedUser) {
           if (err) {
@@ -265,10 +265,10 @@ router.get("/:userName/security-questions", async (req, res) => {
  * API to find user's role by user ID (OK)
  */
 
-router.get("/:userId/role", async (req, res) => {
+router.get("/:userName/role", async (req, res) => {
   try {
-    User.findOne({ _id: req.params.userId }, function (err, user) {
-      console.log(req.params.userId);
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+      console.log(req.params.userName);
       if (err) {
         console.log(err);
         const findUserRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
@@ -309,12 +309,8 @@ router.put("/:userId/security-questions", async (req, res) => {
           console.log(response);
           const userInvalidIdErrorResponse = new BaseResponse(400, response);
           res.send(userInvalidIdErrorResponse.toObject());
-
         } else {
-
-          user.set(
-            {selectedSecurityQuestions: req.body.selectedSecurityQuestions}
-            );
+          user.set({ selectedSecurityQuestions: req.body.selectedSecurityQuestions });
           user.save(function (err, updatedUser) {
             if (err) {
               console.log(err);
@@ -329,13 +325,11 @@ router.put("/:userId/security-questions", async (req, res) => {
         }
       }
     });
-  }
-  catch (e) {
+  } catch (e) {
     console.log(e);
     const updateRoleCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
     res.status(500).send(updateRoleCatchErrorResponse.toObject());
   }
 });
-
 
 module.exports = router;

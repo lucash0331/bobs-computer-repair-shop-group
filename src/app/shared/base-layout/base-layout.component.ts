@@ -12,6 +12,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
+import { RoleService } from "src/app/services/roles.service";
 
 @Component({
   selector: "app-base-layout",
@@ -20,12 +21,20 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class BaseLayoutComponent implements OnInit {
   year: number = Date.now();
-
+  userRole: any;
   isLoggedIn: boolean;
   name: string;
 
-  constructor(private cookieService: CookieService, private router: Router) {
+  constructor(private cookieService: CookieService, private router: Router, private roleService: RoleService) {
+    this.roleService.findUserRole(this.cookieService.get("session_user")).subscribe((res) => {
+      this.userRole = res["data"];
+      console.log(this.userRole);
+    });
     this.isLoggedIn = this.cookieService.get("session_user") ? true : false;
+  }
+
+  isAdmin(): boolean {
+    return this.userRole.role === "admin";
   }
 
   ngOnInit(): void {
