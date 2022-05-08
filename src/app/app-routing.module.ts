@@ -33,6 +33,7 @@ import { UserProfileComponent } from "./pages/user-profile/user-profile.componen
 import { ServicesListComponent } from "./pages/services-list/services-list.component";
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
+import { InvoiceDialogComponent } from "./shared/invoice-dialog/invoice-dialog.component";
 
 const routes: Routes = [
   {
@@ -116,6 +117,12 @@ const routes: Routes = [
         component: ServicesDetailsComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: "order-summary",
+        component: InvoiceDialogComponent,
+        canActivate: [AuthGuard],
+      },
+
     ],
   },
   {

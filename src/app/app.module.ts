@@ -64,6 +64,7 @@ import { ServicesListComponent } from './pages/services-list/services-list.compo
 import { ServicesCreateComponent } from './pages/services-create/services-create.component';
 import { ServicesDetailsComponent } from './pages/services-details/services-details.component';
 import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
+import { MatGridListModule } from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.c
     MatListModule,
     MatSelectModule,
     DialogModule,
+    MatGridListModule,
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
