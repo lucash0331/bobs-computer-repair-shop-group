@@ -15,7 +15,7 @@ import { UserService } from "src/app/services/user.service";
 import { User } from "src/app/shared/interfaces/user.interface";
 //import { ConfirmationService } from "primeng/api";
 //import { MessageService } from "primeng/api";
-import { Role } from "src/app/shared/interfaces/role-interface";
+import { Role } from "src/app/shared/interfaces/role.interface";
 import { RoleService } from "src/app/services/roles.service";
 import { CookieService } from "ngx-cookie-service";
 import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
@@ -61,20 +61,17 @@ export class UserProfileComponent implements OnInit {
     this.readonly = true;
     this.edit = false;
     this.isFilled = "";
-    this.http
-      .get("/api/users/" + this.userName + "/security-questions")
-      .subscribe(
-        (res) => {
-          console.log(res["data"]);
-          this.isSelectedSecurityQuestions = res["data"].length > 0 ? true : false;
-          console.log(this.isSelectedSecurityQuestions);
-
-        },
-        (err) => {
-          console.log("ERROR");
-          console.log(err.message);
-        }
-      );
+    this.http.get("/api/users/" + this.userName + "/security-questions").subscribe(
+      (res) => {
+        console.log(res["data"]);
+        this.isSelectedSecurityQuestions = res["data"].length > 0 ? true : false;
+        console.log(this.isSelectedSecurityQuestions);
+      },
+      (err) => {
+        console.log("ERROR");
+        console.log(err.message);
+      }
+    );
     if (!this.isSelectedSecurityQuestions) {
       this.securityQuestionsService.findAllSecurityQuestions().subscribe(
         (res) => {
@@ -123,36 +120,23 @@ export class UserProfileComponent implements OnInit {
         console.log(this.form.controls.userName.value);
       }
     );
-    
+
     // Sign-up/register form portion
 
     this.securityQuestionsForm = this.fb.group({
       securityQuestion1: [null, Validators.compose([Validators.required])],
       securityQuestion2: [null, Validators.compose([Validators.required])],
       securityQuestion3: [null, Validators.compose([Validators.required])],
-      answerToSecurityQuestion1: [
-        null,
-        Validators.compose([Validators.required]),
-      ],
-      answerToSecurityQuestion2: [
-        null,
-        Validators.compose([Validators.required]),
-      ],
-      answerToSecurityQuestion3: [
-        null,
-        Validators.compose([Validators.required]),
-      ],
+      answerToSecurityQuestion1: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion2: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion3: [null, Validators.compose([Validators.required])],
     });
     this.passwordForm = this.fb.group({
       password: [
         null,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"),
-        ]),
+        Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
       ],
     });
-    
   }
 
   saveUser(): void {
@@ -197,7 +181,6 @@ export class UserProfileComponent implements OnInit {
     this.isFilled = "fill";
   }
 
-
   // Register function
   saveSelectedQuestions() {
     const securityQuestions = this.securityQuestionsForm.value;
@@ -218,25 +201,23 @@ export class UserProfileComponent implements OnInit {
       },
     ];
     console.log(selectedSecurityQuestions);
-    this.userService
-      .saveSelectedSecurityQuestions(this.userId, selectedSecurityQuestions)
-      .subscribe(
-        (res) => {
-          this.isSelectedSecurityQuestions = false;
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {
-          alert("Security questions is saved.");
-        }
-      );    
+    this.userService.saveSelectedSecurityQuestions(this.userId, selectedSecurityQuestions).subscribe(
+      (res) => {
+        this.isSelectedSecurityQuestions = false;
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        alert("Security questions is saved.");
+      }
+    );
   }
   resetPassword(): void {
     console.log(this.passwordForm.controls["password"].value);
     this.http
       .post("/api/session/users/" + this.userName + "/reset-password", {
-        password: this.passwordForm.controls["password"].value,        
+        password: this.passwordForm.controls["password"].value,
       })
       .subscribe(
         (res) => {
@@ -251,6 +232,4 @@ export class UserProfileComponent implements OnInit {
         }
       );
   }
-
-
 }

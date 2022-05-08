@@ -65,6 +65,10 @@ import { ServicesCreateComponent } from './pages/services-create/services-create
 import { ServicesDetailsComponent } from './pages/services-details/services-details.component';
 import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
 import { MatGridListModule } from "@angular/material/grid-list";
+import { RoleListComponent } from "./pages/role-list/role-list.component";
+import { RoleCreateComponent } from "./pages/role-create/role-create.component";
+import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
+//import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +95,11 @@ import { MatGridListModule } from "@angular/material/grid-list";
     ServicesListComponent,
     ServicesCreateComponent,
     ServicesDetailsComponent,
-    InvoiceDialogComponent,
+    RoleListComponent,
+    RoleCreateComponent,
+    RoleDetailsComponent,
+    InvoiceDialogComponent
+    //InvoiceDialogComponent, commented out because the invoice component dialog not pushed to git
   ],
   imports: [
     BrowserModule,

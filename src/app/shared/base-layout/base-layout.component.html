@@ -19,8 +19,6 @@
         </div>
         <div fxLayoutAlign="end center" fxFlex="85">
           <button class="navbar-link" routerLink="/" mat-button>Home</button>
-          <button class="navbar-link" routerLink="/user" mat-button>Users</button>
-          <button class="navbar-link" routerLink="/security-questions" mat-button>Security Questions</button>
           <button class="navbar-link" routerLink="/about" mat-button>About Us</button>
           <button class="navbar-link" routerLink="/contact" mat-button>Contact</button>
         </div>
@@ -32,16 +30,30 @@
             <p style="padding: 10px">Signed in as {{ name }}</p>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="redirectToProfile()">
-              <mat-icon>settings</mat-icon>
+              <mat-icon color="primary">settings</mat-icon>
               <span>Profile</span>
             </button>
-            <button mat-menu-item (click)="redirectToServices()">
-              <mat-icon>build</mat-icon>
+            <!-- Next 3 should be admin-locked -->
+            <button *ngIf="isAdmin()" mat-menu-item (click)="redirectToServices()">
+              <mat-icon color="primary">build</mat-icon>
               <span>Services</span>
             </button>
+            <button *ngIf="isAdmin()" mat-menu-item routerLink="/user">
+              <mat-icon color="primary">person</mat-icon>
+              <span>Users</span>
+            </button>
+            <button *ngIf="isAdmin()" mat-menu-item routerLink="/security-questions">
+              <mat-icon color="primary">lock</mat-icon>
+              <span>Security Questions</span>
+            </button>
+            <button *ngIf="isAdmin()" mat-menu-item routerLink="/roles">
+              <mat-icon color="primary">fingerprint</mat-icon>
+              <span>Role Configuration</span>
+            </button>
+            <!-- to here -->
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="signOut()">
-              <mat-icon>logout</mat-icon>
+              <mat-icon color="primary">logout</mat-icon>
               <span>Signout</span>
             </button>
           </mat-menu>

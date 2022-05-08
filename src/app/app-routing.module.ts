@@ -34,6 +34,9 @@ import { ServicesListComponent } from "./pages/services-list/services-list.compo
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
 import { InvoiceDialogComponent } from "./shared/invoice-dialog/invoice-dialog.component";
+import { RoleListComponent } from "./pages/role-list/role-list.component";
+import { RoleCreateComponent } from "./pages/role-create/role-create.component";
+import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
 
 const routes: Routes = [
   {
@@ -117,12 +120,27 @@ const routes: Routes = [
         component: ServicesDetailsComponent,
         canActivate: [AuthGuard],
       },
+      //temporary - delete later
       {
         path: "order-summary",
         component: InvoiceDialogComponent,
         canActivate: [AuthGuard],
       },
-
+      {
+        path: "roles",
+        component: RoleListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "roles/create/new",
+        component: RoleCreateComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "roles/update/:id",
+        component: RoleDetailsComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
   {
