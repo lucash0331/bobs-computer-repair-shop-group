@@ -1,6 +1,6 @@
 /*
 ============================================
-; Title: WEB450 Bob's Computer Repair Shop Sprint1
+; Title: WEB450 Bob's Computer Repair Shop Sprint3
 ; Author: Professor Krasso
 ; Date: May 7, 2022
 ; Modified By: House Gryffindor
@@ -9,6 +9,6 @@
 */
 
 export interface LineItem {
-    title: string;
-    price: number;
+  name: string;
+  price: number;
 }

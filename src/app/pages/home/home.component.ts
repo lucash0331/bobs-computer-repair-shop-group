@@ -16,6 +16,13 @@ import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { CookieService } from "ngx-cookie-service";
 import { MessageService } from "primeng/api";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Invoice } from "src/app/shared/models/invoice";
+import { InvoiceService } from "src/app/services/invoice.service";
+import { InvoiceDialogComponent } from "src/app/shared/invoice-dialog/invoice-dialog.component";
+import { LineItem } from "src/app/shared/interfaces/line-item.interface";
+import { Message } from "primeng/api/message";
+import { title } from "process";
 
 @Component({
   selector: "app-home",
@@ -23,23 +30,24 @@ import { MessageService } from "primeng/api";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  service: Service;
+  form: FormGroup;
+  userName: string;
+  service: Service[];
+  lineItems: LineItem[];
+  invoice: Invoice;
   name: String;
   price: String;
-
-  displayedColumns = ["name", "price"];
-
-  // total: number = 0;
-  // products: Array<IProduct>
-  //@ViewChild(MatTable) table: MatTable<any>;
-  // dataTableSource = [];
+  errorMessages: Message[];
+  successMessages: Message[];
 
   constructor(
+    private fb: FormBuilder,
     private servicesService: ServicesService,
     private messageService: MessageService,
     private dialog: MatDialog,
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private InvoiceService: InvoiceService
   ) {
     this.servicesService.findAllServices().subscribe(
       (res) => {
@@ -48,9 +56,52 @@ export class HomeComponent implements OnInit {
       (err) => {},
       () => {}
     );
-
-    //this.invoice = new Invoice(cookieService.get('session_user'));
+    this.userName = this.cookieService.get("session_user");
+    this.invoice = new Invoice(this.userName);
+    this.lineItems = [];
   }
 
   ngOnInit() {}
+
+  generateInvoice() {
+    // for(let service of this.service._id) {
+    //   if (service.checked) {
+    //     this.lineItems.push();
+    //   }
+    // }
+
+    if (this.lineItems.length > 0) {
+      this.invoice.setLineItems(this.lineItems);
+
+      const dialog = this.dialog.open(InvoiceDialogComponent, {
+        data: {
+          invoice: this.invoice,
+        },
+        disableClose: true,
+        width: "800px",
+      });
+
+      dialog.afterClosed().subscribe((result) => {
+        if (result === "confirm") {
+          this.InvoiceService.createInvoice(this.userName, this.invoice).subscribe((res) => {
+            // this.reloadServices();
+            // this.clearLineItems();
+            this.invoice.clear();
+            this.successMessages = [
+              { severity: "Success", summary: "Success", detail: "Your order has been processed successfully." },
+            ];
+          });
+        } else {
+          // this.reloadServices();
+          // this.clearLineItems();
+          this.invoice.clear();
+        }
+      });
+    } else {
+      this.errorMessages = [{ severity: "error", summary: "Error", detail: "You must select at least one service." }];
+    }
+    // submit(): void {
+    //   console.log("submitted");
+    // }
+  }
 }

@@ -26,7 +26,7 @@
         <!-- Price Column -->
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-          <mat-cell *matCellDef="let service"> {{ service.price }} </mat-cell>
+          <mat-cell *matCellDef="let service"> {{ service.price | currency }} </mat-cell>
         </ng-container>
 
         <!-- Icon Column -->
