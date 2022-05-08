@@ -55,20 +55,19 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { MatListModule } from "@angular/material/list";
 import { MatSelectModule } from "@angular/material/select";
 import { DialogModule } from "primeng/dialog";
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { ErrorComponent } from './pages/error/error.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { AboutComponent } from './pages/about/about.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { ServicesListComponent } from './pages/services-list/services-list.component';
-import { ServicesCreateComponent } from './pages/services-create/services-create.component';
-import { ServicesDetailsComponent } from './pages/services-details/services-details.component';
-import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { ErrorComponent } from "./pages/error/error.component";
+import { ContactComponent } from "./pages/contact/contact.component";
+import { AboutComponent } from "./pages/about/about.component";
+import { UserProfileComponent } from "./pages/user-profile/user-profile.component";
+import { ServicesListComponent } from "./pages/services-list/services-list.component";
+import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
+import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
+import { InvoiceDialogComponent } from "./shared/invoice-dialog/invoice-dialog.component";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { RoleListComponent } from "./pages/role-list/role-list.component";
 import { RoleCreateComponent } from "./pages/role-create/role-create.component";
 import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
-//import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
 
 @NgModule({
   declarations: [
@@ -98,8 +97,7 @@ import { RoleDetailsComponent } from "./pages/role-details/role-details.componen
     RoleListComponent,
     RoleCreateComponent,
     RoleDetailsComponent,
-    InvoiceDialogComponent
-    //InvoiceDialogComponent, commented out because the invoice component dialog not pushed to git
+    InvoiceDialogComponent,
   ],
   imports: [
     BrowserModule,
