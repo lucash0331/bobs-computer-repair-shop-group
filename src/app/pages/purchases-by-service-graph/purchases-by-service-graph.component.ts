@@ -3,8 +3,8 @@ import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
   selector: 'app-purchases-by-service-graph',
-  templateUrl: './purchases-by-service-graph.component.html',
-  styleUrls: ['./purchases-by-service-graph.component.css']
+  templateUrl: './purchases-by-service-graph.component.html'
+
 })
 export class PurchasesByServiceGraphComponent implements OnInit {
   purchases: any;

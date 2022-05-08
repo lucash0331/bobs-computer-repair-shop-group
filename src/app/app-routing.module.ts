@@ -33,15 +33,12 @@ import { UserProfileComponent } from "./pages/user-profile/user-profile.componen
 import { ServicesListComponent } from "./pages/services-list/services-list.component";
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
-<<<<<<< HEAD
 import { PurchasesByServiceGraphComponent } from "./pages/purchases-by-service-graph/purchases-by-service-graph.component";
 import { RoleGuard } from "./shared/role.guard";
-=======
 import { InvoiceDialogComponent } from "./shared/invoice-dialog/invoice-dialog.component";
 import { RoleListComponent } from "./pages/role-list/role-list.component";
 import { RoleCreateComponent } from "./pages/role-create/role-create.component";
 import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
->>>>>>> 0101ca483d797cd72702ed565f64e7f7d0f0f72d
 
 const routes: Routes = [
   {
