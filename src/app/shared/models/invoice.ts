@@ -44,7 +44,7 @@ getLineItemTotal(): number {
     let total: number = 0;
 
     for (let lineItem of this.lineItems) {
-        total = total + lineItem.price;
+        total = total + Number(lineItem.price);
     }
 
     return Number(total);
@@ -59,6 +59,9 @@ getOrderDate(): string {
 }
 
 getTotal(): number {
+    console.log(Number(this.partsAmount));
+    console.log(this.getLaborAmount());
+    console.log(this.getLineItemTotal());
     return Number(this.partsAmount) + Number(this.getLaborAmount()) + Number(this.getLineItemTotal());
 }
 

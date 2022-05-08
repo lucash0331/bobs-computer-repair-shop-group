@@ -19,11 +19,11 @@
     </mat-card>
     <mat-card class="mat-elevation-z0" style="width:95%">
         <mat-card-content>
-            <table mat-table [dataSource]="lineItems" class="mat-elevation-z8">
+            <table mat-table [dataSource]="printLineItems" class="mat-elevation-z8">
                 <!-- Service Column -->
                 <ng-container matColumnDef="item">
                     <th mat-header-cell *matHeaderCellDef> Item </th>
-                    <td mat-cell *matCellDef="let lineItem"> {{lineItem.title}} </td>
+                    <td mat-cell *matCellDef="let lineItem"> {{lineItem.name}} </td>
                     <td mat-footer-cell *matFooterCellDef> Total </td>
                 </ng-container>
 
