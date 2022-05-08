@@ -26,7 +26,7 @@ export class ServicesDetailsComponent implements OnInit {
   userId: string;
   name: string;
   price: string;
-  icon: string;
+  icon?: string;
   description: string;
   form: FormGroup;
 

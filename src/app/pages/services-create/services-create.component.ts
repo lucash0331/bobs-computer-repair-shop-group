@@ -18,7 +18,7 @@ export class ServicesCreateComponent implements OnInit {
     this.form = this.fb.group({
       name: [null, Validators.compose([Validators.required])],
       price: [null, Validators.compose([Validators.required])],
-      icon: [null, Validators.compose([Validators.required])],
+      icon: [null, Validators.compose([])],
       description: [null, Validators.compose([Validators.required])],
     });
   }
