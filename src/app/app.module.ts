@@ -99,7 +99,6 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
     RoleCreateComponent,
     RoleDetailsComponent,
     InvoiceDialogComponent,
-    //InvoiceDialogComponent, commented out because the invoice component dialog not pushed to git
   ],
   imports: [
     BrowserModule,
