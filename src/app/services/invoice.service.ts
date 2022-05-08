@@ -10,7 +10,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Invoice } from "../../../server/models/invoice";
+import { Invoice } from "../shared/models/invoice";
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +23,7 @@ export class InvoiceService {
       userName: userName,
       lineItems: invoice.getLineItems(),
       partsAmount: invoice.partsAmount,
-      laborItemTotal: invoice.getLineItemTotal(),
+      laborAmount: invoice.getLaborAmount(),
       total: invoice.getTotal(),
     });
   }

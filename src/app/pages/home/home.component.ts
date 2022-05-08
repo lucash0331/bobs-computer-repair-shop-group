@@ -23,6 +23,7 @@ import { InvoiceDialogComponent } from "src/app/shared/invoice-dialog/invoice-di
 import { LineItem } from "src/app/shared/interfaces/line-item.interface";
 import { Message } from "primeng/api/message";
 import { title } from "process";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -39,6 +40,8 @@ export class HomeComponent implements OnInit {
   price: String;
   errorMessages: Message[];
   successMessages: Message[];
+  isReloaded: Boolean = true;
+
 
   constructor(
     private fb: FormBuilder,
@@ -47,11 +50,13 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog,
     private http: HttpClient,
     private cookieService: CookieService,
-    private InvoiceService: InvoiceService
+    private InvoiceService: InvoiceService,
+    private router: Router,
   ) {
     this.servicesService.findAllServices().subscribe(
       (res) => {
         this.service = res["data"];
+        console.log(this.service);
       },
       (err) => {},
       () => {}
@@ -61,16 +66,23 @@ export class HomeComponent implements OnInit {
     this.lineItems = [];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isReloaded = true;
+  }
 
   generateInvoice() {
-    // for(let service of this.service._id) {
-    //   if (service.checked) {
-    //     this.lineItems.push();
-    //   }
-    // }
+    console.log(this.service);
+    for (let service of this.service) {
+      if (service.checked) {
+        console.log(service);
+        this.lineItems.push(service);
+      }
+    }
+
+    console.log(this.lineItems);
 
     if (this.lineItems.length > 0) {
+
       this.invoice.setLineItems(this.lineItems);
 
       const dialog = this.dialog.open(InvoiceDialogComponent, {
@@ -83,25 +95,54 @@ export class HomeComponent implements OnInit {
 
       dialog.afterClosed().subscribe((result) => {
         if (result === "confirm") {
-          this.InvoiceService.createInvoice(this.userName, this.invoice).subscribe((res) => {
-            // this.reloadServices();
-            // this.clearLineItems();
+          this.InvoiceService.createInvoice(
+            this.userName,
+            this.invoice
+          ).subscribe((res) => {
+            this.reloadServices();
+            this.clearLineItems();
             this.invoice.clear();
+            console.log(res);
             this.successMessages = [
-              { severity: "Success", summary: "Success", detail: "Your order has been processed successfully." },
+              {
+                severity: "Success",
+                summary: "Success",
+                detail: "Your order has been processed successfully.",
+              },
             ];
           });
         } else {
-          // this.reloadServices();
-          // this.clearLineItems();
-          this.invoice.clear();
+          this.reloadServices();
+          this.clearLineItems();
+          this.invoice.clear();          
         }
       });
     } else {
-      this.errorMessages = [{ severity: "error", summary: "Error", detail: "You must select at least one service." }];
+      this.errorMessages = [
+        {
+          severity: "error",
+          summary: "Error",
+          detail: "You must select at least one service.",
+        },
+      ];
     }
     // submit(): void {
     //   console.log("submitted");
     // }
+  }
+
+  reloadServices() {
+    for (let service of this.service) {
+      service.checked = false;
+    }  
+    this.ngOnInit();
+  }
+  clearLineItems() {
+    this.lineItems = [];
+    this.ngOnInit();
+
+    this.router.navigateByUrl('/about', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/']);
+  }); 
   }
 }

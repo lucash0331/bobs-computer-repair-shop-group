@@ -1,11 +1,12 @@
 <div fxLayout="column" fxFlex="100%" class="main-welcome">
-  <p-toast></p-toast>
+  <p-messages [(value)]="errorMessages" [enableService]="false"></p-messages>
+  <p-messages [(value)]="successMessages" [enableService]="false"></p-messages>
 
   <div fxLayout="row" fxLayoutGap="7%" fxFlex="80%">
     <div class="wrapper" fxFlex>
       <div *ngFor="let service of service">
         <mat-button-toggle-group name="orderServices" multiple>
-          <mat-button-toggle value="{{ service._id }}">
+          <mat-button-toggle value="{{ service._id }}" (change)="service.checked = !service.checked" [checked]="!isReloaded">
             <mat-card class="product-card">
               <mat-card-title-group>
                 <mat-card-title>{{ service.name }}</mat-card-title>
@@ -38,8 +39,8 @@
           <br />
           <mat-form-field class="fees-input" appearance="fill">
             <mat-label>Labor</mat-label>
-            <span matPrefix>$ &nbsp;</span>
-            <input matInput [(ngModel)]="invoice.partsAmount" name="labor" placeholder="Hours of Labor @ $50.00/hr" />
+            <span matPrefix>hrs &nbsp;</span>
+            <input matInput [(ngModel)]="invoice.laborHours" name="labor" placeholder="Hours of Labor @ $50.00/hr" />
           </mat-form-field>
         </form>
         <button (click)="generateInvoice()" mat-stroked-button color="primary">Order Services</button>

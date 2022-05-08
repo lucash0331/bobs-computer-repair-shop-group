@@ -12,24 +12,27 @@ export class InvoiceDialogComponent implements OnInit {
   username: string;
   orderDate: string;
   total: number;
-  labor: number = 100;
-  parts: number = 300;
-  lineItems: any[] = [{"title":"Keyboard cleaning", "price":45}];
+  labor: number;
+  parts: number;
+  lineItems: any[];
+  printLineItems: any[];
   displayedColumns: string[] = ['item', 'cost'];
 
   constructor(
-/*     private dialogRef: MatDialogRef<InvoiceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data */
+     private dialogRef: MatDialogRef<InvoiceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data 
   ) {
-/*     this.invoice = data.invoice;
+     this.invoice = data.invoice;
     this.username = this.invoice.getUsername();
     this.orderDate = this.invoice.getOrderDate();
     this.lineItems = this.invoice.getLineItems();
     this.parts = this.invoice.partsAmount;
     this.labor = this.invoice.getLaborAmount();
-    this.total = this.invoice.getTotal(); */
-    this.lineItems.push({"title":"Parts", "price":this.parts});
-    this.lineItems.push({"title":"Labor @ 50/hr", "price":this.labor});
+    this.total = this.invoice.getTotal(); 
+    console.log( this.total);
+    this.printLineItems = Array.from(this.lineItems);
+    this.printLineItems.push({"name":"Parts", "price":this.parts});
+    this.printLineItems.push({"name":"Labor @ 50/hr", "price":this.labor});
     }
 
   ngOnInit(): void {}

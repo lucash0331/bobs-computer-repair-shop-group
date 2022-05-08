@@ -11,14 +11,14 @@
 button.submit {
   background-color: #fbc02d;
   color: whitesmoke;
-  width: 10%;
+  
   margin-left: 10%;
 }
 
 button.cancel {
   border-color: #ef5350;
   color: #ef5350;
-  width: 10%;
+
 }
 
 table {
