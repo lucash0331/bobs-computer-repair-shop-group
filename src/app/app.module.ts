@@ -63,6 +63,7 @@ import { UserProfileComponent } from "./pages/user-profile/user-profile.componen
 import { ServicesListComponent } from "./pages/services-list/services-list.component";
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
+<<<<<<< HEAD
 import { PurchasesByServiceGraphComponent } from "./pages/purchases-by-service-graph/purchases-by-service-graph.component";
 import { ChartModule } from "primeng/chart";
 //import { RoleListComponent } from './pages/role-list/role-list.component';
@@ -70,6 +71,14 @@ import { ChartModule } from "primeng/chart";
 //import { RoleDetailsComponent } from './pages/role-details/role-details.component';
 
 //import { InvoiceDialogComponent } from './shared/invoice-dialog/invoice-dialog.component';
+=======
+import { InvoiceDialogComponent } from "./shared/invoice-dialog/invoice-dialog.component";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { RoleListComponent } from "./pages/role-list/role-list.component";
+import { RoleCreateComponent } from "./pages/role-create/role-create.component";
+import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+>>>>>>> 0101ca483d797cd72702ed565f64e7f7d0f0f72d
 
 @NgModule({
   declarations: [
@@ -96,8 +105,15 @@ import { ChartModule } from "primeng/chart";
     ServicesListComponent,
     ServicesCreateComponent,
     ServicesDetailsComponent,
+<<<<<<< HEAD
     PurchasesByServiceGraphComponent,
     //InvoiceDialogComponent,
+=======
+    RoleListComponent,
+    RoleCreateComponent,
+    RoleDetailsComponent,
+    InvoiceDialogComponent,
+>>>>>>> 0101ca483d797cd72702ed565f64e7f7d0f0f72d
   ],
   imports: [
     BrowserModule,
@@ -128,7 +144,12 @@ import { ChartModule } from "primeng/chart";
     MatListModule,
     MatSelectModule,
     DialogModule,
+<<<<<<< HEAD
     ChartModule
+=======
+    MatGridListModule,
+    MatButtonToggleModule,
+>>>>>>> 0101ca483d797cd72702ed565f64e7f7d0f0f72d
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

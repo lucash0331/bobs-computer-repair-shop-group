@@ -10,7 +10,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Role } from "../shared/interfaces/role-interface";
+import { Role } from "../shared/interfaces/role.interface";
 
 @Injectable({
   providedIn: "root",

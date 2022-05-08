@@ -26,16 +26,16 @@
         <!-- Price Column -->
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-          <mat-cell *matCellDef="let service"> {{ service.price }} </mat-cell>
+          <mat-cell *matCellDef="let service"> {{ service.price | currency }} </mat-cell>
         </ng-container>
 
-        <!-- Name Column -->
+        <!-- Icon Column -->
         <ng-container matColumnDef="icon">
           <mat-header-cell *matHeaderCellDef> Icon </mat-header-cell>
           <mat-cell *matCellDef="let service"> {{ service.icon }} </mat-cell>
         </ng-container>
 
-        <!-- Phone Column -->
+        <!-- Description Column -->
         <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
           <mat-cell *matCellDef="let service"> {{ service.description }} </mat-cell>
