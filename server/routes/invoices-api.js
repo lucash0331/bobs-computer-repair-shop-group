@@ -44,6 +44,49 @@ router.post("/:userName", async (req, res) => {
     const createInvoiceCatchErrorResponse = new BaseResponse(500, "Internal server error", error.message);
     res.status(500).send(createInvoiceCatchErrorResponse.toObject());
   }
+
+  // Find purchases by service API
+  router.get("/purchases-graph", async (req, res) => {
+    try {
+      Invoice.aggregate(
+        [{
+            $unwind: "$lineItems",
+          },
+          {
+            $group: { _id:
+               {
+                title: "$lineItems.title",
+                price: "$lineItems.price",
+              },
+              count: { $sum: 1, },
+            },
+          },
+          {
+            $sort: { "_id.title": 1, },
+          },
+        ],
+
+      // IF/ELSE statement
+        function (err, purchaseGraph) {
+          if (err) {
+            console.log(err);
+            const findPurchasesByServiceGraphMongodbErrorResponse = new BaseResponse(500, "Internal Server error", err);
+            res.status(500).send(findPurchasesByServiceGraphMongodbErrorResponse.toObject());
+          } else {
+            console.log(purchaseGraph);
+            const findPurchasesByServiceGraphResponse = new BaseResponse(200,"Query successful", purchaseGraph);
+            res.json(findPurchasesByServiceGraphResponse.toObject());
+          }
+        }
+      );
+
+    // Catch exception with server error
+    } catch (e) {
+      console.log(e);
+      const findPurchaseByServiceCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+      res.status(500).send(findPurchaseByServiceCatchErrorResponse.toObject());
+    }
+  });
 });
 
 module.exports = router;

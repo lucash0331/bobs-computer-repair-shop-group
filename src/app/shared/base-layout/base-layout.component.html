@@ -46,6 +46,12 @@
               <mat-icon>lock</mat-icon>
               <span>Security Questions</span>
             </button>
+            
+            <button *ngIf="isAdmin()" mat-menu-item routerLink="/purchases-by-service-graph">
+              <mat-icon>chart</mat-icon>
+           <span> Purchases By Graph</span>
+          </button>
+
             <!-- to here -->
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="signOut()">

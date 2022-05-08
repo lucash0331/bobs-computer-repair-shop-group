@@ -33,6 +33,8 @@ import { UserProfileComponent } from "./pages/user-profile/user-profile.componen
 import { ServicesListComponent } from "./pages/services-list/services-list.component";
 import { ServicesCreateComponent } from "./pages/services-create/services-create.component";
 import { ServicesDetailsComponent } from "./pages/services-details/services-details.component";
+import { PurchasesByServiceGraphComponent } from "./pages/purchases-by-service-graph/purchases-by-service-graph.component";
+import { RoleGuard } from "./shared/role.guard";
 
 const routes: Routes = [
   {
@@ -44,6 +46,13 @@ const routes: Routes = [
         component: HomeComponent,
         canActivate: [AuthGuard],
       },
+
+      {
+        path: "purchases-by-service-graph",
+        component: PurchasesByServiceGraphComponent,
+        canActivate: [RoleGuard],
+      },
+
       {
         path: "user",
         component: UserListComponent,
