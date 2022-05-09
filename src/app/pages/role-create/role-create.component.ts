@@ -33,6 +33,13 @@ export class RoleCreateComponent implements OnInit {
     this.roleService.createRole(newRole).subscribe(
       (res) => {
         this.router.navigate(["/roles"]);
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "New role has been created successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       },
       (err) => {
         console.log(err);

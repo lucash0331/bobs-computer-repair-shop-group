@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Service } from "src/app/shared/interfaces/services.interface";
 import { ServicesService } from "src/app/services/services.service";
 import { Router } from "@angular/router";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-services-create",
@@ -12,7 +14,12 @@ import { Router } from "@angular/router";
 export class ServicesCreateComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private servicesService: ServicesService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private servicesService: ServicesService,
+    private resultDialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -33,6 +40,13 @@ export class ServicesCreateComponent implements OnInit {
     this.servicesService.createService(newService).subscribe(
       (res) => {
         this.router.navigate(["/services"]);
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "New service has been created successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       },
       (err) => {
         console.log(err);
@@ -40,8 +54,8 @@ export class ServicesCreateComponent implements OnInit {
     );
   }
 
-      // This is the cancel button.
-      cancel() {
-        this.router.navigate(["/services"]);
-      }
+  // This is the cancel button.
+  cancel() {
+    this.router.navigate(["/services"]);
+  }
 }

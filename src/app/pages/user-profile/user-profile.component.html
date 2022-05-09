@@ -11,6 +11,7 @@
 <div fxLayout="column" class="profile-div">
   <mat-card fxFlex class="mat-elevation-z8 profile-container">
     <mat-card-content>
+      <!-- User Profile: view/edit -->
       <mat-tab-group>
         <mat-tab label="User Profile">
           <mat-card fxFlex class="mat-elevation-z8 update-container">
@@ -18,6 +19,7 @@
               <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
                 <form [formGroup]="form" (ngSubmit)="saveUser()" #userProfileForm>
                   <mat-card-content>
+
                     <!--userName-->
                     <mat-form-field *ngIf="!edit">
                       <mat-label>User name</mat-label>
@@ -35,6 +37,7 @@
                           form.controls.firstName.touched
                         ">This field is required!</mat-error>
                     </mat-form-field>
+
                     <!--lastName-->
                     <mat-form-field appearance="{{ isFilled }}">
                       <mat-label>Last name</mat-label>
@@ -45,18 +48,21 @@
                           form.controls.lastName.touched
                         ">This field is required!</mat-error>
                     </mat-form-field>
+
                     <!--phone-->
                     <mat-form-field appearance="{{ isFilled }}">
                       <mat-label>Phone number</mat-label>
                       <input matInput [formControl]="form.controls['phoneNumber']" value="form.controls['phoneNumber']"
                         readonly="{{ readonly }}" />
                     </mat-form-field>
+
                     <!--address-->
                     <mat-form-field appearance="{{ isFilled }}">
                       <mat-label>Address</mat-label>
                       <input matInput [formControl]="form.controls['address']" value="form.controls['address']"
                         readonly="{{ readonly }}" />
                     </mat-form-field>
+
                     <!--email-->
                     <mat-form-field appearance="{{ isFilled }}">
                       <mat-label>Email</mat-label>
@@ -67,6 +73,7 @@
                           form.controls.email.touched
                         ">Input valid email!</mat-error>
                     </mat-form-field>
+
                     <!--role-->
                     <mat-form-field *ngIf="!edit">
                       <mat-label>Role</mat-label>
@@ -75,6 +82,7 @@
                     </mat-form-field>
                   </mat-card-content>
 
+                  <!-- User Profile buttons -->
                   <mat-card-actions>
                     <button *ngIf="edit" class="cancel" (click)="cancelProfile()" mat-raised-button>
                       Cancel
@@ -95,6 +103,8 @@
             </mat-card-content>
           </mat-card>
         </mat-tab>
+
+        <!-- Selected Security Questions: choose and save: shown only is user doesn't have any -->
         <mat-tab label="Security Questions" *ngIf="!isSelectedSecurityQuestions">
           <mat-card fxFlex class="mat-elevation-z8 update-container">
             <mat-card-content>
@@ -103,6 +113,7 @@
                 <form [formGroup]="securityQuestionsForm" (ngSubmit)="saveSelectedQuestions()"
                   #securityQuestionsProfileForm>
                   <mat-list>
+
                     <!-- Question 1 -->
                     <mat-list-item>
                       <mat-form-field fxFlex appearance="fill">
@@ -121,7 +132,7 @@
                           securityQuestionsForm.controls['securityQuestion1']
                             .touched
                         ">
-                        This field is required!
+                          This field is required!
                         </mat-error>
                       </mat-form-field>
                       <mat-form-field fxFlex appearance="fill">
@@ -139,11 +150,12 @@
                             'answerToSecurityQuestion1'
                           ].touched
                         ">
-                        This field is required!
+                          This field is required!
                         </mat-error>
                       </mat-form-field>
                     </mat-list-item>
                     <br />
+
                     <!-- Question 2 -->
                     <mat-list-item>
                       <mat-form-field fxFlex appearance="fill">
@@ -162,10 +174,9 @@
                           securityQuestionsForm.controls['securityQuestion2']
                             .touched
                         ">
-                        This field is required!
+                          This field is required!
                         </mat-error>
                       </mat-form-field>
-
                       <mat-form-field fxFlex appearance="fill">
                         <mat-label>Answer</mat-label>
                         <input matInput [formControl]="
@@ -181,11 +192,12 @@
                             'answerToSecurityQuestion2'
                           ].touched
                         ">
-                        This field is required!
+                          This field is required!
                         </mat-error>
                       </mat-form-field>
                     </mat-list-item>
                     <br />
+
                     <!-- Question 3 -->
                     <mat-list-item>
                       <mat-form-field fxFlex appearance="fill">
@@ -204,10 +216,9 @@
                           securityQuestionsForm.controls['securityQuestion3']
                             .touched
                         ">
-                        This field is required!
+                          This field is required!
                         </mat-error>
                       </mat-form-field>
-
                       <mat-form-field fxFlex appearance="fill">
                         <mat-label>Answer</mat-label>
                         <input matInput [formControl]="
@@ -223,11 +234,13 @@
                             'answerToSecurityQuestion3'
                           ].touched
                         ">
-                        This field is required!
+                          This field is required!
                         </mat-error>
                       </mat-form-field>
                     </mat-list-item>
                   </mat-list>
+
+                  <!-- Selected Security Questions buttons -->
                   <mat-card-actions>
                     <button class="cancel" (click)="exit()" mat-raised-button>
                       Exit
@@ -241,48 +254,32 @@
             </mat-card-content>
           </mat-card>
         </mat-tab>
+
+        <!-- Change password -->
         <mat-tab label="Change Password">
-          <mat-card fxFlex class="mat-elevation-z8 main-container">   
+          <mat-card fxFlex class="mat-elevation-z8 main-container">
             <h3>Use a strong password.</h3>
             <mat-card-content>
               <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="20px">
-                <form
-                  [formGroup]="passwordForm"
-                  (ngSubmit)="resetPassword()"
-                  #resetPasswordForm
-                >
+                <form [formGroup]="passwordForm" (ngSubmit)="resetPassword()" #resetPasswordForm>
                   <mat-card-content>
                     <mat-form-field fxFlex appearance="fill">
-                      <mat-label for="pswPassword" id="lblpassword"
-                        >New password</mat-label
-                      >
-                      <input
-                        type="password"
-                        matInput
-                        [formControl]="passwordForm.controls['password']"
-                        id="pswPassword"
-                        name="pswPassword"
-                      />
-                      <mat-error
-                        class="error"
-                        *ngIf="
+                      <mat-label for="pswPassword" id="lblpassword">New password</mat-label>
+                      <input type="password" matInput [formControl]="passwordForm.controls['password']" id="pswPassword"
+                        name="pswPassword" />
+                      <mat-error class="error" *ngIf="
                         passwordForm.controls.password.hasError('required') &&
                         passwordForm.controls.password.touched
-                        "
-                        >This field is required!</mat-error
-                      >
-                      <mat-error
-                        class="error"
-                        *ngIf="
+                        ">This field is required!</mat-error>
+                      <mat-error class="error" *ngIf="
                         passwordForm.controls.password.hasError('pattern') &&
                         passwordForm.controls.password.touched
-                        "
-                        >Password must be at least 8 characters, contain one letter, and
-                        one number!</mat-error
-                      >
+                        ">Password must be at least 8 characters, contain one letter, and
+                        one number!</mat-error>
                     </mat-form-field>
                   </mat-card-content>
-        
+
+                  <!-- Change password buttons -->
                   <mat-card-actions>
                     <button class="cancel" (click)="exit()" mat-raised-button>
                       Exit

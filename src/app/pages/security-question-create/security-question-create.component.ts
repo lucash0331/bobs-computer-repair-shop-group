@@ -10,7 +10,9 @@
 
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 import { SecurityQuestionsService } from "../../services/security-questions.service";
 import { SecurityQuestion } from "../../shared/interfaces/security-questions.interface";
 
@@ -25,7 +27,8 @@ export class SecurityQuestionCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private securityQuestionsService: SecurityQuestionsService
+    private securityQuestionsService: SecurityQuestionsService,
+    private resultDialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -43,6 +46,13 @@ export class SecurityQuestionCreateComponent implements OnInit {
     this.securityQuestionsService.createSecurityQuestion(newSecurityQuestion).subscribe(
       (res) => {
         this.router.navigate(["/security-questions"]);
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "New security question has been created successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       },
       (err) => {
         console.log(err);

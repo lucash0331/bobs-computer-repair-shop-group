@@ -13,8 +13,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { User } from "src/app/shared/interfaces/user.interface";
-//import { ConfirmationService } from "primeng/api";
-//import { MessageService } from "primeng/api";
 import { Role } from "src/app/shared/interfaces/role.interface";
 import { RoleService } from "src/app/services/roles.service";
 import { CookieService } from "ngx-cookie-service";
@@ -23,6 +21,8 @@ import { SecurityQuestionsService } from "src/app/services/security-questions.se
 import { HttpClient } from "@angular/common/http";
 import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+//import { ConfirmationService } from "primeng/api";
+//import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-user-profile",
@@ -34,28 +34,30 @@ export class UserProfileComponent implements OnInit {
   userId: string;
   userName: string;
   roles: Role[];
-  form: FormGroup;
   name: string;
-  readonly: Boolean;
-  edit: Boolean;
-  passwordForm: FormGroup;
-  securityQuestionsForm: FormGroup;
-  errorMessage: string;
   securityQuestions: SecurityQuestion[];
-  isFilled: string;
   selectedRole: string;
   selectedIndex: number = 0;
+
+  readonly: Boolean;
+  edit: Boolean;
   isSelectedSecurityQuestions: Boolean;
+  isFilled: string;
+  errorMessage: string;
+
+  form: FormGroup;
+  passwordForm: FormGroup;
+  securityQuestionsForm: FormGroup;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService,
-    private roleService: RoleService,
     private fb: FormBuilder,
     private resultDialog: MatDialog,
     private cookieService: CookieService, //private confirmationService: ConfirmationService, //private messageService: MessageService
     private securityQuestionsService: SecurityQuestionsService,
+    private userService: UserService,
+    private roleService: RoleService,
     private http: HttpClient
   ) {
     this.userName = this.cookieService.get("session_user");
@@ -91,6 +93,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //Edit user profile form
     this.form = this.fb.group({
       userName: [null, Validators.compose([])],
       firstName: [null, Validators.compose([Validators.required])],
@@ -101,6 +104,7 @@ export class UserProfileComponent implements OnInit {
       role: [null, Validators.compose([])],
     });
 
+    // User profile: set values to form
     this.userService.findUserByUserName(this.userName).subscribe(
       (res) => {
         this.user = res["data"];
@@ -113,7 +117,6 @@ export class UserProfileComponent implements OnInit {
         console.log(err);
       },
       () => {
-        console.log("inside findUserById ");
         this.form.controls.userName.setValue(this.user.userName);
         this.form.controls.firstName.setValue(this.user.firstName);
         this.form.controls.lastName.setValue(this.user.lastName);
@@ -127,8 +130,7 @@ export class UserProfileComponent implements OnInit {
       }
     );
 
-    // Sign-up/register form portion
-
+    // Select security questions form
     this.securityQuestionsForm = this.fb.group({
       securityQuestion1: [null, Validators.compose([Validators.required])],
       securityQuestion2: [null, Validators.compose([Validators.required])],
@@ -146,6 +148,8 @@ export class UserProfileComponent implements OnInit {
         Validators.compose([Validators.required]),
       ],
     });
+
+    // Change password form
     this.passwordForm = this.fb.group({
       password: [
         null,
@@ -157,6 +161,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  // Save updated user information
   saveUser(): void {
     const updatedUser: User = {
       userName: this.form.controls.userName.value,
@@ -191,6 +196,7 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
+  // Cancel editing user information
   cancelProfile(): void {
     this.edit = false;
     this.readonly = true;
@@ -205,17 +211,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  exit(): void {
-    this.router.navigate(["/"]);
-  }
-
-  editProfile(): void {
-    this.edit = true;
-    this.readonly = false;
-    this.isFilled = "fill";
-  }
-
-  // Register function
+  // Save selected security question
   saveSelectedQuestions() {
     const securityQuestions = this.securityQuestionsForm.value;
     console.log(securityQuestions);
@@ -256,6 +252,8 @@ export class UserProfileComponent implements OnInit {
         }
       );
   }
+
+  // Save new password
   resetPassword(): void {
     console.log(this.passwordForm.controls["password"].value);
     this.http
@@ -264,7 +262,12 @@ export class UserProfileComponent implements OnInit {
       })
       .subscribe(
         (res) => {
-          this.router.navigate(["/"]);
+          //this.router.navigate(["/"]);
+          this.router
+          .navigateByUrl("/about", { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(["/users/user/profile"]);
+          });
           console.log(res);
         },
         (err) => {
@@ -272,6 +275,7 @@ export class UserProfileComponent implements OnInit {
         },
         () => {
           //alert("New password is saved.");
+
           this.resultDialog.open(ConfirmationDialogComponent, {
             data: {
               message: "Password has been changed successfully.",
@@ -281,5 +285,17 @@ export class UserProfileComponent implements OnInit {
           });
         }
       );
+  }
+
+  // Make user information fields editable
+  editProfile(): void {
+    this.edit = true;
+    this.readonly = false;
+    this.isFilled = "fill";
+  }
+
+  // Exit form
+  exit(): void {
+    this.router.navigate(["/"]);
   }
 }

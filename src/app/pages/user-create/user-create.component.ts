@@ -13,6 +13,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { User } from "src/app/shared/interfaces/user.interface";
 import { UserService } from "src/app/services/user.service";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-user-create",
@@ -22,13 +24,24 @@ import { UserService } from "src/app/services/user.service";
 export class UserCreateComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private resultDialog: MatDialog
+  ) {}
 
   ngOnInit() {
     // validations
     this.form = this.fb.group({
       userName: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[A-Za-z]).{8,}$')])],
+      password: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^(?=.*\\d)(?=.*[A-Za-z]).{8,}$"),
+        ]),
+      ],
       firstName: [null, Validators.compose([Validators.required])],
       lastName: [null, Validators.compose([Validators.required])],
       phoneNumber: [null, Validators.compose([])],
@@ -50,14 +63,28 @@ export class UserCreateComponent implements OnInit {
     newUser.selectedSecurityQuestions = [];
 
     // createUser service method to make network call to create user
-     this.userService.createUser(newUser).subscribe(
-       (res) => {
-         this.router.navigate(['/users']);
-       },
-       (err) => {
-         console.log(err);
-       }
-     );
+    this.userService.createUser(newUser).subscribe(
+      (res) => {
+        this.router.navigate(["/users"]);
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "New user has been created successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
+      },
+      (err) => {
+        console.log(err);
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: err.error.msg,
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
+      }
+    );
   }
 
   // This is the cancel button.
