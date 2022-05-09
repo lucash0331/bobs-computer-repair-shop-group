@@ -1,0 +1,13 @@
+canvas {
+  height: 50%;
+  width: auto;
+}
+
+mat-card-title {
+  text-align: center;
+}
+
+.graph-container {
+  width: 75%;
+  margin: auto;
+}
