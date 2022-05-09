@@ -17,6 +17,7 @@ export class PurchasesByServiceGraphComponent implements OnInit {
     this.invoiceService.findPurchasesByServiceGraph().subscribe((res) => {
       //map the response data to the purchases variable
       this.purchases = res['data'];
+      console.log(this.purchases);
 
       // For loop over the purchases to split out the services and item count
       for (const item of this.purchases) {
