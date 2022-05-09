@@ -90,4 +90,55 @@ router.get("/purchases-graph", async (req, res) => {
   }
 });
 
+/**
+ * API to find invoice (OK)
+ */
+
+router.get("/", async (req, res) => {
+  try {
+    Invoice.find({}, function (err, invoices) {
+      if (err) {
+        console.log(err);
+        const readInvoicesMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
+        res.status(500).send(readInvoicesMongodbErrorResponse.toObject());
+      } else {
+        console.log(invoices);
+        const readInvoicesResponse = new BaseResponse(200, "Query successful", invoices);
+        res.json(readInvoicesResponse.toObject());
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const readInvoicesCatchErrorResponse = new BaseResponse(500, "Internal server error", e.message);
+    res.status(500).send(readInvoicesCatchErrorResponse.toObject());
+  }
+});
+
+//API to delete invoice from DB  (OK)
+
+router.delete("/:id", async (req, res) => {
+  try {
+    Invoice.findByIdAndDelete(
+      { _id: req.params.id },
+      function (err, invoice) {
+        if (err) {
+          console.log(err);
+          res.status(501).send({
+            message: `MongoDB Exception: ${err}`,
+          });
+        } else {
+          console.log(invoice);
+          res.json(invoice);
+        }
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      message: `Server Exception: ${e.message}`,
+    });
+  }
+});
+
+
 module.exports = router;
