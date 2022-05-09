@@ -37,6 +37,10 @@ export class PurchasesByServiceGraphComponent implements OnInit {
               '#EEBA30',
               '#000000',
               '#C0C0C0',
+              'blue',
+              'pink',
+              'green',
+              
             ],
             hoverBackgroundColor: [
               '#450101',
