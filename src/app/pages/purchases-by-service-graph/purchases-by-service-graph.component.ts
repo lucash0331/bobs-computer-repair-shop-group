@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { InvoiceService } from 'src/app/services/invoice.service';
+import { Component, OnInit } from "@angular/core";
+import { InvoiceService } from "src/app/services/invoice.service";
 
 @Component({
-  selector: 'app-purchases-by-service-graph',
-  templateUrl: './purchases-by-service-graph.component.html'
-
+  selector: "app-purchases-by-service-graph",
+  templateUrl: "./purchases-by-service-graph.component.html",
+  styleUrls: ["./purchases-by-service-graph.component.css"],
 })
 export class PurchasesByServiceGraphComponent implements OnInit {
   purchases: any;
@@ -16,7 +16,7 @@ export class PurchasesByServiceGraphComponent implements OnInit {
     //Call to the purchases by service graph API
     this.invoiceService.findPurchasesByServiceGraph().subscribe((res) => {
       //map the response data to the purchases variable
-      this.purchases = res['data'];
+      this.purchases = res["data"];
       console.log(this.purchases);
 
       // For loop over the purchases to split out the services and item count
@@ -26,38 +26,30 @@ export class PurchasesByServiceGraphComponent implements OnInit {
       }
       // build's the object literal for primeNG bar graph
       this.data = {
-        //Services label 
-        labels: this.labels, 
+        //Services label
+        labels: this.labels,
         datasets: [
           //graph object
           {
             backgroundColor: [
-              '#740001',
-              '#AE0001',
-              '#D3A625',
-              '#EEBA30',
-              '#000000',
-              '#C0C0C0',
-              'blue',
-              'pink',
-              'green',
-              
+              "#740001",
+              "#AE0001",
+              "#D3A625",
+              "#EEBA30",
+              "#C62828",
+              "#D9563D",
+              "#F05E0D",
+              "#F87D45",
+              "#FAAC28",
             ],
-            hoverBackgroundColor: [
-              '#450101',
-              '#7d0001',
-              '#9c7b1c',
-              '#a88322',
-              '#403f3f',
-              '#9c9a9a',
-            ],
+            //          hoverBackgroundColor: ["#450101", "#7d0001", "#9c7b1c", "#a88322", "#403f3f", "#9c9a9a"],
             data: this.itemCount,
           },
         ],
       };
 
       // verify the data objects structures matches primeNG expected format
-      console.log('Data Object');
+      console.log("Data Object");
       console.log(this.data);
     });
   }
