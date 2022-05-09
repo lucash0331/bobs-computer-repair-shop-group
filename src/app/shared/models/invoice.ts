@@ -58,6 +58,10 @@ getOrderDate(): string {
     return this.orderDate;
 }
 
+getPartsAmount(): number {
+    return Number(this.partsAmount);
+}
+
 getTotal(): number {
     console.log(Number(this.partsAmount));
     console.log(this.getLaborAmount());

@@ -54,3 +54,7 @@ p {
   width: auto;
   margin: 5% auto;
 }
+
+.fees-input {
+  width: 100%;
+}

@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from "@angular/material/dialog";
 import { Invoice } from "../models/invoice";
 
 @Component({
@@ -16,24 +20,24 @@ export class InvoiceDialogComponent implements OnInit {
   parts: number;
   lineItems: any[];
   printLineItems: any[];
-  displayedColumns: string[] = ['item', 'cost'];
+  displayedColumns: string[] = ["item", "cost"];
 
   constructor(
-     private dialogRef: MatDialogRef<InvoiceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data 
+    private dialogRef: MatDialogRef<InvoiceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data
   ) {
-     this.invoice = data.invoice;
+    this.invoice = data.invoice;
     this.username = this.invoice.getUsername();
     this.orderDate = this.invoice.getOrderDate();
     this.lineItems = this.invoice.getLineItems();
-    this.parts = this.invoice.partsAmount;
+    this.parts = this.invoice.getPartsAmount();
     this.labor = this.invoice.getLaborAmount();
-    this.total = this.invoice.getTotal(); 
-    console.log( this.total);
+    this.total = this.invoice.getTotal();
+    console.log(this.total);
     this.printLineItems = Array.from(this.lineItems);
-    this.printLineItems.push({"name":"Parts", "price":this.parts});
-    this.printLineItems.push({"name":"Labor @ 50/hr", "price":this.labor});
-    }
+    this.printLineItems.push({ name: "Parts", price: this.parts });
+    this.printLineItems.push({ name: "Labor @ 50/hr", price: this.labor });
+  }
 
   ngOnInit(): void {}
 }

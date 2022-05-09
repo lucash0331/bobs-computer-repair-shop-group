@@ -1,12 +1,12 @@
 <div fxLayout="column" fxFlex="100%" class="main-welcome">
-  <p-messages [(value)]="errorMessages" [enableService]="false"></p-messages>
+
   <p-messages [(value)]="successMessages" [enableService]="false"></p-messages>
 
   <div fxLayout="row" fxLayoutGap="7%" fxFlex="80%">
     <div class="wrapper" fxFlex>
       <div *ngFor="let service of service">
         <mat-button-toggle-group name="orderServices" multiple>
-          <mat-button-toggle value="{{ service._id }}" (change)="service.checked = !service.checked" [checked]="!isReloaded">
+          <mat-button-toggle value="{{ service._id }}" (change)="service.checked = !service.checked">
             <mat-card class="product-card">
               <mat-card-title-group>
                 <mat-card-title>{{ service.name }}</mat-card-title>
@@ -30,20 +30,28 @@
       <mat-card-title>Standard Fees</mat-card-title>
       <br />
       <mat-card-content class="fees-container">
+        <p-messages [(value)]="errorMessages" [enableService]="false"></p-messages>
         <form>
           <mat-form-field class="fees-input" appearance="fill">
             <mat-label>Parts</mat-label>
             <span matPrefix>$ &nbsp;</span>
-            <input matInput [(ngModel)]="invoice.partsAmount" name="parts" placeholder="Enter Value" />
+            <input matInput [formControl]="form.controls['parts']" name="parts" placeholder="Enter Value" />
           </mat-form-field>
+          <mat-error class="error" *ngIf="form.controls.parts.hasError('pattern') && form.controls.parts.touched">Only
+            numbers are allowed!</mat-error>
           <br />
           <mat-form-field class="fees-input" appearance="fill">
             <mat-label>Labor</mat-label>
             <span matPrefix>hrs &nbsp;</span>
-            <input matInput [(ngModel)]="invoice.laborHours" name="labor" placeholder="Hours of Labor @ $50.00/hr" />
+            <input matInput [formControl]="form.controls['labor']" name="labor"
+              placeholder="Hours of Labor @ $50.00/hr" />
           </mat-form-field>
+          <mat-error class="error" *ngIf="form.controls.labor.hasError('pattern') && form.controls.labor.touched">Only
+            numbers are allowed!</mat-error>
         </form>
-        <button (click)="generateInvoice()" mat-stroked-button color="primary">Order Services</button>
+
+        <button (click)="generateInvoice()" mat-stroked-button color="primary" [disabled]="!form.valid">Order
+          Services</button>
       </mat-card-content>
     </mat-card>
   </div>

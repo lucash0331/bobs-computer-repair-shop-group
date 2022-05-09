@@ -39,6 +39,7 @@ import { InvoiceDialogComponent } from "./shared/invoice-dialog/invoice-dialog.c
 import { RoleListComponent } from "./pages/role-list/role-list.component";
 import { RoleCreateComponent } from "./pages/role-create/role-create.component";
 import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
+import { ConfirmationDialogComponent } from "./shared/confirmation-dialog/confirmation-dialog.component";
 
 const routes: Routes = [
   {
@@ -129,12 +130,6 @@ const routes: Routes = [
         component: ServicesDetailsComponent,
         canActivate: [AuthGuard],
       },
-      //temporary - delete later
-      {
-        path: "order-summary",
-        component: InvoiceDialogComponent,
-        canActivate: [AuthGuard],
-      },
       {
         path: "roles",
         component: RoleListComponent,
@@ -148,6 +143,17 @@ const routes: Routes = [
       {
         path: "roles/update/:id",
         component: RoleDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      //dialogs
+      {
+        path: "order-summary",
+        component: InvoiceDialogComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "confirmation",
+        component: ConfirmationDialogComponent,
         canActivate: [AuthGuard],
       },
     ],

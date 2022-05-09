@@ -71,6 +71,7 @@ import { RoleListComponent } from "./pages/role-list/role-list.component";
 import { RoleCreateComponent } from "./pages/role-create/role-create.component";
 import { RoleDetailsComponent } from "./pages/role-details/role-details.component";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
     RoleCreateComponent,
     RoleDetailsComponent,
     InvoiceDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
