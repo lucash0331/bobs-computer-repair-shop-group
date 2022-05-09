@@ -24,19 +24,22 @@ export class BaseLayoutComponent implements OnInit {
   userRole: any;
   isLoggedIn: boolean;
   name: string;
+  isAdmin: boolean;
 
   constructor(private cookieService: CookieService, private router: Router, private roleService: RoleService) {
     this.roleService.findUserRole(this.cookieService.get("session_user")).subscribe((res) => {
       this.userRole = res["data"];
       console.log(this.userRole);
+      console.log(this.userRole.role);
+      this.isAdmin = this.userRole.role === "admin" ? true : false;
     });
     this.isLoggedIn = this.cookieService.get("session_user") ? true : false;
   }
 
-  isAdmin(): boolean {
+/*   isAdmin(): boolean {   
     return this.userRole.role === "admin";
   }
-
+ */
   ngOnInit(): void {
     this.name = sessionStorage.getItem("name");
   }

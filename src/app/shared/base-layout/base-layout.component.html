@@ -34,23 +34,23 @@
               <span>Profile</span>
             </button>
             <!-- admin-locked -->
-            <button *ngIf="isAdmin()" mat-menu-item (click)="redirectToServices()">
+            <button *ngIf="isAdmin" mat-menu-item (click)="redirectToServices()">
               <mat-icon color="primary">build</mat-icon>
               <span>Services</span>
             </button>
-            <button *ngIf="isAdmin()" mat-menu-item routerLink="/user">
+            <button *ngIf="isAdmin" mat-menu-item routerLink="/user">
               <mat-icon color="primary">person</mat-icon>
               <span>Users</span>
             </button>
-            <button *ngIf="isAdmin()" mat-menu-item routerLink="/security-questions">
+            <button *ngIf="isAdmin" mat-menu-item routerLink="/security-questions">
               <mat-icon color="primary">lock</mat-icon>
               <span>Security Questions</span>
             </button>
-            <button *ngIf="isAdmin()" mat-menu-item routerLink="/purchases-by-service-graph">
+            <button *ngIf="isAdmin" mat-menu-item routerLink="/purchases-by-service-graph">
               <mat-icon color="primary">pie_chart</mat-icon>
               <span> Purchases By Graph</span>
             </button>
-            <button *ngIf="isAdmin()" mat-menu-item routerLink="/roles">
+            <button *ngIf="isAdmin" mat-menu-item routerLink="/roles">
               <mat-icon color="primary">fingerprint</mat-icon>
               <span>Role Configuration</span>
             </button>
