@@ -99,10 +99,11 @@ router.put("/:id", async (req, res) => {
               const updateRoleMongodbErrorResponse = new BaseResponse(500, "Internal server error", err);
               res.status(500).send(updateRoleMongodbErrorResponse.toObject());
             } else {
-              if (existedRole) {
+              if (existedRole && (existedRole._id != req.params.id)) {
+                console.log(existedRole._id + " != " + req.params.id);
                 const response = `Role: ${req.body.text} already exists`;
                 console.log(response);
-                const roleAlreadyExistsErrorResponse = new BaseResponse(400, response);
+                const roleAlreadyExistsErrorResponse = new BaseResponse(400, response, role);
                 res.status(400).send(roleAlreadyExistsErrorResponse.toObject());
               } else {
                 console.log(role);
@@ -215,7 +216,7 @@ router.delete("/:roleId", async (req, res) => {
               //  If the new role is already in use, then role shouldn't be disabled.
               if (users.length > 0) {
                 console.log(`Role <${role.text}> is already in use and cannot be deleted`);
-                const userRoleAlreadyInUseResponse = new BaseResponse(400, `Role '${role.text}' is in use.`, role);
+                const userRoleAlreadyInUseResponse = new BaseResponse(400, `Role '${role.text}' is already in use and cannot be deleted.`, role);
                 res.status(400).send(userRoleAlreadyInUseResponse.toObject());
               } else {
                 console.log(`Role <${role.text}> is not an active role and can be safely removed`);

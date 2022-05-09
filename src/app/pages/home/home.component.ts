@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
   price: String;
   errorMessages: Message[];
   successMessages: Message[];
-  isReloaded: Boolean = true;
 
   constructor(
     private fb: FormBuilder,

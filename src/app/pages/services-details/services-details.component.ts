@@ -10,8 +10,10 @@
 
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServicesService } from "src/app/services/services.service";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 import { Service } from "src/app/shared/interfaces/services.interface";
 //import { ConfirmationService } from "primeng/api";
 //import { MessageService } from "primeng/api";
@@ -34,6 +36,7 @@ export class ServicesDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private servicesService: ServicesService,
+    private resultDialog: MatDialog,
     private fb: FormBuilder
   ) {
     this.userId = this.route.snapshot.paramMap.get("id");
@@ -87,13 +90,27 @@ export class ServicesDetailsComponent implements OnInit {
         console.log(err);
       },
       () => {
-        alert("Services information is updated.");
+        //alert("Services information is updated.");
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "Services information has been updated successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       }
     );
   }
 
   cancel(): void {
     this.router.navigate(["/services"]);
-    alert("Service information is canceled.");
+    //alert("Service information is canceled.");
+    this.resultDialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: "Services information updating has been canceled.",
+      },
+      disableClose: true,
+      width: "fit-content",
+    });
   }
 }

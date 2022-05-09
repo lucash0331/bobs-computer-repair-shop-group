@@ -17,6 +17,8 @@ import { User } from "src/app/shared/interfaces/user.interface";
 //import { MessageService } from "primeng/api";
 import { Role } from "src/app/shared/interfaces/role.interface";
 import { RoleService } from "src/app/services/roles.service";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-user-details",
@@ -36,6 +38,7 @@ export class UserDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private roleService: RoleService,
+    private resultDialog: MatDialog,
     private fb: FormBuilder //private confirmationService: ConfirmationService,
   ) //private messageService: MessageService
   {
@@ -107,13 +110,27 @@ export class UserDetailsComponent implements OnInit {
         console.log(err);
       },
       () => {
-        alert("User information is updated.");
+        //alert("User information is updated.");
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "User information has been updated successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       }
     );
   }
 
   cancel(): void {
     this.router.navigate(["/users"]);
-    alert("User information is canceled.");
+    //alert("User information is canceled.");
+    this.resultDialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: "User information updating has been canceled.",
+      },
+      disableClose: true,
+      width: "fit-content",
+    });
   }
 }

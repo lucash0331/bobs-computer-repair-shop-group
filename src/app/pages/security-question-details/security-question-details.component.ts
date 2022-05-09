@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SecurityQuestionsService } from "src/app/services/security-questions.service";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
 
 @Component({
@@ -29,7 +30,9 @@ export class SecurityQuestionDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private securityQuestionsService: SecurityQuestionsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private resultDialog: MatDialog
+
   ) {
     this.questionId = this.route.snapshot.paramMap.get("id");
     console.log(this.route.snapshot.paramMap);
@@ -60,12 +63,26 @@ export class SecurityQuestionDetailsComponent implements OnInit {
 
     this.securityQuestionsService.updateSecurityQuestion(this.questionId, updatedSecurityQuestion).subscribe((res) => {
       this.router.navigate(["/security-questions"]);
-      alert("Security question is updated.");
+      //alert("Security question is updated.");
+      this.resultDialog.open(ConfirmationDialogComponent, {
+        data: {
+          message: "Security question has been updated successfully.",
+        },
+        disableClose: true,
+        width: "fit-content",
+      });
     });
   }
 
   cancel(): void {
     this.router.navigate(["/security-questions"]);
-    alert("Security question updating is canceled.");
+    //alert("Security question updating is canceled.");
+    this.resultDialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: "Security question updating has been canceled.",
+      },
+      disableClose: true,
+      width: "fit-content",
+    });
   }
 }

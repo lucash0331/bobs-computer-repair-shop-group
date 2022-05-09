@@ -15,6 +15,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ConfirmationService } from "primeng/api";
 import { MessageService } from "primeng/api";
 import { RoleService } from "src/app/services/roles.service";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: "app-role-list",
@@ -29,7 +30,8 @@ export class RoleListComponent implements OnInit {
   constructor(
     private roleService: RoleService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private resultDialog: MatDialog,
   ) {
     this.roleService.findAllRoles().subscribe(
       (res) => {
@@ -56,12 +58,21 @@ export class RoleListComponent implements OnInit {
                 (res) => {
                   this.role = res["data"];
                 },
-                (err) => {},
+                (err) => {
+                  
+                },
                 () => {}
               );
             },
             (err) => {
               console.log(err);
+              this.resultDialog.open(ConfirmationDialogComponent, {
+                data: {
+                  message: err.error.msg,
+                },
+                disableClose: true,
+                width: "fit-content",
+              });
             },
             () => {
               //this._id = this.user._id;

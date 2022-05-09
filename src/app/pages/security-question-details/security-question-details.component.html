@@ -17,7 +17,7 @@
       <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="form" (ngSubmit)="saveQuestion()" #questionForm>
           <mat-card-content>
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <input matInput [formControl]="form.controls['text']" placeholder="Security question text..." (keydown.enter)="saveQuestion()" />
               <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
                 >You must enter a security question.</mat-error

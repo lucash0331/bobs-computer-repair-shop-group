@@ -19,7 +19,7 @@
           <mat-card-content>
             <mat-form-field appearance="fill">
               <input matInput [formControl]="form.controls['text']" placeholder="Name" />
-              <mat-error class="error" *ngIf="form.controls.name.hasError('required') && form.controls.name.touched"
+              <mat-error class="error" *ngIf="form.controls.text.hasError('required') && form.controls.text.touched"
                 >This field is required!</mat-error
               >
             </mat-form-field>

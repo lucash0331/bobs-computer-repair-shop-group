@@ -21,6 +21,8 @@ import { CookieService } from "ngx-cookie-service";
 import { SecurityQuestion } from "src/app/shared/interfaces/security-questions.interface";
 import { SecurityQuestionsService } from "src/app/services/security-questions.service";
 import { HttpClient } from "@angular/common/http";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-user-profile",
@@ -51,6 +53,7 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private roleService: RoleService,
     private fb: FormBuilder,
+    private resultDialog: MatDialog,
     private cookieService: CookieService, //private confirmationService: ConfirmationService, //private messageService: MessageService
     private securityQuestionsService: SecurityQuestionsService,
     private http: HttpClient
@@ -61,17 +64,20 @@ export class UserProfileComponent implements OnInit {
     this.readonly = true;
     this.edit = false;
     this.isFilled = "";
-    this.http.get("/api/users/" + this.userName + "/security-questions").subscribe(
-      (res) => {
-        console.log(res["data"]);
-        this.isSelectedSecurityQuestions = res["data"].length > 0 ? true : false;
-        console.log(this.isSelectedSecurityQuestions);
-      },
-      (err) => {
-        console.log("ERROR");
-        console.log(err.message);
-      }
-    );
+    this.http
+      .get("/api/users/" + this.userName + "/security-questions")
+      .subscribe(
+        (res) => {
+          console.log(res["data"]);
+          this.isSelectedSecurityQuestions =
+            res["data"].length > 0 ? true : false;
+          console.log(this.isSelectedSecurityQuestions);
+        },
+        (err) => {
+          console.log("ERROR");
+          console.log(err.message);
+        }
+      );
     if (!this.isSelectedSecurityQuestions) {
       this.securityQuestionsService.findAllSecurityQuestions().subscribe(
         (res) => {
@@ -127,14 +133,26 @@ export class UserProfileComponent implements OnInit {
       securityQuestion1: [null, Validators.compose([Validators.required])],
       securityQuestion2: [null, Validators.compose([Validators.required])],
       securityQuestion3: [null, Validators.compose([Validators.required])],
-      answerToSecurityQuestion1: [null, Validators.compose([Validators.required])],
-      answerToSecurityQuestion2: [null, Validators.compose([Validators.required])],
-      answerToSecurityQuestion3: [null, Validators.compose([Validators.required])],
+      answerToSecurityQuestion1: [
+        null,
+        Validators.compose([Validators.required]),
+      ],
+      answerToSecurityQuestion2: [
+        null,
+        Validators.compose([Validators.required]),
+      ],
+      answerToSecurityQuestion3: [
+        null,
+        Validators.compose([Validators.required]),
+      ],
     });
     this.passwordForm = this.fb.group({
       password: [
         null,
-        Validators.compose([Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"),
+        ]),
       ],
     });
   }
@@ -153,13 +171,22 @@ export class UserProfileComponent implements OnInit {
     console.log(updatedUser);
     this.userService.updateUser(this.userId, updatedUser).subscribe(
       (res) => {
-        this.isSelectedSecurityQuestions = true;
+        this.edit = false;
+        this.readonly = true;
+        this.isFilled = "";
       },
       (err) => {
         console.log(err);
       },
       () => {
-        alert("User information is updated.");
+        //alert("User information is updated.");
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "User information has been updated successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       }
     );
   }
@@ -169,6 +196,13 @@ export class UserProfileComponent implements OnInit {
     this.readonly = true;
     this.isFilled = "";
     //alert("User information is canceled.");
+    this.resultDialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: "User information updating has been canceled.",
+      },
+      disableClose: true,
+      width: "fit-content",
+    });
   }
 
   exit(): void {
@@ -201,17 +235,26 @@ export class UserProfileComponent implements OnInit {
       },
     ];
     console.log(selectedSecurityQuestions);
-    this.userService.saveSelectedSecurityQuestions(this.userId, selectedSecurityQuestions).subscribe(
-      (res) => {
-        this.isSelectedSecurityQuestions = false;
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        alert("Security questions is saved.");
-      }
-    );
+    this.userService
+      .saveSelectedSecurityQuestions(this.userId, selectedSecurityQuestions)
+      .subscribe(
+        (res) => {
+          this.isSelectedSecurityQuestions = true;
+        },
+        (err) => {
+          console.log(err);
+        },
+        () => {
+          //alert("Security questions is saved.");
+          this.resultDialog.open(ConfirmationDialogComponent, {
+            data: {
+              message: "Security question has been saved successfully.",
+            },
+            disableClose: true,
+            width: "fit-content",
+          });
+        }
+      );
   }
   resetPassword(): void {
     console.log(this.passwordForm.controls["password"].value);
@@ -228,7 +271,14 @@ export class UserProfileComponent implements OnInit {
           console.log(err);
         },
         () => {
-          alert("New password is saved.");
+          //alert("New password is saved.");
+          this.resultDialog.open(ConfirmationDialogComponent, {
+            data: {
+              message: "Password has been changed successfully.",
+            },
+            disableClose: true,
+            width: "fit-content",
+          });
         }
       );
   }

@@ -10,8 +10,10 @@
 
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RoleService } from "src/app/services/roles.service";
+import { ConfirmationDialogComponent } from "src/app/shared/confirmation-dialog/confirmation-dialog.component";
 import { Role } from "src/app/shared/interfaces/role.interface";
 //import { ConfirmationService } from "primeng/api";
 //import { MessageService } from "primeng/api";
@@ -24,18 +26,19 @@ import { Role } from "src/app/shared/interfaces/role.interface";
 export class RoleDetailsComponent implements OnInit {
   role: Role;
   text: string;
-  userId: string;
+  roleId: string;
   form: FormGroup;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private roleService: RoleService,
+    private resultDialog: MatDialog,
     private fb: FormBuilder
   ) {
-    this.userId = this.route.snapshot.paramMap.get("id");
+    this.roleId = this.route.snapshot.paramMap.get("id");
 
-    this.roleService.findRoleById(this.userId).subscribe(
+    this.roleService.findRoleById(this.roleId).subscribe(
       (res) => {
         this.role = res["data"];
       },
@@ -66,21 +69,44 @@ export class RoleDetailsComponent implements OnInit {
     const updatedRole: Role = {
       text: this.form.controls.text.value,
     };
-    this.roleService.updateRole(this.userId, updatedRole).subscribe(
+    this.roleService.updateRole(this.roleId, updatedRole).subscribe(
       (res) => {
+        console.log(res);
         this.router.navigate(["/roles"]);
       },
       (err) => {
         console.log(err);
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: err.error.msg,
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
+
       },
       () => {
-        alert("Role information is updated.");
+        //alert("Role information is updated.");
+        this.resultDialog.open(ConfirmationDialogComponent, {
+          data: {
+            message: "Role information has been updated successfully.",
+          },
+          disableClose: true,
+          width: "fit-content",
+        });
       }
     );
   }
 
   cancel(): void {
     this.router.navigate(["/roles"]);
-    alert("Role information is canceled.");
+    //alert("Role information is canceled.");
+    this.resultDialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: "Role information updating has been canceled.",
+      },
+      disableClose: true,
+      width: "fit-content",
+    });
   }
 }

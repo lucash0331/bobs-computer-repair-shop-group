@@ -38,9 +38,11 @@ export class RoleService {
   }
 
   updateRole(_id: string, updatedRole: Role): Observable<any> {
-    return this.http.put("/api/roles/" + _id, {
+    const result = this.http.put("/api/roles/" + _id, {
       text: updatedRole.text,
     });
+    console.log (result);
+    return result;
   }
 
   findUserRole(userName: string): Observable<any> {
