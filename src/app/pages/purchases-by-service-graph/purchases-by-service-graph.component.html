@@ -1,5 +1,9 @@
 <br />
-<h1 style="font-weight: lighter; text-align: center">Purchases By Service Page</h1>
-<br />
-<!-- Pie chart pulling data. -->
-<p-chart type="polarArea" [data]="data" [style]="{ width: '50%' }"></p-chart>
+<div class="graph-container" fxLayout="column">
+  <mat-card class="mat-elevation-z4">
+    <mat-card-title>Service Analytics</mat-card-title>
+    <mat-card-content>
+      <p-chart type="polarArea" [data]="data"></p-chart>
+    </mat-card-content>
+  </mat-card>
+</div>
